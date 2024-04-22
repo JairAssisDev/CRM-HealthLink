@@ -1,13 +1,19 @@
 package br.edu.ifpe.palmares.crmhealthlink;
 
-import br.edu.ifpe.palmares.crmhealthlink.domain.Pacient;
-import br.edu.ifpe.palmares.crmhealthlink.repository.PacientRepository;
-import org.springframework.boot.ApplicationArguments;
+
+import br.edu.ifpe.palmares.crmhealthlink.domain.*;
+import br.edu.ifpe.palmares.crmhealthlink.repository.EmployeeRepository;
+import br.edu.ifpe.palmares.crmhealthlink.repository.PatientRepository;
+import br.edu.ifpe.palmares.crmhealthlink.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class CrmHealthLinkApplication {
@@ -17,25 +23,25 @@ public class CrmHealthLinkApplication {
 
     }
 
-    private PacientRepository pacientRepository;
+    private PatientRepository patientRepository;
 
-    public CrmHealthLinkApplication(PacientRepository pacientRepository) {
-        this.pacientRepository = pacientRepository;
+    public CrmHealthLinkApplication(PatientRepository patientRepository,
+                                    EmployeeRepository userRepository) {
+        this.patientRepository = patientRepository;
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext cxt){
+    public CommandLineRunner commandLineRunner(ApplicationContext cxt, UserRepository userRepository,
+                                               EmployeeRepository employeeRepository){
         return args->{
-            Pacient pacient= new Pacient();
+
+            Patient pacient= new Patient();
             pacient.setName("Jair victor");
             pacient.setCpf("12334455588");
-            pacient.setAge(23);
+            pacient.setBirthDate(Date.valueOf("2004-05-14"));
 
-            pacientRepository.save(pacient);
-            Iterable<Pacient> pacients= pacientRepository.findAll();
-            for(Pacient aPacient:pacients){
-                System.out.println(aPacient.getName());
-            }
+            patientRepository.save(pacient);
+
         };
     }
 }
