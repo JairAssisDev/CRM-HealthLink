@@ -1,1 +1,131 @@
-gshdhud
+Product Backlog
+Sistema de Gestão de Pacientes
+
+
+
+1. Registro de Pacientes:
+   - Os funcionários devem poder cadastrar novos pacientes no sistema, incluindo informações como nome, idade, histórico médico e contato.
+
+2. Registro de Médicos:
+   - Deve haver um registro para cada médico, contendo informações pessoais e especialização.
+
+3. Registro de Funcionários e Gestores:
+   - O sistema deve permitir o cadastro de funcionários e gestores responsáveis pela administração do hospital.
+
+4. Perfis:
+   - Perfis distintos devem ser criados para profissionais de saúde, pacientes e funcionários/administradores, com diferentes níveis de acesso e funcionalidades disponíveis para cada perfil.
+
+5. Histórico de Pacientes e Médicos:
+   - O sistema deve manter um registro detalhado do histórico de consultas, exames e tratamentos de cada paciente, vinculado ao histórico do médico responsável.
+
+6. Marcação de Consultas:
+   - As consultas devem ser marcadas por atendentes/recepcionistas, considerando a disponibilidade de horários e dias dos médicos.
+   - O paciente só deve ter acesso às consultas marcadas, histórico de consultas anteriores e possíveis datas disponíveis para consulta.
+
+7. Agendamento de Consultas:
+   - Os atendentes devem ter uma interface para marcar consultas, com um esquema de horários e dias disponíveis para cada médico.
+
+8. Marcação por Tags e Ordenação de Consultas:
+   - As consultas do paciente devem poder ser marcadas com tags e ordenadas por data, com as mais recentes aparecendo primeiro.
+
+9. Notificações por Email:
+   - Os pacientes devem receber notificações por e-mail um dia antes da consulta marcada.
+
+10. Exames e Resultados:
+    - O sistema deve permitir que os médicos solicitem exames, com a possibilidade de postar os resultados posteriormente, incluindo uma possível data de entrega.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+====OUTRA COISA===========
+@MappedSuperClass User[nome,cpf,birthday,phone_number int[],email]
+
+PATIENT extends Person
+	 
+DOCTOR extends Person (atributo ENUM role)
+
+(perfis) ENUM_ROLE (1, 2, 3)
+
+Employee extends Person (atributo ENUM role)
+	(1.Attendant(cadastrar paciente e agendar consulta), 
+
+	(2.Mananger (cadastrar funcionarios e médicos)
+
+
+Schedule  
+	date : DATE
+	patient : Patient
+	doctor : Doctor
+appointment  : Appointment 	
+Serviço (1. Appointment 
+   2. Exam)
+
+Appointment 
+	Date_Appointment: date
+	observações : String
+	*vai estar na outra | required_exams : Exams[] 
+
+Exam
+Nome: String
+appointment_id 
+Date_Exam: date
+feito : boolean
+in_local : boolean
+
+
+===========BD======================
+
+Tabelas:
+
+Exame [id_PACIENTE, id_medico, id_profissional_da_saude,agendamento, feito,id_consulta]
+Consulta [id_PACIENTE, agendamento_id, prioridade_tag]
+
+//Para fazer a montagem do “Historico Medico junte essas duas
+
+Paciente
+
+Medico
+
+Funcionario
+
+Perfis (enum)
+
+Agendamento [DATE, id_paciente, id_medico, id_profissional]
+
+
+	
