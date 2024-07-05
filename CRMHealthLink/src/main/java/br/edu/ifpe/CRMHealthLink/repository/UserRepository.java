@@ -1,4 +1,8 @@
 package br.edu.ifpe.CRMHealthLink.repository;
 
-public interface UserRepository {
+import br.edu.ifpe.CRMHealthLink.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface UserRepository extends JpaRepository<User, Long>{
 }
