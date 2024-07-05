@@ -1,8 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+
 import br.edu.ifpe.CRMHealthLink.entity.User;
-import br.edu.ifpe.CRMHealthLink.repository.UserRepository;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
+import br.edu.ifpe.CRMHealthLink.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -13,8 +14,10 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UsersService {
     private final UserRepository userRepository;
+
+
 
     @Transactional
     public User save(User user) {

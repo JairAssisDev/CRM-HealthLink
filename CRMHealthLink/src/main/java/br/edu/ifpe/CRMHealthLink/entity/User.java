@@ -3,8 +3,6 @@ package br.edu.ifpe.CRMHealthLink.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
@@ -12,7 +10,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
 @Entity
-@Table(name = "user")
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +20,16 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "login")
+    private String Login;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "cpf")
+    private String cpf;
+
+    @Column(name = "acess_level")
+    private Integer acessLevel;
 }
