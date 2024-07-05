@@ -21,6 +21,7 @@ public class User {
     @Column(name = "name")
     private String name;
 
+
     @Column(name = "login")
     private String Login;
 
@@ -31,5 +32,5 @@ public class User {
     private String cpf;
 
     @Column(name = "acess_level")
-    private Integer acessLevel;
+    private AcessLevel acessLevel;
 }

@@ -5,29 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ed7a203-9cb5-4521-8372-3a78fdd65578" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/crm-healthlink.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Appointment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Doctor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Exam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/repository/EmployeeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/AcessLevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/controller/UsersController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/service/UsersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/service/UserService.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +37,7 @@
         <option value="Dockerfile" />
         <option value="Class" />
         <option value="Interface" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -85,9 +66,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.CrmHealthLinkApplication.executor": "Run",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "dev__mk",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mkds/Documents/crm-healthlink/CRMHealthLink",
+    "last_opened_file_path": "C:/Users/mkds/Documents/crm-healthlink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/entity",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -105,6 +86,11 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mkds\Documents\crm-healthlink\CRMHealthLink\src\main\java\br\edu\ifpe\CRMHealthLink\entity" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="CrmHealthLinkApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
