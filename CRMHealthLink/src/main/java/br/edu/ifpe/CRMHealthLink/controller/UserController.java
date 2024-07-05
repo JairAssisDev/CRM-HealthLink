@@ -1,5 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.dto.UserCreateDto;
+import br.edu.ifpe.CRMHealthLink.dto.mapper.UserMapper;
 import br.edu.ifpe.CRMHealthLink.entity.User;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,8 @@ public class UserController {
 
     @Operation(summary = "Cria uma nova tarefa", description = "Cria uma nova tarefa com base nas informações fornecidas")
     @PostMapping
-    public ResponseEntity<User> create( @RequestBody User user) {
-        User responseUser = userService.save(user);
+    public ResponseEntity<User> create( @RequestBody UserCreateDto user) {
+        User responseUser = userService.save(UserMapper.toUserItem(user));
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 }

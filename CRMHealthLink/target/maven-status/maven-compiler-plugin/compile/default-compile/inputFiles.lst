@@ -1,0 +1,8 @@
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.java
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/config/SpringDocOpenApiConfig.java
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/config/SpringTimezoneConfig.java
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/controller/UserController.java
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/entity/User.java
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/exception/ResourceNotFoundException.java
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/repository/UserRepository.java
+/home/docente/Documentos/CRM-HealthLink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/service/UserService.java
