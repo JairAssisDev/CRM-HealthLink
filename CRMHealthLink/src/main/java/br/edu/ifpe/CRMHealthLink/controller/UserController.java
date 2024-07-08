@@ -29,14 +29,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
     }
 
-    @Operation(summary = "Retorna todos os usuarios",description = "...")
+    @Operation(summary = "pega todos os usuarios",description = "...")
     @GetMapping
     private ResponseEntity<List<User>> findAll() {
         List<User> users = userService.getAllUser();
         return ResponseEntity.ok(users);
     }
 
-    @Operation(summary = "Retorna o usuario pelo id",description = "...")
+    @Operation(summary = "Pega o usuario pelo id",description = "...")
     @GetMapping("/{id}")
     private ResponseEntity<UserResponseDto> getUserById(@RequestParam Long id) {
         User user = userService.findById(id);
@@ -58,6 +58,7 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "atualiza o usuario pelo id",description = "...")
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(long id , UserCreateDto user) {
         userService.update(id,user);
