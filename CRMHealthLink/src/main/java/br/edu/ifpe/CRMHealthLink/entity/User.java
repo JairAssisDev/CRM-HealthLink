@@ -3,7 +3,7 @@ package br.edu.ifpe.CRMHealthLink.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Getter
@@ -24,7 +24,7 @@ public class User {
     private String name;
 
     @Column(name = "dayofbirth")
-    private Date dayOfBirth;
+    private LocalDate dayOfBirth;
 
     @Column(name = "cpf" , unique = true)
     private String cpf;

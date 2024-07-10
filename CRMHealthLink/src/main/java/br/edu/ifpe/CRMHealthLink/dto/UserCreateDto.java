@@ -7,7 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class UserCreateDto {
     private String name;
 
     @NonNull
-    private Date dayOfBirth;
+    private LocalDate dayOfBirth;
 
     @NonNull
     @Size(min = 11, max = 11)
