@@ -22,19 +22,19 @@ public class User {
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "dayofbirth")
-    private LocalDate dayOfBirth;
-
-    @Column(name = "cpf" , unique = true)
-    private String cpf;
-
-    @Column(name = "level")
-    private AcessLevel level;
+    @Column
+    private LocalDate birthDate;
 
     @Column(name = "login")
-    private String login;
+    private String Login;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "cpf")
+    private String cpf;
+
+    @Column(name = "acess_level")
+    @Enumerated(EnumType.STRING)
+    private AcessLevel acessLevel;
 }
