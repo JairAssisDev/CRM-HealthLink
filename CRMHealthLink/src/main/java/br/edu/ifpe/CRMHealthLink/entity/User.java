@@ -3,6 +3,8 @@ package br.edu.ifpe.CRMHealthLink.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -20,7 +22,8 @@ public class User {
 
     @Column(name = "name")
     private String name;
-
+    @Column
+    private LocalDate birthDate;
 
     @Column(name = "login")
     private String Login;
@@ -32,5 +35,6 @@ public class User {
     private String cpf;
 
     @Column(name = "acess_level")
+    @Enumerated(EnumType.STRING)
     private AcessLevel acessLevel;
 }
