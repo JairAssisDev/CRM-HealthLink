@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ed7a203-9cb5-4521-8372-3a78fdd65578" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/AcessLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/repository/AppointmentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/repository/DoctorRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/repository/PatientRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Exam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/edu/ifpe/CRMHealthLink/entity/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/CrmHealthLinkApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Appointment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Appointment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Doctor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Doctor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Exam.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Exam.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Patient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/Patient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/edu/ifpe/CRMHealthLink/entity/User.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +47,8 @@
       <list>
         <option value="Dockerfile" />
         <option value="Class" />
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -55,37 +66,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.CrmHealthLinkApplication.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.CrmHealthLinkApplication.executor": "Run",
-    "git-widget-placeholder": "dev__mk",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/mkds/Documents/crm-healthlink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/entity",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3689655",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.CrmHealthLinkApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.CrmHealthLinkApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev__mk&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/mkds/Documents/crm-healthlink/CRMHealthLink/src/main/java/br/edu/ifpe/CRMHealthLink/entity&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3689655&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\mkds\Documents\crm-healthlink\CRMHealthLink\src\main\java\br\edu\ifpe\CRMHealthLink\entity" />
