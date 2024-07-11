@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User` (
   `login` VARCHAR(256) NOT NULL,
   `password` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idUser`),
-  UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE,
-  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC) VISIBLE)
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC),
+  UNIQUE INDEX `cpf_UNIQUE` (`cpf` ASC))
 ENGINE = InnoDB;
 
 
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Patient` (
   `email` VARCHAR(256) NULL,
   `User_idUser` INT NOT NULL,
   PRIMARY KEY (`idPatient`, `User_idUser`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-  INDEX `fk_Patient_User_idx` (`User_idUser` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
+  INDEX `fk_Patient_User_idx` (`User_idUser` ASC),
   CONSTRAINT `fk_Patient_User`
     FOREIGN KEY (`User_idUser`)
     REFERENCES `mydb`.`User` (`idUser`)
@@ -58,8 +58,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Doctor` (
   `specialty` VARCHAR(50) NOT NULL,
   `User_idUser` INT NOT NULL,
   PRIMARY KEY (`idDoctor`, `User_idUser`),
-  UNIQUE INDEX `crm_UNIQUE` (`crm` ASC) VISIBLE,
-  INDEX `fk_Doctor_User1_idx` (`User_idUser` ASC) VISIBLE,
+  INDEX `fk_Doctor_User1_idx` (`User_idUser` ASC),
   CONSTRAINT `fk_Doctor_User1`
     FOREIGN KEY (`User_idUser`)
     REFERENCES `mydb`.`User` (`idUser`)
@@ -76,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Employee` (
   `office` ENUM('Receptionist', 'Manager') NOT NULL,
   `User_idUser` INT NOT NULL,
   PRIMARY KEY (`idEmployee`, `User_idUser`),
-  INDEX `fk_Employee_User1_idx` (`User_idUser` ASC) VISIBLE,
+  INDEX `fk_Employee_User1_idx` (`User_idUser` ASC),
   CONSTRAINT `fk_Employee_User1`
     FOREIGN KEY (`User_idUser`)
     REFERENCES `mydb`.`User` (`idUser`)
@@ -108,10 +107,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Appointment` (
   `Employee_idEmployee` INT NOT NULL,
   `Exam_idExam` INT NOT NULL,
   PRIMARY KEY (`idAppointment`, `Exam_idExam`),
-  INDEX `fk_Appointment_Patient1_idx` (`Patient_idPatient` ASC) VISIBLE,
-  INDEX `fk_Appointment_Doctor1_idx` (`Doctor_idDoctor` ASC) VISIBLE,
-  INDEX `fk_Appointment_Employee1_idx` (`Employee_idEmployee` ASC) VISIBLE,
-  INDEX `fk_Appointment_Exam1_idx` (`Exam_idExam` ASC) VISIBLE,
+  INDEX `fk_Appointment_Patient1_idx` (`Patient_idPatient` ASC),
+  INDEX `fk_Appointment_Doctor1_idx` (`Doctor_idDoctor` ASC),
+  INDEX `fk_Appointment_Employee1_idx` (`Employee_idEmployee` ASC),
+  INDEX `fk_Appointment_Exam1_idx` (`Exam_idExam` ASC),
   CONSTRAINT `fk_Appointment_Patient1`
     FOREIGN KEY (`Patient_idPatient`)
     REFERENCES `mydb`.`Patient` (`idPatient`)
