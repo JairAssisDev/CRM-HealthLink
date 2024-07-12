@@ -52,8 +52,8 @@ public class UserService {
         user.setName(newUser.getName());
         user.setName(newUser.getLogin());
         user.setCpf(newUser.getCpf());
-        user.setLevel(newUser.getLevel());
-        user.setDayOfBirth(newUser.getDayOfBirth());
+        user.setAcessLevel(newUser.getAcessLevel());
+        user.setBirthDate(newUser.getBirthDate());
         user.setPassword(newUser.getPassword());
 
         return userRepository.save(user);

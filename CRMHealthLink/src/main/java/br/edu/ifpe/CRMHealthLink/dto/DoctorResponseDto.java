@@ -1,37 +1,26 @@
 package br.edu.ifpe.CRMHealthLink.dto;
 
 import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.*;
 
 import java.time.LocalDate;
-
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateDto {
+public class DoctorResponseDto {
 
-    @NonNull
-    @Size(min = 8, max = 140)
     private String name;
 
-    @NonNull
     private LocalDate birthDate;
 
-    @NonNull
-    @Size(min = 11, max = 11)
     private String cpf;
 
-    @NonNull
     private AcessLevel acessLevel;
 
-    @NonNull
-    private String login;
+    private String CRM;
 
-    @NonNull
-    private String password;
+    private String Specialty;
 }
