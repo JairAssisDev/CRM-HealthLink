@@ -14,9 +14,9 @@ public class UserResponseDto {
 
     private String name;
 
-    private LocalDate dayOfBirth;
+    private LocalDate birthDate;
 
     private String cpf;
 
-    private AcessLevel level;
+    private AcessLevel acessLevel;
 }

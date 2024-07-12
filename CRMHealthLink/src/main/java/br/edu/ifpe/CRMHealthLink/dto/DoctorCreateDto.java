@@ -5,15 +5,14 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.*;
+import lombok.NonNull;
 
 import java.time.LocalDate;
-
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateDto {
+public class DoctorCreateDto {
 
     @NonNull
     @Size(min = 8, max = 140)
@@ -34,4 +33,10 @@ public class UserCreateDto {
 
     @NonNull
     private String password;
+
+    @NonNull
+    private String CRM;
+
+    @NonNull
+    private String Specialty;
 }
