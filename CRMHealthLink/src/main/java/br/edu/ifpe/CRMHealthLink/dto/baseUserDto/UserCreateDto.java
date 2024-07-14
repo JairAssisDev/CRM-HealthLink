@@ -1,18 +1,19 @@
-package br.edu.ifpe.CRMHealthLink.dto;
+package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
 
 import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.time.LocalDate;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorCreateDto {
+public abstract class UserCreateDto {
 
     @NonNull
     @Size(min = 8, max = 140)
@@ -26,6 +27,9 @@ public class DoctorCreateDto {
     private String cpf;
 
     @NonNull
+    private String email;
+
+    @NonNull
     private AcessLevel acessLevel;
 
     @NonNull
@@ -33,10 +37,4 @@ public class DoctorCreateDto {
 
     @NonNull
     private String password;
-
-    @NonNull
-    private String CRM;
-
-    @NonNull
-    private String Specialty;
 }

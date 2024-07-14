@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "doctor")
 @Getter
 @Setter
-@NoArgsConstructor
 public class Doctor extends User {
 
     @Column

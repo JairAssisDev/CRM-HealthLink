@@ -1,10 +1,11 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.dto.EmployeeCreateDto;
+import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
 import br.edu.ifpe.CRMHealthLink.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class EmployeeService {
+
     private final EmployeeRepository employeeRepository;
 
     @Transactional
@@ -38,17 +40,16 @@ public class EmployeeService {
 
     @Transactional
     public void update(Long id, EmployeeCreateDto employeeCreateDto) {
-        Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado com id: " + id));
+        Employee employee = findById(id);
 
-        // Checar os atributos do funcionário com base nos dados recebidos no DTO - SE FOR NECESSÁRIO!!!
         employee.setName(employeeCreateDto.getName());
         employee.setBirthDate(employeeCreateDto.getBirthDate());
+        employee.setEmail(employeeCreateDto.getEmail());
         employee.setCpf(employeeCreateDto.getCpf());
         employee.setAcessLevel(employeeCreateDto.getAcessLevel());
         employee.setLogin(employeeCreateDto.getLogin());
         employee.setPassword(employeeCreateDto.getPassword());
-
+        employee.setOffice(employeeCreateDto.getOffice());
         employeeRepository.save(employee);
     }
 }

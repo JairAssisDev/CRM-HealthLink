@@ -1,11 +1,12 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
-import br.edu.ifpe.CRMHealthLink.dto.DoctorCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.DoctorResponseDto;
+import br.edu.ifpe.CRMHealthLink.dto.doctorDto.DoctorCreateDto;
+import br.edu.ifpe.CRMHealthLink.dto.doctorDto.DoctorResponseDto;
 import br.edu.ifpe.CRMHealthLink.dto.mapper.DoctorMapper;
 import br.edu.ifpe.CRMHealthLink.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.List;
 @RequestMapping("crmhealthlink/api/doctor")
 @Tag(name = "Doctor API", description = "API para gestão de médicos")
 public class DoctorController {
+
+    @Autowired
     private final DoctorService doctorService;
 
     @Operation(summary = "Cria um novo médico", description = "Cria um novo médico com base nas informações fornecidas")
@@ -30,9 +33,9 @@ public class DoctorController {
 
     @Operation(summary = "Obtém todos os médicos", description = "Obtém a lista de todos os médicos")
     @GetMapping
-    private ResponseEntity<List<Doctor>> findAll() {
+    private ResponseEntity<List<DoctorResponseDto>> findAll() {
         List<Doctor> doctors = doctorService.getAllDoctors();
-        return ResponseEntity.ok(doctors);
+        return ResponseEntity.ok(DoctorMapper.toDtoDoctors(doctors));
     }
 
     @Operation(summary = "Obtém um médico pelo ID", description = "Obtém os detalhes de um médico pelo seu ID")
@@ -52,7 +55,7 @@ public class DoctorController {
             doctorService.delete(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

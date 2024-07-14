@@ -1,7 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
-import br.edu.ifpe.CRMHealthLink.dto.EmployeeCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.EmployeeResponseDto;
+import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
+import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeResponseDto;
 import br.edu.ifpe.CRMHealthLink.dto.mapper.EmployeeMapper;
 import br.edu.ifpe.CRMHealthLink.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
@@ -24,16 +24,16 @@ public class EmployeeController {
 
     @Operation(summary = "Cria um novo funcionário", description = "Cria um novo funcionário com base nas informações fornecidas")
     @PostMapping
-    public ResponseEntity<Employee> create(@RequestBody EmployeeCreateDto employee) {
+    public ResponseEntity<EmployeeResponseDto> create(@RequestBody EmployeeCreateDto employee) {
         Employee responseEmployee = employeeService.save(EmployeeMapper.toEmployee(employee));
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseEmployee);
+        return ResponseEntity.status(HttpStatus.CREATED).body(EmployeeMapper.toDtoEmployee(responseEmployee));
     }
 
     @Operation(summary = "Obtém todos os funcionários", description = "Obtém a lista de todos os funcionários")
     @GetMapping
-    public ResponseEntity<List<Employee>> findAll() {
+    public ResponseEntity<List<EmployeeResponseDto>> findAll() {
         List<Employee> employees = employeeService.getAllEmployees();
-        return ResponseEntity.ok(employees);
+        return ResponseEntity.ok(EmployeeMapper.toDtoEmployees(employees));
     }
 
     @Operation(summary = "Obtém um funcionário pelo ID", description = "Obtém os detalhes de um funcionário pelo seu ID")
@@ -53,7 +53,7 @@ public class EmployeeController {
             employeeService.delete(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

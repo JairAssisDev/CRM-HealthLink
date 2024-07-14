@@ -1,7 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.dto.mapper;
 
-import br.edu.ifpe.CRMHealthLink.dto.DoctorCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.DoctorResponseDto;
+import br.edu.ifpe.CRMHealthLink.dto.doctorDto.DoctorCreateDto;
+import br.edu.ifpe.CRMHealthLink.dto.doctorDto.DoctorResponseDto;
 import br.edu.ifpe.CRMHealthLink.entity.Doctor;
 import org.modelmapper.ModelMapper;
 

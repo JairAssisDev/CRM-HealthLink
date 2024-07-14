@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,6 +24,9 @@ public class User {
     private String name;
     @Column
     private LocalDate birthDate;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "login")
     private String Login;
