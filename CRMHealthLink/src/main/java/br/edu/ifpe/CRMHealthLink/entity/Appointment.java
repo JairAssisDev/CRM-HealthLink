@@ -30,10 +30,10 @@ public class Appointment {
     @JoinColumn(name = "fk_employee")
     private Employee employee;
 
-    @Column
+    @Column(columnDefinition = "TEXT", length = 10000)
     private String description;
 
-    @Column
+    @Column(name = "date")
     private LocalDateTime date;
 
 

@@ -13,11 +13,12 @@ public class Exam {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "fk_appointment")
-    Appointment appointment;
+    private Appointment appointment;
 
-    LocalDate date;
+    private LocalDate date;
 
-    String description;
+    @Column(columnDefinition = "TEXT", length = 10000)
+    private String description;
 
 
 }
