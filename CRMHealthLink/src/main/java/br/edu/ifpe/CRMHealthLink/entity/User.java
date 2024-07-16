@@ -34,7 +34,7 @@ public abstract class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "cpf")
+    @Column(name = "cpf" )
     private String cpf;
 
     @Column(name = "acess_level")

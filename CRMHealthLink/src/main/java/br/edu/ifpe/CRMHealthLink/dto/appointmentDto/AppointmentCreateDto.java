@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.dto.appointment;
+package br.edu.ifpe.CRMHealthLink.dto.appointmentDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 public class AppointmentCreateDto {
 
     @NonNull
-    private long fk_patient;
+    private Long fk_patient;
 
     @NonNull
-    private long fk_doctor;
+    private Long fk_doctor;
 
     @NonNull
-    private long fk_employee;
+    private Long fk_employee;
 
     @NonNull
     private LocalDateTime data;

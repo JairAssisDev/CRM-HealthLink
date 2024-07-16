@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.dto.appointment;
+package br.edu.ifpe.CRMHealthLink.dto.appointmentDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +17,6 @@ public class AppointmentResponseDto {
 
     private String namePatient;
 
-    private String nameDocker;
+    private String nameDoctor;
 
 }

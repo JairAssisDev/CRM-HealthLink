@@ -3,6 +3,7 @@ package br.edu.ifpe.CRMHealthLink.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Exam")
@@ -15,7 +16,7 @@ public class Exam {
     @JoinColumn(name = "fk_appointment")
     private Appointment appointment;
 
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(columnDefinition = "TEXT", length = 10000)
     private String description;

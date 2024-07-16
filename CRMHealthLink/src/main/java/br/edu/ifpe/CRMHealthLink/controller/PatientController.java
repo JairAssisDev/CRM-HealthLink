@@ -24,15 +24,14 @@ public class PatientController {
     @Operation(summary = "Cria um novo Paciente",description = "Cria um novo  médico  com base nas informações fornecidas")
     @PostMapping
     public ResponseEntity<PatientResponseDto> create(@RequestBody PatientCreateDto patientCreateDto) {
-        Patient responsePacient = patientService.save(PatientMapper.toPatient(patientCreateDto));
-        return ResponseEntity.status(HttpStatus.CREATED).body(PatientMapper.toDtoPatient(responsePacient));
+        return ResponseEntity.status(HttpStatus.CREATED).body(PatientMapper
+                .toDtoPatient(patientService.save(PatientMapper.toPatient(patientCreateDto))));
     }
 
-    @Operation(summary = "Obtém todos os Pacientes",description = "Obtém a lista de todos od Pacientesd")
+    @Operation(summary = "Obtém todos os Pacientes",description = "Obtém a lista de todos os Pacientes")
     @GetMapping
-    private ResponseEntity<List<PatientResponseDto>> findAll() {
-        List<Patient> patients = patientService.getAllPatient();
-        return ResponseEntity.ok(PatientMapper.toDtoPacients(patients));
+    public ResponseEntity<List<PatientResponseDto>> findAll() {
+        return ResponseEntity.ok(PatientMapper.toDtoPacients(patientService.getAllPatient()));
     }
     @Operation(summary = "Obtém um Paciente pelo ID", description = "Obtém os detalhes de um Paciente pelo seu ID")
     @GetMapping("/{id}")
@@ -44,7 +43,7 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.OK).body(PatientMapper.toDtoPatient(patient));
     }
 
-    @Operation(summary = "Remove um Paciente pelo ID",description = "Remove um funcionário pelo seu ID")
+    @Operation(summary = "Remove um Paciente pelo ID",description = "Remove um Paciente pelo seu ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         try {
@@ -55,7 +54,7 @@ public class PatientController {
         }
     }
 
-    @Operation(summary = "Atualiza um Paciente pelo ID", description = "Atua")
+    @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateEmployee(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
         patientService.update(id,patientCreateDto);

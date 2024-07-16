@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public abstract class UserResponseDto {
 
+    private Long id;
+
     private String name;
 
     private LocalDate birthDate;
