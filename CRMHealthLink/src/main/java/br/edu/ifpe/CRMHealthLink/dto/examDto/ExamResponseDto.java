@@ -1,8 +1,15 @@
 package br.edu.ifpe.CRMHealthLink.dto.examDto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
-public class examResponseDto {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ExamResponseDto {
     private LocalDateTime date;
     private String description;
     private String namePatient;

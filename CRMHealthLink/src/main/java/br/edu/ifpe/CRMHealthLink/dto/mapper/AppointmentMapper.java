@@ -10,12 +10,14 @@ import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Component
 public class AppointmentMapper {
 
@@ -23,12 +25,6 @@ public class AppointmentMapper {
     private final PatientService patientService;
     private final EmployeeService employeeService;
 
-    @Autowired
-    public AppointmentMapper(DoctorService doctorService, PatientService patientService, EmployeeService employeeService) {
-        this.doctorService = doctorService;
-        this.patientService = patientService;
-        this.employeeService = employeeService;
-    }
 
     public Appointment toAppointment(AppointmentCreateDto appointmentCreateDto) {
         Doctor doctor = doctorService.findById(appointmentCreateDto.getFk_doctor());
