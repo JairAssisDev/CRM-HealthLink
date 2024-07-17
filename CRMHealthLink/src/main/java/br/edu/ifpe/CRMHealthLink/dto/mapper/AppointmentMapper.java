@@ -18,17 +18,19 @@ import java.util.stream.Collectors;
 
 @Component
 public class AppointmentMapper {
-    @Autowired
-    private static DoctorService doctorService;
+
+    private final DoctorService doctorService;
+    private final PatientService patientService;
+    private final EmployeeService employeeService;
 
     @Autowired
-    private static PatientService patientService;
+    public AppointmentMapper(DoctorService doctorService, PatientService patientService, EmployeeService employeeService) {
+        this.doctorService = doctorService;
+        this.patientService = patientService;
+        this.employeeService = employeeService;
+    }
 
-    @Autowired
-    private static EmployeeService employeeService;
-
-    public static Appointment toAppointment(AppointmentCreateDto appointmentCreateDto) {
-
+    public Appointment toAppointment(AppointmentCreateDto appointmentCreateDto) {
         Doctor doctor = doctorService.findById(appointmentCreateDto.getFk_doctor());
         Patient patient = patientService.findById(appointmentCreateDto.getFk_patient());
         Employee employee = employeeService.findById(appointmentCreateDto.getFk_employee());
@@ -40,13 +42,11 @@ public class AppointmentMapper {
         appointment.setDate(appointmentCreateDto.getData());
         appointment.setDescription(appointmentCreateDto.getDescription());
 
-    return appointment;
+        return appointment;
     }
 
-    public static AppointmentResponseDto toDtoAppointment(Appointment appointment) {
-
+    public AppointmentResponseDto toDtoAppointment(Appointment appointment) {
         AppointmentResponseDto appointmentResponseDto = new AppointmentResponseDto();
-
         appointmentResponseDto.setDate(appointment.getDate());
         appointmentResponseDto.setDescription(appointment.getDescription());
         appointmentResponseDto.setNameDoctor(appointment.getDoctor().getName());
@@ -55,9 +55,9 @@ public class AppointmentMapper {
         return appointmentResponseDto;
     }
 
-    public static List<AppointmentResponseDto> toDtoAppointments(List<Appointment> appointments) {
+    public List<AppointmentResponseDto> toDtoAppointments(List<Appointment> appointments) {
         return appointments.stream()
-                .map(AppointmentMapper::toDtoAppointment)
+                .map(this::toDtoAppointment)
                 .collect(Collectors.toList());
     }
 }
