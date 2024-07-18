@@ -1,9 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.entity;
 
 public enum AcessLevel {
-    PATIENT(0),DOCTOR(1),ATTENDANT(2);
-    public final Integer level;
-    AcessLevel(Integer level){
+    PATIENT("PATIENT"),DOCTOR("DOCTOR"),ATTENDANT("ATTENDANT"),MANAGER("MANAGER");
+    public final String level;
+    AcessLevel(String level){
         this.level = level;
     }
 }
