@@ -2,7 +2,7 @@
 >> Projeto desenvolvido para a disciplina de Desenvolvimento Web II - IFPE Campus Palmares
 
 
-## 🔗 Acesse o sistema pelo link
+## 🔗 Acesse o Swagger pelo link
 ```sh
 http://localhost:8080/swagger-ui/index.html
 ```
