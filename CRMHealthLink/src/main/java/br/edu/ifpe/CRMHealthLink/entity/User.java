@@ -50,16 +50,16 @@ public  class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        switch (acessLevel.level){
-            case "MANAGER":
-                authorities.add(new SimpleGrantedAuthority("MANAGER"));
-            case "ATTENDANT":
-                authorities.add(new SimpleGrantedAuthority("ATTENDANT"));
+        switch (acessLevel){
+            case MANAGER:
+                authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
+            case ATTENDANT:
+                authorities.add(new SimpleGrantedAuthority("ROLE_ATTENDANT"));
                 break;
-            case "DOCTOR":
-                authorities.add(new SimpleGrantedAuthority("DOCTOR"));
-            case "PATIENT":
-                authorities.add(new SimpleGrantedAuthority("DOCTOR"));
+            case DOCTOR:
+                authorities.add(new SimpleGrantedAuthority("ROLE_DOCTOR"));
+            case PATIENT:
+                authorities.add(new SimpleGrantedAuthority("ROLE_DOCTOR"));
                 break;
         }
         return authorities;

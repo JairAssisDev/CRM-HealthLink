@@ -18,6 +18,10 @@ public class AuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    @GetMapping("teste")
+    public String teste(){
+        return "ok";
+    }
     @GetMapping
     public ResponseEntity<String> login(@RequestBody UserLoginDTO user) {
         Authentication auth = new UsernamePasswordAuthenticationToken(user.email(),user.password());
@@ -32,4 +36,5 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(tokenService.generateToken(u));
     }
+
 }

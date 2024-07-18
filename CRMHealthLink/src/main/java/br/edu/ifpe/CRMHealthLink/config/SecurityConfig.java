@@ -22,8 +22,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests((auth)->{
+                    auth
+                            .requestMatchers("/teste").hasRole("MANAGER")
+                            .requestMatchers("/h2-console/**").permitAll()
+                            .requestMatchers("/auth/login").permitAll()
+                            .anyRequest().authenticated();
+                })
+                .headers(h ->{
+                    h.frameOptions(f -> {f.disable();});
+                })
                 .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
