@@ -1,8 +1,14 @@
 # CRM-HealthLink
-Sistema de Gestão de Pacientes - SGP 
->> Projeto da disciplina Desenvolvimento Web II
+>> Projeto desenvolvido para a disciplina de Desenvolvimento Web II - IFPE Campus Palmares
 
-## 📋 Sobre o Projeto
+
+## 🔗 Acesse o sistema pelo link
+```sh
+http://localhost:8080/swagger-ui/index.html
+```
+
+
+## 📋 Sobre o Projeto - Sistema de Gestão de Pacientes
 
 O sistema de gestão hospitalar tem como objetivo resolver problemas de má gestão em hospitais, abrangendo desde o registro de pacientes e médicos até o agendamento de consultas e exames. Oferecendo uma plataforma integrada, o sistema visa melhorar a eficiência operacional e garantir um atendimento de qualidade aos pacientes. 
 
@@ -12,17 +18,13 @@ A implementação de um sistema desse tipo também contribui para a melhoria na 
 
 Em resumo, o sistema de gestão hospitalar é uma solução abrangente e indispensável para a modernização e eficiência dos serviços de saúde, garantindo que os hospitais operem de maneira mais eficaz e com um foco constante na qualidade do atendimento ao paciente.
 
-![CRM-HealthLink]()
+![CRM-HealthLink](Documentos/CRM-LOGO.png)
 
 
-## Acesse o sistema pelo link:
-```sh
-http://localhost:8080/swagger-ui/index.html
-```
 
 ## 👥 Contribuidores
 
-- [Jair Victor](https://github.com/seu-usuario)
-- [Lucas Patrick](https://github.com/outro-usuario)
-- [Lucas Manoel](https://github.com/outro-usuario)
-- [Matheus Kennedy](https://github.com/outro-usuario)
+- [Jair Victor](https://github.com/JairAssisDev)
+- [Lucas Patrick](https://github.com/lucasptrick)
+- [Lucas Manoel](https://github.com/lucasM1415)
+- [Matheus Kennedy](https://github.com/MasterKingRR)
