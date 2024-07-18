@@ -15,9 +15,9 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`User`
+-- Table `mydb`.`Users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Users` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(80) NOT NULL,
   `birthDate` DATE NOT NULL,
@@ -36,14 +36,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Patient` (
   `idPatient` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(256) NULL,
-  `User_idUser` INT NOT NULL,
-  PRIMARY KEY (`idPatient`, `User_idUser`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC),
-  INDEX `fk_Patient_User_idx` (`User_idUser` ASC),
-  CONSTRAINT `fk_Patient_User`
+  `email` VARCHAR(256) NOT NULL,
+  `User_idUser` INT NULL,
+  PRIMARY KEY (`idPatient`),
+  INDEX `fk_Patient_User1_idx` (`User_idUser` ASC),
+  CONSTRAINT `fk_Patient_User1`
     FOREIGN KEY (`User_idUser`)
-    REFERENCES `mydb`.`User` (`idUser`)
+    REFERENCES `mydb`.`Users` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -56,12 +55,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Doctor` (
   `idDoctor` INT NOT NULL AUTO_INCREMENT,
   `crm` VARCHAR(10) NOT NULL,
   `specialty` VARCHAR(50) NOT NULL,
-  `User_idUser` INT NOT NULL,
-  PRIMARY KEY (`idDoctor`, `User_idUser`),
+  `User_idUser` INT NULL,
+  PRIMARY KEY (`idDoctor`),
   INDEX `fk_Doctor_User1_idx` (`User_idUser` ASC),
   CONSTRAINT `fk_Doctor_User1`
     FOREIGN KEY (`User_idUser`)
-    REFERENCES `mydb`.`User` (`idUser`)
+    REFERENCES `mydb`.`Users` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -73,25 +72,14 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Employee` (
   `idEmployee` INT NOT NULL AUTO_INCREMENT,
   `office` ENUM('Receptionist', 'Manager') NOT NULL,
-  `User_idUser` INT NOT NULL,
-  PRIMARY KEY (`idEmployee`, `User_idUser`),
+  `User_idUser` INT NULL,
+  PRIMARY KEY (`idEmployee`),
   INDEX `fk_Employee_User1_idx` (`User_idUser` ASC),
   CONSTRAINT `fk_Employee_User1`
     FOREIGN KEY (`User_idUser`)
-    REFERENCES `mydb`.`User` (`idUser`)
+    REFERENCES `mydb`.`Users` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`Exam`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Exam` (
-  `idExam` INT NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
-  `descriptionExamn` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`idExam`))
 ENGINE = InnoDB;
 
 
@@ -99,18 +87,16 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Appointment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Appointment` (
-  `idAppointment` INT NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
-  `descriptionAppointment` VARCHAR(256) NOT NULL,
+  `idAppointment` INT NOT NULL,
+  `date` DATETIME(4) NOT NULL,
+  `descriptionAppointment` VARCHAR(10000) NOT NULL,
   `Patient_idPatient` INT NOT NULL,
   `Doctor_idDoctor` INT NOT NULL,
   `Employee_idEmployee` INT NOT NULL,
-  `Exam_idExam` INT NOT NULL,
-  PRIMARY KEY (`idAppointment`, `Exam_idExam`),
+  PRIMARY KEY (`idAppointment`),
   INDEX `fk_Appointment_Patient1_idx` (`Patient_idPatient` ASC),
   INDEX `fk_Appointment_Doctor1_idx` (`Doctor_idDoctor` ASC),
   INDEX `fk_Appointment_Employee1_idx` (`Employee_idEmployee` ASC),
-  INDEX `fk_Appointment_Exam1_idx` (`Exam_idExam` ASC),
   CONSTRAINT `fk_Appointment_Patient1`
     FOREIGN KEY (`Patient_idPatient`)
     REFERENCES `mydb`.`Patient` (`idPatient`)
@@ -125,10 +111,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Appointment` (
     FOREIGN KEY (`Employee_idEmployee`)
     REFERENCES `mydb`.`Employee` (`idEmployee`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Appointment_Exam1`
-    FOREIGN KEY (`Exam_idExam`)
-    REFERENCES `mydb`.`Exam` (`idExam`)
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Exam`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Exam` (
+  `idExam` INT NOT NULL AUTO_INCREMENT,
+  `date` DATETIME(4) NOT NULL,
+  `descriptionExamn` VARCHAR(10000) NOT NULL,
+  `Appointment_idAppointment` INT NULL,
+  PRIMARY KEY (`idExam`),
+  INDEX `fk_Exam_Appointment1_idx` (`Appointment_idAppointment` ASC),
+  CONSTRAINT `fk_Exam_Appointment1`
+    FOREIGN KEY (`Appointment_idAppointment`)
+    REFERENCES `mydb`.`Appointment` (`idAppointment`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
