@@ -45,12 +45,12 @@ public  class User implements UserDetails {
 
     @Column(name = "acess_level")
     @Enumerated(EnumType.STRING)
-    private AcessLevel acessLevel;
+    private AccessLevel accessLevel;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        switch (acessLevel){
+        switch (accessLevel){
             case MANAGER:
                 authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
             case ATTENDANT:
