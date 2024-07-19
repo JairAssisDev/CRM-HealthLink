@@ -5,7 +5,6 @@ import br.edu.ifpe.CRMHealthLink.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +45,7 @@ public class EmployeeService {
         employee.setBirthDate(employeeCreateDto.getBirthDate());
         employee.setEmail(employeeCreateDto.getEmail());
         employee.setCpf(employeeCreateDto.getCpf());
-        employee.setAcessLevel(employeeCreateDto.getAcessLevel());
+        employee.setAccessLevel(employeeCreateDto.getAccessLevel());
         employee.setLogin(employeeCreateDto.getLogin());
         employee.setPassword(employeeCreateDto.getPassword());
         employee.setOffice(employeeCreateDto.getOffice());
