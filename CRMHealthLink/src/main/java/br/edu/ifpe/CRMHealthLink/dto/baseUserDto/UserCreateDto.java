@@ -1,6 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
 
-import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.entity.AccessLevel;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +30,7 @@ public abstract class UserCreateDto {
     private String email;
 
     @NonNull
-    private AcessLevel acessLevel;
+    private AccessLevel accessLevel;
 
     @NonNull
     private String login;

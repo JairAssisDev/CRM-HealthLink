@@ -1,6 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
 
-import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.entity.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +22,5 @@ public abstract class UserResponseDto {
 
     private String email;
 
-    private AcessLevel acessLevel;
+    private AccessLevel accessLevel;
 }

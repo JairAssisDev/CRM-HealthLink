@@ -8,9 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 @SpringBootApplication
 public class CrmHealthLinkApplication {
 
@@ -26,7 +23,7 @@ public class CrmHealthLinkApplication {
 			e.setEmail("fulano@example.com");
 			var encoder = new BCryptPasswordEncoder();
 			e.setPassword(encoder.encode("123"));
-			e.setAcessLevel(AcessLevel.MANAGER);
+			e.setAccessLevel(AccessLevel.MANAGER);
 			System.out.println(e.getAuthorities());
 			repo.save(e);
 		};
