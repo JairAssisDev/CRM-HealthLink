@@ -116,7 +116,7 @@ public class AuthenticationControllerIntregrationTest {
 
         HttpEntity<PatientCreateDto> httpEntity = new HttpEntity<>(patient,headers);
 
-        ResponseEntity response= restTemplate.postForEntity(URL+port+"/auth/create/patient",
+        ResponseEntity response= restTemplate.postForEntity(URL+port+"/crmhealthlink/api/employee/create/patient",
                 httpEntity, Object.class);
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
