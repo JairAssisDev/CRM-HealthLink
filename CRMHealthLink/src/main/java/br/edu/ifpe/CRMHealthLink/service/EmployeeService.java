@@ -1,6 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
+import br.edu.ifpe.CRMHealthLink.dto.mapper.EmployeeMapper;
 import br.edu.ifpe.CRMHealthLink.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.EmployeeRepository;
@@ -18,8 +19,9 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     @Transactional
-    public Employee save(Employee employee) {
-        return employeeRepository.save(employee);
+    public Employee save(EmployeeCreateDto employee) {
+        Employee e = EmployeeMapper.toEmployee(employee);
+        return employeeRepository.save(e);
     }
 
     @Transactional(readOnly = true)
