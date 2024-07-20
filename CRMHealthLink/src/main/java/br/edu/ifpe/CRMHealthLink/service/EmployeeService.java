@@ -47,7 +47,7 @@ public class EmployeeService {
         employee.setEmail(employeeCreateDto.getEmail());
         employee.setCpf(employeeCreateDto.getCpf());
         employee.setAcessLevel(employeeCreateDto.getAcessLevel());
-        employee.setLogin(employeeCreateDto.getLogin());
+
         employee.setPassword(employeeCreateDto.getPassword());
         employee.setOffice(employeeCreateDto.getOffice());
         employeeRepository.save(employee);

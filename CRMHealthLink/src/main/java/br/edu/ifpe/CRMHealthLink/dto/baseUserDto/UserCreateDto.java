@@ -1,6 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
 
 import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,26 +18,25 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public abstract class UserCreateDto {
 
-    @NonNull
+    @NotBlank
     @Size(min = 8, max = 140)
     private String name;
 
-    @NonNull
+    @PastOrPresent
     private LocalDate birthDate;
 
-    @NonNull
+    @NotBlank
     @Size(min = 11, max = 11)
     private String cpf;
 
-    @NonNull
+    @NotBlank
     private String email;
 
-    @NonNull
+    @NotNull
     private AcessLevel acessLevel;
 
-    @NonNull
-    private String login;
 
-    @NonNull
+
+    @NotBlank
     private String password;
 }

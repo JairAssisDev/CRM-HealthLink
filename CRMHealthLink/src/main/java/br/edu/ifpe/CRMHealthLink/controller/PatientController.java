@@ -25,7 +25,7 @@ public class PatientController {
     @PostMapping
     public ResponseEntity<PatientResponseDto> create(@RequestBody PatientCreateDto patientCreateDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(PatientMapper
-                .toDtoPatient(patientService.save(PatientMapper.toPatient(patientCreateDto))));
+                .toDtoPatient(patientService.save(patientCreateDto)));
     }
 
     @Operation(summary = "Obtém todos os Pacientes",description = "Obtém a lista de todos os Pacientes")

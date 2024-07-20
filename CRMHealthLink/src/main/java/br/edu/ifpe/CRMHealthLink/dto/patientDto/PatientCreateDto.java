@@ -5,8 +5,7 @@ import lombok.Data;
 
 
 
-@Data
-public class PatientCreateDto extends UserCreateDto {
 
+public class PatientCreateDto extends UserCreateDto {
 
 }

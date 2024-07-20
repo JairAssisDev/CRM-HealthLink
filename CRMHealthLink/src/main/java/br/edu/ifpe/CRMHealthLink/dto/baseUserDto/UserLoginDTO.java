@@ -1,4 +1,15 @@
 package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
 
-public record UserLoginDTO(String email,String password) {
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+public class UserLoginDTO {
+    @NotBlank
+    String email;
+
+    @NotBlank
+    String password;
 }

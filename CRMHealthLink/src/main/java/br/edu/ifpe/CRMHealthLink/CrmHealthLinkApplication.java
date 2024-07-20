@@ -27,7 +27,7 @@ public class CrmHealthLinkApplication {
 			var encoder = new BCryptPasswordEncoder();
 			e.setPassword(encoder.encode("123"));
 			e.setAcessLevel(AcessLevel.MANAGER);
-			System.out.println(e.getAuthorities());
+
 			repo.save(e);
 		};
 	}

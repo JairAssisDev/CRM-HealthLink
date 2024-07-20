@@ -1,10 +1,12 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+import br.edu.ifpe.CRMHealthLink.dto.mapper.PatientMapper;
 import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +17,12 @@ import java.util.List;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final PasswordEncoder encoder;
 
     @Transactional
-    public Patient save(Patient patient) {
+    public Patient save(PatientCreateDto patientDTO) {
+        Patient patient = PatientMapper.toPatient(patientDTO);
+        patient.setPassword(encoder.encode(patient.getPassword()));
         return patientRepository.save(patient);
     }
 
@@ -45,7 +50,7 @@ public class PatientService {
         patient.setBirthDate(patientCreateDto.getBirthDate());
         patient.setEmail(patientCreateDto.getEmail());
         patient.setCpf(patientCreateDto.getCpf());
-        patient.setLogin(patientCreateDto.getLogin());
+
         patient.setPassword(patientCreateDto.getPassword());
 
         patientRepository.save(patient);
