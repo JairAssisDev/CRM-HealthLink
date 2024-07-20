@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserCreateDto;
 import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
 import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeResponseDto;
 import br.edu.ifpe.CRMHealthLink.dto.mapper.EmployeeMapper;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,14 +37,27 @@ public class EmployeeController {
 
     @PostMapping("create/patient")
     public ResponseEntity createPatient(@RequestBody @Valid PatientCreateDto patient){
-        if(userService.getUserByEmail(patient.getEmail()) != null){
+        if(userExists(patient)){
             return ResponseEntity.badRequest().body("User already exists!");
         }
         patient.setAcessLevel(AcessLevel.PATIENT);
         patientService.save(patient);
         return ResponseEntity.ok().build();
     }
-
+    @PostMapping("create/employee")
+    public ResponseEntity createEmployee(@RequestBody @Valid EmployeeCreateDto employee){
+        if(employee.getAcessLevel() == AcessLevel.MANAGER){
+            return ResponseEntity.badRequest().body("You do not have permission to create a manager");
+        }
+        if(userExists(employee)){
+            return ResponseEntity.badRequest().body("User already exists!");
+        }
+        employeeService.save(employee);
+        return ResponseEntity.ok().build();
+    }
+    public boolean userExists(UserCreateDto user){
+        return userService.getUserByEmail(user.getEmail()) != null;
+    }
 
 
 
@@ -51,7 +66,7 @@ public class EmployeeController {
     @Operation(summary = "Cria um novo funcionário", description = "Cria um novo funcionário com base nas informações fornecidas")
     @PostMapping
     public ResponseEntity<EmployeeResponseDto> create(@RequestBody EmployeeCreateDto employee) {
-        Employee responseEmployee = employeeService.save(EmployeeMapper.toEmployee(employee));
+        Employee responseEmployee = employeeService.save(employee);
         return ResponseEntity.status(HttpStatus.CREATED).body(EmployeeMapper.toDtoEmployee(responseEmployee));
     }
 
