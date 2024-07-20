@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth)->{
                     auth
-                            .requestMatchers("/auth/create/patient").hasRole("ATTENDANT")
+                            .requestMatchers("crmhealthlink/api/employee/**").hasRole("ATTENDANT")
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/auth/login").permitAll()
                             .anyRequest().authenticated();
