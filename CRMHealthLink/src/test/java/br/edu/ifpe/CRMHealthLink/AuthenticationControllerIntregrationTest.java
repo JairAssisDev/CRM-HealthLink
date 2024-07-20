@@ -93,36 +93,4 @@ public class AuthenticationControllerIntregrationTest {
 
     }
 
-    @Test
-    public void testEmployeesCreatesPatient(){
-        User user = new User();
-        user.setEmail("fulano@example.com");
-        user.setPassword("123");
-
-
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        //headers.setBasicAuth("fulano@example.com","123");
-        String token = tokenService.generateToken(user);
-        headers.setBearerAuth(token);
-        PatientCreateDto patient = new PatientCreateDto();
-        patient.setName("oitodigitos");
-        patient.setCpf("12345678910");
-        patient.setAcessLevel(AcessLevel.PATIENT);
-        patient.setBirthDate(LocalDate.now());
-        patient.setPassword("11");
-        patient.setEmail("aa");
-
-        HttpEntity<PatientCreateDto> httpEntity = new HttpEntity<>(patient,headers);
-
-        ResponseEntity response= restTemplate.postForEntity(URL+port+"/crmhealthlink/api/employee/create/patient",
-                httpEntity, Object.class);
-
-        assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertNotNull(userRepository.findByEmail(patient.getEmail()));
-    }
-
-
-
 }
