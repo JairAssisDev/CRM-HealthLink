@@ -15,8 +15,15 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public abstract class UserCreateDto {
+    public UserCreateDto(String name, LocalDate date, String cpf, String email, AcessLevel acessLevel, String password) {
+        this.name = name;
+        this.birthDate = date;
+        this.cpf = cpf;
+        this.email = email;
+        this.acessLevel = acessLevel;
+        this.password = password;
+    }
 
     @NotBlank
     @Size(min = 8, max = 140)
