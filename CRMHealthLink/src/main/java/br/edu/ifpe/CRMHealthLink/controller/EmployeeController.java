@@ -3,9 +3,15 @@ package br.edu.ifpe.CRMHealthLink.controller;
 import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
 import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeResponseDto;
 import br.edu.ifpe.CRMHealthLink.dto.mapper.EmployeeMapper;
+import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
+import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
+import br.edu.ifpe.CRMHealthLink.service.PatientService;
+import br.edu.ifpe.CRMHealthLink.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,25 +28,20 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PatientService patientService;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @PostMapping("create/patient")
+    public ResponseEntity createPatient(@RequestBody @Valid PatientCreateDto patient){
+        if(userService.getUserByEmail(patient.getEmail()) != null){
+            return ResponseEntity.badRequest().body("User already exists!");
+        }
+        patient.setAcessLevel(AcessLevel.PATIENT);
+        patientService.save(patient);
+        return ResponseEntity.ok().build();
+    }
 
 
 

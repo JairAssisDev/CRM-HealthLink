@@ -45,14 +45,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(tokenService.generateToken(u));
     }
 
-    @PostMapping("create/patient")
-    public ResponseEntity createPatient(@RequestBody @Valid PatientCreateDto patient){
-        if(userService.getUserByEmail(patient.getEmail()) != null){
-           return ResponseEntity.badRequest().body("User already exists!");
-        }
-        patient.setAcessLevel(AcessLevel.PATIENT);
-        patientService.save(patient);
-        return ResponseEntity.ok().build();
-    }
+
 
 }
