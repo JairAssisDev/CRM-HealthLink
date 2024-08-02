@@ -11,7 +11,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "doctor")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Doctor extends User {
+    public Doctor(User user) {
+        this.setCpf(user.getCpf());
+        this.setBirthDate(user.getBirthDate());
+        this.setName(user.getUsername());
+        this.setPassword(user.getPassword());
+        this.setEmail(user.getEmail());
+        this.setAcessLevel(AcessLevel.DOCTOR);
+    }
 
     @Column
     private String CRM;

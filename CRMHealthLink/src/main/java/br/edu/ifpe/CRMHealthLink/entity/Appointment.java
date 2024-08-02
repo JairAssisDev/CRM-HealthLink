@@ -36,5 +36,6 @@ public class Appointment {
     @Column(name = "date")
     private LocalDateTime date;
 
+    private boolean notified;
 
 }
