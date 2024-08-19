@@ -4,6 +4,7 @@ import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserLoginDTO;
 import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserLoginResponseDto;
 import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.entity.User;
 import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,8 +43,17 @@ public class AuthenticationControllerIntregrationTest {
 
     @Test
     public void testLoginReturnsValidToken() throws JSONException {
+        Patient patient = new Patient();
+        patient.setEmail("test@email.com");
+        patient.setPassword("123");
+        patient.setName("jair");
+        patient.setBirthDate(LocalDate.now());
+        patient.setCpf("12312312311");
+        patient.setAcessLevel(AcessLevel.PATIENT);
+
+
         UserLoginDTO user = new UserLoginDTO();
-        user.setEmail("90615@email.com");
+        user.setEmail("test@email.com");
         user.setPassword("123");
 
         HttpHeaders headers = new HttpHeaders();
@@ -55,22 +65,22 @@ public class AuthenticationControllerIntregrationTest {
         ResponseEntity<UserLoginResponseDto> response = restTemplate.postForEntity(URL+port+"/auth/login",
                 httpEntity,UserLoginResponseDto.class);
 
-        UserLoginResponseDto token = response.getBody();
+        UserLoginResponseDto userResponse = response.getBody();
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(tokenService.validateToken(token.getToken()),user.getEmail());
+        assertEquals(tokenService.validateToken(userResponse.getToken()),user.getEmail());
     }
 
     @Test
     public void testLoginUnauthorized(){
         UserLoginDTO user1 = new UserLoginDTO();
-        user1.setEmail("90615@email.com");
+        user1.setEmail("admin@email.com");
 
 
         UserLoginDTO user2 = new UserLoginDTO();
 
         UserLoginDTO user3 = new UserLoginDTO();
-        user1.setEmail("90615@email.com");
+        user1.setEmail("admin@email.com");
         user1.setPassword("1234");
 
         HttpHeaders headers = new HttpHeaders();
