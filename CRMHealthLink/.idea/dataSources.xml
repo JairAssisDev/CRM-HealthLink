@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="crmhealthlink@localhost" uuid="b8486cd7-aad4-4f2f-bff3-9d5b49e6d682">
+    <data-source source="LOCAL" name="crmhealthlink@localhost" uuid="72041a02-8b22-4ea1-8eb7-be96baa31c31">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <remarks>crmhealthlink</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/crmhealthlink</jdbc-url>
       <jdbc-additional-properties>
