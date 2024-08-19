@@ -1,6 +1,7 @@
 package br.edu.ifpe.CRMHealthLink;
 
 import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserLoginDTO;
+import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserLoginResponseDto;
 import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.entity.User;
@@ -42,33 +43,34 @@ public class AuthenticationControllerIntregrationTest {
     @Test
     public void testLoginReturnsValidToken() throws JSONException {
         UserLoginDTO user = new UserLoginDTO();
-        user.setEmail("fulano@example.com");
+        user.setEmail("90615@email.com");
         user.setPassword("123");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<UserLoginDTO> httpEntity = new HttpEntity<>(user,headers);
 
+        System.out.println(httpEntity);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(URL+port+"/auth/login",
-                httpEntity,String.class);
+        ResponseEntity<UserLoginResponseDto> response = restTemplate.postForEntity(URL+port+"/auth/login",
+                httpEntity,UserLoginResponseDto.class);
 
-        String token = response.getBody();
+        UserLoginResponseDto token = response.getBody();
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(tokenService.validateToken(token),user.getEmail());
+        assertEquals(tokenService.validateToken(token.getToken()),user.getEmail());
     }
 
     @Test
     public void testLoginUnauthorized(){
         UserLoginDTO user1 = new UserLoginDTO();
-        user1.setEmail("fulano@example.com");
+        user1.setEmail("90615@email.com");
 
 
         UserLoginDTO user2 = new UserLoginDTO();
 
         UserLoginDTO user3 = new UserLoginDTO();
-        user1.setEmail("fulano@example.com");
+        user1.setEmail("90615@email.com");
         user1.setPassword("1234");
 
         HttpHeaders headers = new HttpHeaders();

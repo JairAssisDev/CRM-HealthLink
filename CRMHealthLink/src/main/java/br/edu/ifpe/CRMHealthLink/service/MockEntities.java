@@ -31,7 +31,7 @@ public class MockEntities {
         Random random = new Random();
 
         for(int number=1; number<=11; number++){
-            cpf.append(random.nextInt(0,10));
+            cpf.append(random.nextInt(10));
         }
         return cpf.toString();
     }
@@ -40,7 +40,7 @@ public class MockEntities {
         Random random = new Random();
 
         for(int letter=1; letter<=5; letter++){
-            email.append(random.nextInt(0,10));
+            email.append(random.nextInt(10));
         }
         email.append("@email.com");
         return email.toString();
