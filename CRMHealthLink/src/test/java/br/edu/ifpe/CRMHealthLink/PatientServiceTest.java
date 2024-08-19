@@ -39,7 +39,7 @@ public class PatientServiceTest {
     @Test
     public void testPatientPasswordIsEncoded(){
         BCryptPasswordEncoder auxEncoder = new BCryptPasswordEncoder();
-        PatientCreateDto patient = new PatientCreateDto("NomeComOito",LocalDate.now(),"12345678910",
+        PatientCreateDto patient = new PatientCreateDto(1L,"NomeComOito",LocalDate.now(),"12345678910",
                 "email",AcessLevel.PATIENT,"password");
         patientService.save(patient);
 

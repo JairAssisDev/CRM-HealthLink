@@ -29,7 +29,7 @@ public class CrmHealthLinkApplication {
 		return a ->{
 			var manager = new Employee();
 			manager.setAcessLevel(AcessLevel.MANAGER);
-			manager.setEmail("admin");
+			manager.setEmail("admin@email.com");
 			manager.setPassword(encoder.encode("123"));
 			employeeRepository.save(manager);
 			;

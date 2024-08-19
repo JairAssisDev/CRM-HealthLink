@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AppointmentCreateDto {
 
+
     @NonNull
     private Long fk_patient;
 

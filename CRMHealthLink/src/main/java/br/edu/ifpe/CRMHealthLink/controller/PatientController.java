@@ -1,17 +1,30 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.dto.appointmentDto.AppointmentResponseDto;
+import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserCreateDto;
+import br.edu.ifpe.CRMHealthLink.dto.examDto.ExamResponseDto;
+import br.edu.ifpe.CRMHealthLink.dto.mapper.AppointmentMapper;
+import br.edu.ifpe.CRMHealthLink.dto.mapper.ExamMapper;
 import br.edu.ifpe.CRMHealthLink.dto.mapper.PatientMapper;
 import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientResponseDto;
+import br.edu.ifpe.CRMHealthLink.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.entity.Exam;
 import br.edu.ifpe.CRMHealthLink.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.repository.ExamRespository;
+import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
+import br.edu.ifpe.CRMHealthLink.service.ExamService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
+import br.edu.ifpe.CRMHealthLink.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,46 +32,42 @@ import java.util.List;
 @RequestMapping("crmhealthlink/api/patient")
 @Tag(name = "Patient API", description = "API para gestão de Pacientes")
 public class PatientController {
+    private final AppointmentService appointmentService;
+    private final AppointmentMapper appointmentMapper;
     private final PatientService patientService;
+    private final ExamService examService;
+    private final ExamMapper examMapper;
 
-    @Operation(summary = "Cria um novo Paciente",description = "Cria um novo  médico  com base nas informações fornecidas")
-    @PostMapping
-    public ResponseEntity<PatientResponseDto> create(@RequestBody PatientCreateDto patientCreateDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(PatientMapper
-                .toDtoPatient(patientService.save(patientCreateDto)));
-    }
 
-    @Operation(summary = "Obtém todos os Pacientes",description = "Obtém a lista de todos os Pacientes")
-    @GetMapping
-    public ResponseEntity<List<PatientResponseDto>> findAll() {
-        return ResponseEntity.ok(PatientMapper.toDtoPacients(patientService.getAllPatient()));
-    }
-    @Operation(summary = "Obtém um Paciente pelo ID", description = "Obtém os detalhes de um Paciente pelo seu ID")
-    @GetMapping("/{id}")
-    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id) {
-        Patient patient = patientService.findById(id);
-        if(patient == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @Operation(summary = "Obtém todas as Consultas do pacente", description = "Obtém a lista de todas as Consultas do pacente")
+    @GetMapping("/appointments/{id}")
+    public ResponseEntity<List<AppointmentResponseDto>> findAllAppointments(Long Id) {
+        Patient patient = patientService.findById(Id);
+        List<Appointment> appointments = appointmentService.getAllAppointment();
+        List<Appointment> patientAppointments = new ArrayList<>();
+        for (Appointment appointment : appointments) {
+            if (appointment.getPatient().getId() == patient.getId()) {
+                patientAppointments.add(appointment);
+            }
         }
-        return ResponseEntity.status(HttpStatus.OK).body(PatientMapper.toDtoPatient(patient));
+        List<AppointmentResponseDto> responseDtos = appointmentMapper.toDtoAppointments(patientAppointments);
+        return ResponseEntity.ok(responseDtos);
     }
 
-    @Operation(summary = "Remove um Paciente pelo ID",description = "Remove um Paciente pelo seu ID")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        try {
-            patientService.delete(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    @Operation(summary = "Obtém todas os enxames do pacente", description = "Obtém a lista de todas os enxames do pacente")
+    @GetMapping("/exams/{id}")
+    public ResponseEntity<List<ExamResponseDto>> findAllexams(Long Id) {
+        Patient patient = patientService.findById(Id);
+        List<Exam> exams = examService.getAllExams();
+        List<Exam> patientExams = new ArrayList<>();
+        for (Exam exam : exams) {
+            if (exam.getAppointment().getPatient().getId() == patient.getId()) {
+                patientExams.add(exam);
+            }
         }
+        List<ExamResponseDto> responseDtos = examMapper.toDtoExamsPatient(patientExams);
+        return ResponseEntity.ok(responseDtos);
     }
 
-    @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEmployee(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
-        patientService.update(id,patientCreateDto);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
 
 }

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Component
 public class ExamMapper {
+
     private final AppointmentService appointmentService;
 
     public Exam toExam(ExamCreateDto examDto){
@@ -28,17 +29,44 @@ public class ExamMapper {
     public ExamResponseDto toDtoExam(Exam exam){
 
         ExamResponseDto examResponseDto = new ExamResponseDto();
+        examResponseDto.setId(exam.getId());
+
         examResponseDto.setDate(exam.getDate());
+
         examResponseDto.setDescription(exam.getDescription());
+
         examResponseDto.setNameDoctor(exam.getAppointment().getDoctor().getName());
+
         examResponseDto.setNamePatient(exam.getAppointment().getPatient().getName());
-        examResponseDto.setDescriptionAppointment(examResponseDto.getDescriptionAppointment());
+
+        examResponseDto.setDescriptionAppointment(exam.getAppointment().getDescription());
 
         return examResponseDto;
     }
     public List<ExamResponseDto> toDtoExams(List<Exam> exams){
         return exams.stream()
                 .map(this::toDtoExam)
+                .collect(Collectors.toList());
+    }
+    public ExamResponseDto toDtoExamPatient(Exam exam){
+
+        ExamResponseDto examResponseDto = new ExamResponseDto();
+        examResponseDto.setId(exam.getId());
+
+        examResponseDto.setDate(exam.getDate());
+
+        examResponseDto.setDescription(exam.getDescription());
+
+        examResponseDto.setNameDoctor(exam.getAppointment().getDoctor().getName());
+
+        examResponseDto.setNamePatient(exam.getAppointment().getPatient().getName());
+
+        examResponseDto.setDescriptionAppointment(exam.getAppointment().getDescription());
+        return examResponseDto;
+    }
+    public List<ExamResponseDto> toDtoExamsPatient(List<Exam> exams){
+        return exams.stream()
+                .map(this::toDtoExamPatient)
                 .collect(Collectors.toList());
     }
 }
