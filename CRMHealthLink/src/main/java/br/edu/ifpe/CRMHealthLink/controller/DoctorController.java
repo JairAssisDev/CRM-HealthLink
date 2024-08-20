@@ -75,8 +75,8 @@ public class DoctorController {
 
     @Operation(summary = "Obtém todas os enxames que o Doutor fez", description = "Obtém a lista de todas os enxames que foi atribuido au doutor")
     @GetMapping("/exams/{idDoctor}")
-    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable Long Id) {
-        Doctor doctor = doctorService.findById(Id);
+    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable Long idDoctor) {
+        Doctor doctor = doctorService.findById(idDoctor);
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {
