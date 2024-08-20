@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: br.edu.ifpe.CRMHealthLink.PatientServiceTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.442 s -- in br.edu.ifpe.CRMHealthLink.PatientServiceTest

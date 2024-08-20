@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: br.edu.ifpe.CRMHealthLink.AuthenticationControllerIntregrationTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.89 s -- in br.edu.ifpe.CRMHealthLink.AuthenticationControllerIntregrationTest

@@ -29,6 +29,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@CrossOrigin
 @RequestMapping("crmhealthlink/api/patient")
 @Tag(name = "Patient API", description = "API para gestão de Pacientes")
 public class PatientController {
@@ -37,6 +38,7 @@ public class PatientController {
     private final PatientService patientService;
     private final ExamService examService;
     private final ExamMapper examMapper;
+
 
 
     @Operation(summary = "Obtém todas as Consultas do pacente", description = "Obtém a lista de todas as Consultas do pacente")
