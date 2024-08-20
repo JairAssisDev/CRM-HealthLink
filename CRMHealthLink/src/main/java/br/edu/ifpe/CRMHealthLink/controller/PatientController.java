@@ -43,8 +43,9 @@ public class PatientController {
 
     @Operation(summary = "Obtém todas as Consultas do pacente", description = "Obtém a lista de todas as Consultas do pacente")
     @GetMapping("/appointments/{id}")
-    public ResponseEntity<List<AppointmentResponseDto>> findAllAppointments(Long Id) {
-        Patient patient = patientService.findById(Id);
+    public ResponseEntity<List<AppointmentResponseDto>> findAllAppointments(@PathVariable Long id) {
+
+        Patient patient = patientService.findById(id);
         List<Appointment> appointments = appointmentService.getAllAppointment();
         List<Appointment> patientAppointments = new ArrayList<>();
         for (Appointment appointment : appointments) {
@@ -58,8 +59,8 @@ public class PatientController {
 
     @Operation(summary = "Obtém todas os enxames do pacente", description = "Obtém a lista de todas os enxames do pacente")
     @GetMapping("/exams/{id}")
-    public ResponseEntity<List<ExamResponseDto>> findAllexams(Long Id) {
-        Patient patient = patientService.findById(Id);
+    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable Long id) {
+        Patient patient = patientService.findById(id);
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {

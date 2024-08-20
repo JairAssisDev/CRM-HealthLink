@@ -28,14 +28,15 @@ public class SecurityConfig {
     SecurityFilter securityFilter;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http.cors(httpSecurityCorsConfigurer -> {httpSecurityCorsConfigurer.disable();})
+        return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth)->{
                     auth
                             .requestMatchers("crmhealthlink/api/employee/**").hasRole("ATTENDANT")
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/auth/login").permitAll()
-                            .requestMatchers("/patient/appointments").permitAll()
+                            //.requestMatchers("/crmhealthlink/api/patient/appointments").permitAll()
+
                             .anyRequest().authenticated();
                 })
                 .headers(h ->{

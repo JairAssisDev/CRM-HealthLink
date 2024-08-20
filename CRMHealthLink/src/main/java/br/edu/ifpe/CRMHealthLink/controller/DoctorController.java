@@ -61,7 +61,7 @@ public class DoctorController {
 
     @Operation(summary = "Obtém todas as Consultas atribidas ao doutor", description = "Obtém a lista de todas as Consulta satribidas ao doutor")
     @GetMapping("/appointment/{doctorId}")
-    public ResponseEntity<List<AppointmentResponseDto>> findAll(Long doctorId) {
+    public ResponseEntity<List<AppointmentResponseDto>> findAll(@PathVariable Long doctorId) {
         List<Appointment> appointmentsResponse = new ArrayList<>();
         List<Appointment> appointments = appointmentService.getAllAppointment();
         for (Appointment appointment : appointments) {
@@ -75,7 +75,7 @@ public class DoctorController {
 
     @Operation(summary = "Obtém todas os enxames que o Doutor fez", description = "Obtém a lista de todas os enxames que foi atribuido au doutor")
     @GetMapping("/exams/{idDoctor}")
-    public ResponseEntity<List<ExamResponseDto>> findAllexams(Long Id) {
+    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable Long Id) {
         Doctor doctor = doctorService.findById(Id);
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
@@ -91,7 +91,7 @@ public class DoctorController {
 
     @Operation(summary = "Obtém todas os enxames que o pacente fez", description = "Obtém a lista de todas os enxames do pacente")
     @GetMapping("/exams/patinet/{patientId}")
-    public ResponseEntity<List<ExamResponseDto>> findAllPatientExams( Long patientId) {
+    public ResponseEntity<List<ExamResponseDto>> findAllPatientExams( @PathVariable Long patientId) {
         Patient patient = patientService.findById(patientId);
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
