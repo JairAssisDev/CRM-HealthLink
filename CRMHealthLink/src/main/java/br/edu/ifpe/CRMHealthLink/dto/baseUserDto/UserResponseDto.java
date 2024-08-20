@@ -18,8 +18,6 @@ public abstract class UserResponseDto {
 
     private LocalDate birthDate;
 
-    private String cpf;
-
     private String email;
 
     private AcessLevel acessLevel;

@@ -61,7 +61,6 @@ public class ExamMapper {
 
         examResponseDto.setNamePatient(exam.getAppointment().getPatient().getName());
 
-        examResponseDto.setDescriptionAppointment(exam.getAppointment().getDescription());
         return examResponseDto;
     }
     public List<ExamResponseDto> toDtoExamsPatient(List<Exam> exams){

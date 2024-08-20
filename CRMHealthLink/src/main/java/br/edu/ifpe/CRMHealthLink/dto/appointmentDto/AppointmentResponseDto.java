@@ -17,6 +17,8 @@ public class AppointmentResponseDto {
 
     private String description;
 
+    private Long patientId;
+
     private String namePatient;
 
     private String nameDoctor;
