@@ -32,9 +32,9 @@ public class CrmHealthLinkApplication {
 			manager.setEmail("admin@email.com");
 			manager.setPassword(encoder.encode("123"));
 			var emp = new Employee();
-			manager.setAcessLevel(AcessLevel.ATTENDANT);
-			manager.setEmail("att@email.com");
-			manager.setPassword(encoder.encode("123"));
+			emp.setAcessLevel(AcessLevel.ATTENDANT);
+			emp.setEmail("att@email.com");
+			emp.setPassword(encoder.encode("123"));
 
 			var doctor = new Doctor();
 			doctor.setAcessLevel(AcessLevel.DOCTOR);
