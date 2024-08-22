@@ -27,7 +27,7 @@ public abstract class UserCreateDto {
 
 
     @NotBlank
-    @Size(min = 8, max = 140)
+    @Size(min = 2, max = 140)
     private String name;
 
     @PastOrPresent
