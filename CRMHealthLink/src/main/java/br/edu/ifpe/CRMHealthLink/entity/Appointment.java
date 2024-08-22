@@ -3,6 +3,8 @@ package br.edu.ifpe.CRMHealthLink.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,15 +21,18 @@ public class Appointment {
     private Long id;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "fk_patient")
     private Patient patient;
 
     @ManyToOne
     @JoinColumn(name = "fk_doctor")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Doctor doctor;
 
     @ManyToOne
     @JoinColumn(name = "fk_employee")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Employee employee;
 
     @Column(columnDefinition = "TEXT", length = 10000)
