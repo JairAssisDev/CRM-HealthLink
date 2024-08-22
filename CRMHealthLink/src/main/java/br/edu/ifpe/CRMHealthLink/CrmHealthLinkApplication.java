@@ -31,14 +31,21 @@ public class CrmHealthLinkApplication {
 			manager.setAcessLevel(AcessLevel.MANAGER);
 			manager.setEmail("admin@email.com");
 			manager.setPassword(encoder.encode("123"));
+			var emp = new Employee();
+			manager.setAcessLevel(AcessLevel.ATTENDANT);
+			manager.setEmail("att@email.com");
+			manager.setPassword(encoder.encode("123"));
 
 			var doctor = new Doctor();
 			doctor.setAcessLevel(AcessLevel.DOCTOR);
 			doctor.setEmail("doctor@email.com");
 			doctor.setPassword(encoder.encode("123"));
 
+
+
 			userRepository.save(doctor);
 			employeeRepository.save(manager);
+			employeeRepository.save(emp);
 			mock.saveAppointment();
 			mock.saveAppointment();
 
