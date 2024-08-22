@@ -25,24 +25,27 @@ public class CrmHealthLinkApplication {
 	public CommandLineRunner temporaryManager(EmployeeRepository employeeRepository,
 											  AppointmentRepository appointmentRepository,
 											  PasswordEncoder encoder,
-											  MockEntities mock){
+											  MockEntities mock, UserRepository userRepository,DoctorRepository doctorRepository) {
 		return a ->{
 			var manager = new Employee();
 			manager.setAcessLevel(AcessLevel.MANAGER);
 			manager.setEmail("admin@email.com");
 			manager.setPassword(encoder.encode("123"));
+
+			var doctor = new Doctor();
+			doctor.setAcessLevel(AcessLevel.DOCTOR);
+			doctor.setEmail("doctor@email.com");
+			doctor.setPassword(encoder.encode("123"));
+
+			userRepository.save(doctor);
 			employeeRepository.save(manager);
-			;
 			mock.saveAppointment();
 			mock.saveAppointment();
 
 			var ap = mock.getAppointment();
-			ap.setNotified(true);
+			ap.setDoctor(doctor);
+			ap.setNotified(false);
 			mock.saveAppointment(ap);
-
-			LocalDateTime start = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0);
-			LocalDateTime end = start.plusDays(1);
-			System.out.println(appointmentRepository.findByDateBetweenAndNotifiedIsFalse(start,end));
 		};
 	}
 }

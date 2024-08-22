@@ -67,7 +67,7 @@ public class EmployeeControlerIT {
 
     public PatientCreateDto getMockPatientCreateDTO(){
         var u = getMockUser();
-        return new PatientCreateDto(u.getId(),u.getName(), u.getBirthDate(), u.getCpf(),
+        return new PatientCreateDto(u.getName(), u.getBirthDate(), u.getCpf(),
                 u.getEmail(), AcessLevel.PATIENT, u.getPassword());
     }
 

@@ -24,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -97,9 +99,8 @@ public class EmployeeController {
 
     @PostMapping("create/employee")
     public ResponseEntity createEmployee(@RequestBody @Valid EmployeeCreateDto employee){
-        if(employee.getAcessLevel() == AcessLevel.MANAGER){
-            return ResponseEntity.badRequest().body("You do not have permission to create a manager");
-        }
+        employee.setAcessLevel(AcessLevel.ATTENDANT);
+
         if(userExists(employee)){
             return ResponseEntity.badRequest().body("User already exists!");
         }
