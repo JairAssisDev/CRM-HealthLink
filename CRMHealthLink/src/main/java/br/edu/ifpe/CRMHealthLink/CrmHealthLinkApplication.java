@@ -29,15 +29,19 @@ public class CrmHealthLinkApplication {
 		return a ->{
 			var manager = new Employee();
 			manager.setAcessLevel(AcessLevel.MANAGER);
+			manager.setName("Jão Jorge");
 			manager.setEmail("admin@email.com");
 			manager.setPassword(encoder.encode("123"));
+
 			var emp = new Employee();
 			emp.setAcessLevel(AcessLevel.ATTENDANT);
+			emp.setName("Carmen Jurema");
 			emp.setEmail("att@email.com");
 			emp.setPassword(encoder.encode("123"));
 
 			var doctor = new Doctor();
 			doctor.setAcessLevel(AcessLevel.DOCTOR);
+			doctor.setName("Anastasia Inés");
 			doctor.setEmail("doctor@email.com");
 			doctor.setPassword(encoder.encode("123"));
 
