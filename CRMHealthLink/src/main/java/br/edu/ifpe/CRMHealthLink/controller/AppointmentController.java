@@ -1,9 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
-import br.edu.ifpe.CRMHealthLink.dto.appointmentDto.AppointmentCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.appointmentDto.AppointmentResponseDto;
-import br.edu.ifpe.CRMHealthLink.dto.mapper.AppointmentMapper;
-import br.edu.ifpe.CRMHealthLink.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentCreateDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentResponseDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.mapper.AppointmentMapper;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

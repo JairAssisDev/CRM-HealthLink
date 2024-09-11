@@ -1,6 +1,6 @@
-package br.edu.ifpe.CRMHealthLink.dto.patientDto;
+package br.edu.ifpe.CRMHealthLink.service.dto.patientDto;
 
-import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserCreateDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.infra.security;
 
-import br.edu.ifpe.CRMHealthLink.entity.User;
+import br.edu.ifpe.CRMHealthLink.domain.entity.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

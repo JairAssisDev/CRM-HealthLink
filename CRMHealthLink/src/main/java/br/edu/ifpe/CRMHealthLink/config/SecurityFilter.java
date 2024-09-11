@@ -1,7 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.config;
 
 import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
-import br.edu.ifpe.CRMHealthLink.repository.UserRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

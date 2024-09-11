@@ -1,6 +1,6 @@
-package br.edu.ifpe.CRMHealthLink.dto.patientDto;
+package br.edu.ifpe.CRMHealthLink.service.dto.patientDto;
 
-import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserResponseDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserResponseDto;
 import lombok.Data;
 
 @Data

@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.dto.examDto;
+package br.edu.ifpe.CRMHealthLink.service.dto.examDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

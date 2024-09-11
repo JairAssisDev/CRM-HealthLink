@@ -1,18 +1,18 @@
 package br.edu.ifpe.CRMHealthLink;
 
-import br.edu.ifpe.CRMHealthLink.entity.*;
-import br.edu.ifpe.CRMHealthLink.repository.*;
+import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
+import br.edu.ifpe.CRMHealthLink.domain.repository.AppointmentRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.DoctorRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.EmployeeRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
 import br.edu.ifpe.CRMHealthLink.service.MockEntities;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class CrmHealthLinkApplication {
@@ -25,7 +25,7 @@ public class CrmHealthLinkApplication {
 	public CommandLineRunner temporaryManager(EmployeeRepository employeeRepository,
 											  AppointmentRepository appointmentRepository,
 											  PasswordEncoder encoder,
-											  MockEntities mock, UserRepository userRepository,DoctorRepository doctorRepository) {
+											  MockEntities mock, UserRepository userRepository, DoctorRepository doctorRepository) {
 		return a ->{
 			var manager = new Employee();
 			manager.setAcessLevel(AcessLevel.MANAGER);

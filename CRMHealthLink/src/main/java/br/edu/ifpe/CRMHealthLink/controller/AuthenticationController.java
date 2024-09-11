@@ -1,15 +1,12 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
-import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserLoginDTO;
-import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserLoginResponseDto;
-import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
-import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
-import br.edu.ifpe.CRMHealthLink.entity.User;
+import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginDTO;
+import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginResponseDto;
+import br.edu.ifpe.CRMHealthLink.domain.entity.User;
 import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
-import br.edu.ifpe.CRMHealthLink.repository.UserRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

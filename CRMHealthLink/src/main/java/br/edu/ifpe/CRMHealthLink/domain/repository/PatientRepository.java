@@ -1,7 +1,6 @@
-package br.edu.ifpe.CRMHealthLink.repository;
+package br.edu.ifpe.CRMHealthLink.domain.repository;
 
-import br.edu.ifpe.CRMHealthLink.entity.Employee;
-import br.edu.ifpe.CRMHealthLink.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

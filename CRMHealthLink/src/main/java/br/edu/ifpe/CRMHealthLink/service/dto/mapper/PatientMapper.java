@@ -1,8 +1,8 @@
-package br.edu.ifpe.CRMHealthLink.dto.mapper;
+package br.edu.ifpe.CRMHealthLink.service.dto.mapper;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientResponseDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.patientDto.PatientCreateDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.patientDto.PatientResponseDto;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class PatientMapper {
 
     public static List<PatientResponseDto> toDtoPacients(List<Patient> pacients) {
         return pacients.stream()
-                .map(br.edu.ifpe.CRMHealthLink.dto.mapper.PatientMapper::toDtoPatient)
+                .map(PatientMapper::toDtoPatient)
                 .collect(Collectors.toList());
     }
 

@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.entity;
+package br.edu.ifpe.CRMHealthLink.domain.entity;
 
 public enum Office {
     RECEPTIONIST(0),MANAGER(1);

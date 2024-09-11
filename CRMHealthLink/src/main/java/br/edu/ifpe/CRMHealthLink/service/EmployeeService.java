@@ -1,12 +1,11 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.mapper.EmployeeMapper;
-import br.edu.ifpe.CRMHealthLink.entity.Employee;
+import br.edu.ifpe.CRMHealthLink.service.dto.employeeDto.EmployeeCreateDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.mapper.EmployeeMapper;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
-import br.edu.ifpe.CRMHealthLink.repository.EmployeeRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

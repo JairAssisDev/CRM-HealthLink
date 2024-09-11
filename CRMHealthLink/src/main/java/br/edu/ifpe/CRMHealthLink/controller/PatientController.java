@@ -1,26 +1,18 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
-import br.edu.ifpe.CRMHealthLink.dto.appointmentDto.AppointmentResponseDto;
-import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.examDto.ExamResponseDto;
-import br.edu.ifpe.CRMHealthLink.dto.mapper.AppointmentMapper;
-import br.edu.ifpe.CRMHealthLink.dto.mapper.ExamMapper;
-import br.edu.ifpe.CRMHealthLink.dto.mapper.PatientMapper;
-import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientResponseDto;
-import br.edu.ifpe.CRMHealthLink.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.entity.Exam;
-import br.edu.ifpe.CRMHealthLink.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.repository.ExamRespository;
+import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentResponseDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamResponseDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.mapper.AppointmentMapper;
+import br.edu.ifpe.CRMHealthLink.service.dto.mapper.ExamMapper;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
 import br.edu.ifpe.CRMHealthLink.service.ExamService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
-import br.edu.ifpe.CRMHealthLink.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

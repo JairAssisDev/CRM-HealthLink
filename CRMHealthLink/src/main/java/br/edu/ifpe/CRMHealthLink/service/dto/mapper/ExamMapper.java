@@ -1,7 +1,7 @@
-package br.edu.ifpe.CRMHealthLink.dto.mapper;
+package br.edu.ifpe.CRMHealthLink.service.dto.mapper;
 
-import br.edu.ifpe.CRMHealthLink.dto.examDto.ExamCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.examDto.ExamResponseDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamCreateDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamResponseDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
 import br.edu.ifpe.CRMHealthLink.service.AppointmentService;

@@ -1,6 +1,6 @@
-package br.edu.ifpe.CRMHealthLink.dto.doctorDto;
+package br.edu.ifpe.CRMHealthLink.service.dto.doctorDto;
 
-import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserCreateDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserCreateDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.entity;
+package br.edu.ifpe.CRMHealthLink.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

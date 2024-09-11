@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.entity;
+package br.edu.ifpe.CRMHealthLink.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

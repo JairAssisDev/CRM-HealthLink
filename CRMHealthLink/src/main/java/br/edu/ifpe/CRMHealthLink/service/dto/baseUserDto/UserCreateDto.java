@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
+package br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import jakarta.validation.constraints.NotBlank;

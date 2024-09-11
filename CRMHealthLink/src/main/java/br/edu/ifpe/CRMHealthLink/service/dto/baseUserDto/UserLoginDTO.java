@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
+package br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

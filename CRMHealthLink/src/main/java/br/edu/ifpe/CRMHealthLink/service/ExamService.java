@@ -1,9 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.dto.examDto.ExamCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.mapper.ExamMapper;
-import br.edu.ifpe.CRMHealthLink.entity.Exam;
-import br.edu.ifpe.CRMHealthLink.repository.ExamRespository;
+import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamCreateDto;
+import br.edu.ifpe.CRMHealthLink.service.dto.mapper.ExamMapper;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
+import br.edu.ifpe.CRMHealthLink.domain.repository.ExamRespository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

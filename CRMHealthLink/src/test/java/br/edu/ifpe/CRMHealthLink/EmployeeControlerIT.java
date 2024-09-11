@@ -1,12 +1,10 @@
 package br.edu.ifpe.CRMHealthLink;
 
-import br.edu.ifpe.CRMHealthLink.dto.baseUserDto.UserCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
-import br.edu.ifpe.CRMHealthLink.dto.patientDto.PatientCreateDto;
-import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
-import br.edu.ifpe.CRMHealthLink.entity.User;
+import br.edu.ifpe.CRMHealthLink.service.dto.patientDto.PatientCreateDto;
+import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.domain.entity.User;
 import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
-import br.edu.ifpe.CRMHealthLink.repository.UserRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,8 +1,8 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.entity.*;
-import br.edu.ifpe.CRMHealthLink.repository.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import br.edu.ifpe.CRMHealthLink.domain.entity.*;
+import br.edu.ifpe.CRMHealthLink.domain.repository.AppointmentRepository;
+import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
