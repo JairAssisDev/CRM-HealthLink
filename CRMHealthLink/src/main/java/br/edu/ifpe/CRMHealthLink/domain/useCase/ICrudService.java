@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ICrudService<T>{
     public T save(T entity);
-    public List<T> getAllAppointment();
+    public List<T> getAll();
 
     public T findById(Long id);
 
