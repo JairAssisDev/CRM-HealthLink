@@ -197,7 +197,7 @@ public class EmployeeController {
     @Operation(summary = "Atualiza um médico pelo ID", description = "Atualiza os dados de um médico pelo seu ID")
     @PutMapping("/doctor/{id}")
     public ResponseEntity<Void> updateDoctor(@PathVariable Long id, @RequestBody DoctorCreateDto doctor) {
-        doctorServiceImpl.update(id, doctor);
+        doctorServiceImpl.update(id, null);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

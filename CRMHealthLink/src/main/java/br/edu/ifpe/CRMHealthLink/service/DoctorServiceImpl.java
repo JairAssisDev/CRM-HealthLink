@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
 import br.edu.ifpe.CRMHealthLink.service.dto.doctorDto.DoctorCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
@@ -8,11 +9,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class DoctorServiceImpl {
+public class DoctorServiceImpl implements IDoctorService {
 
     private final DoctorRepository doctorRepository;
 
@@ -22,15 +25,14 @@ public class DoctorServiceImpl {
         return doctorRepository.save(doctor);
     }
 
-    @Transactional(readOnly = true)
-    public List<Doctor> getAllDoctors() {
+
+    public List<Doctor> getAll() {
         return doctorRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Doctor findById(Long id) {
         return doctorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Médico não encontrado com id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor not found"));
     }
 
     @Transactional
@@ -39,19 +41,39 @@ public class DoctorServiceImpl {
     }
 
     @Transactional
-    public void update(Long id, DoctorCreateDto doctorCreateDto) {
+    public void update(Long id, Doctor doctorDto) {
         Doctor doctor = findById(id);
 
-        doctor.setName(doctorCreateDto.getName());
-        doctor.setBirthDate(doctorCreateDto.getBirthDate());
-        doctor.setCpf(doctorCreateDto.getCpf());
-        doctor.setEmail(doctorCreateDto.getEmail());
-        doctor.setAcessLevel(doctorCreateDto.getAcessLevel());
-
-        doctor.setPassword(doctorCreateDto.getPassword());
-        doctor.setCRM(doctorCreateDto.getCRM());
-        doctor.setSpecialty(doctorCreateDto.getSpecialty());
+        updateFields(doctorDto,doctor);
 
         doctorRepository.save(doctor);
+    }
+
+
+    //don't repeat yourself.this method already exists in patientServiceImpl
+    public static void updateFields(Object source, Object mod){
+
+        List<Class> classes = new ArrayList<>();
+        Class currentClass = source.getClass();
+        while(currentClass!=null){
+            if(currentClass != Object.class)
+                classes.add(currentClass);
+            currentClass = currentClass.getSuperclass();
+        }
+
+        for(Class clasz : classes){
+            for(Field field: clasz.getDeclaredFields()){
+                try {
+                    field.setAccessible(true);
+                    var fieldDTO = field.get(source);
+                    if( fieldDTO != null){
+                        field.set(mod,fieldDTO);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
     }
 }

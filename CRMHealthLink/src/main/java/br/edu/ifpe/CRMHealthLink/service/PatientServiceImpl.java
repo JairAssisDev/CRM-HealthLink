@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -49,18 +50,34 @@ public class PatientServiceImpl implements IPatientService {
     public void update(Long id,Patient patient) {
         Patient patientDB = findById(id);
 
-        for(Field field: patient.getClass().getSuperclass().getDeclaredFields()){
-            try {
-                field.setAccessible(true);
-                var fieldDTO = field.get(patient);
-                if( fieldDTO != null){
-                    field.set(patientDB,fieldDTO);
+        updateFields(patient,patientDB);
+
+        patientRepository.save(patientDB);
+    }
+
+    public static void updateFields(Object source, Object mod){
+
+        List<Class> classes = new ArrayList<>();
+        Class currentClass = source.getClass();
+        while(currentClass!=null){
+            if(currentClass != Object.class)
+                classes.add(currentClass);
+            currentClass = currentClass.getSuperclass();
+        }
+
+        for(Class clasz : classes){
+            for(Field field: clasz.getDeclaredFields()){
+                try {
+                    field.setAccessible(true);
+                    var fieldDTO = field.get(source);
+                    if( fieldDTO != null){
+                        field.set(mod,fieldDTO);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
             }
         }
 
-        patientRepository.save(patientDB);
     }
 }
