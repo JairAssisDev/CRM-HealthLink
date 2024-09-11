@@ -30,9 +30,6 @@ public class PatientServiceImpl implements IPatientService {
         return patientRepository.save(patient);
     }
 
-
-
-
     public List<Patient> getAll() {
         return patientRepository.findAll();
     }
