@@ -1,5 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IPatientService;
 import br.edu.ifpe.CRMHealthLink.service.dto.mapper.PatientMapper;
 import br.edu.ifpe.CRMHealthLink.service.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
@@ -10,52 +12,58 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class PatientServiceImpl {
+public class PatientServiceImpl implements IPatientService {
 
     private final PatientRepository patientRepository;
     private final PasswordEncoder encoder;
 
+
     @Transactional
-    public Patient save(PatientCreateDto patientDTO) {
-        Patient patient = PatientMapper.toPatient(patientDTO);
+    public Patient save(Patient patient) {
         patient.setPassword(encoder.encode(patient.getPassword()));
+        patient.setAcessLevel(AcessLevel.PATIENT);
         return patientRepository.save(patient);
     }
 
-    @Transactional(readOnly = true)
-    public List<Patient> getAllPatient() {
+
+
+
+    public List<Patient> getAll() {
         return patientRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
+
     public Patient findById(Long id) {
         return patientRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encomtrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
     }
 
-    @Transactional
+
     public void delete(Long id) {
         patientRepository.deleteById(id);
     }
 
     @Transactional
-    public void update(Long id,PatientCreateDto patientCreateDto) {
-        Patient patient = findById(id);
+    public void update(Long id,Patient patient) {
+        Patient patientDB = findById(id);
 
-        patient.setName(patientCreateDto.getName());
-        patient.setBirthDate(patientCreateDto.getBirthDate());
-        patient.setEmail(patientCreateDto.getEmail());
-        patient.setCpf(patientCreateDto.getCpf());
+        for(Field field: patient.getClass().getSuperclass().getDeclaredFields()){
+            try {
+                field.setAccessible(true);
+                var fieldDTO = field.get(patient);
+                if( fieldDTO != null){
+                    field.set(patientDB,fieldDTO);
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
-        patient.setPassword(patientCreateDto.getPassword());
-
-        patientRepository.save(patient);
-
+        patientRepository.save(patientDB);
     }
-
-
 }

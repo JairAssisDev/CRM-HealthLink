@@ -40,9 +40,9 @@ public class EmployeeController {
     @Autowired
     private UserService userService;
     @Autowired
-    private IPatientService patientServiceImpl;
+    private IPatientService patientService;
 
-    // pacentes
+
 
     @Operation(summary = "Cria um novo Paciente",description = "Cria um novo  médico  com base nas informações fornecidas")
     @PostMapping("create/patient")
@@ -51,20 +51,20 @@ public class EmployeeController {
             return ResponseEntity.badRequest().body("User already exists!");
         }
         patient.setAcessLevel(AcessLevel.PATIENT);
-        patientServiceImpl.save(null);
+        patientService.save(null);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Obtém todos os Pacientes",description = "Obtém a lista de todos os Pacientes")
     @GetMapping("/pacientes")
     public ResponseEntity<List<PatientResponseDto>> findAllPacientes() {
-        return ResponseEntity.ok(PatientMapper.toDtoPacients(patientServiceImpl.getAll()));
+        return ResponseEntity.ok(PatientMapper.toDtoPacients(patientService.getAll()));
     }
 
     @Operation(summary = "Obtém um Paciente pelo ID", description = "Obtém os detalhes de um Paciente pelo seu ID")
     @GetMapping("/getpaciente/{id}")
     public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id) {
-        Patient patient = patientServiceImpl.findById(id);
+        Patient patient = patientService.findById(id);
         if(patient == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -73,9 +73,9 @@ public class EmployeeController {
 
     @Operation(summary = "Remove um Paciente pelo ID",description = "Remove um Paciente pelo seu ID")
     @DeleteMapping("/paciente/{id}")
-    public ResponseEntity<Void> deletePacinet(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
         try {
-            patientServiceImpl.delete(id);
+            patientService.delete(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -85,7 +85,7 @@ public class EmployeeController {
     @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
     @PutMapping("/paciente/{id}")
     public ResponseEntity<Void> updateEmployee(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
-        patientServiceImpl.update(id,null);
+        patientService.update(id,null);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
