@@ -1,25 +1,25 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IAppointmentService;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IExamService;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IPatientService;
 import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentResponseDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamCreateDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamResponseDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.mapper.AppointmentMapper;
 import br.edu.ifpe.CRMHealthLink.service.dto.mapper.ExamMapper;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
-import br.edu.ifpe.CRMHealthLink.service.DoctorService;
-import br.edu.ifpe.CRMHealthLink.service.ExamService;
-import br.edu.ifpe.CRMHealthLink.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +33,13 @@ public class DoctorController {
     private final ExamMapper examMapper ;
 
     @Autowired
-    private final PatientService patientService ;
+    private final IPatientService patientService;
     @Autowired
-    private final DoctorService doctorService ;
+    private final IDoctorService doctorService;
     @Autowired
-    private final ExamService examService;
+    private final IExamService examService;
     @Autowired
-    private final AppointmentService appointmentService;
+    private final IAppointmentService appointmentService;
     @Autowired
     private final AppointmentMapper appointmentMapper;
 
@@ -58,7 +58,7 @@ public class DoctorController {
     @GetMapping("/appointment/{doctorId}")
     public ResponseEntity<List<AppointmentResponseDto>> findAll(@PathVariable Long doctorId) {
         List<Appointment> appointmentsResponse = new ArrayList<>();
-        List<Appointment> appointments = appointmentService.getAllAppointment();
+        List<Appointment> appointments = appointmentService.getAll();
         for (Appointment appointment : appointments) {
             if (appointment.getDoctor().getId() == doctorId) {
                 appointmentsResponse.add(appointment);
@@ -72,7 +72,7 @@ public class DoctorController {
     @GetMapping("/exams/{idDoctor}")
     public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable Long idDoctor) {
         Doctor doctor = doctorService.findById(idDoctor);
-        List<Exam> exams = examService.getAllExams();
+        List<Exam> exams = examService.getAll();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {
             if (exam.getAppointment().getDoctor().getId() == doctor.getId()) {
@@ -88,7 +88,7 @@ public class DoctorController {
     @GetMapping("/exams/patinet/{patientId}")
     public ResponseEntity<List<ExamResponseDto>> findAllPatientExams( @PathVariable Long patientId) {
         Patient patient = patientService.findById(patientId);
-        List<Exam> exams = examService.getAllExams();
+        List<Exam> exams = examService.getAll();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {
             if (exam.getAppointment().getPatient().getId() == patient.getId()) {

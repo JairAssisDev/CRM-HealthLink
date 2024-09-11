@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class DoctorService {
+public class DoctorServiceImpl {
 
     private final DoctorRepository doctorRepository;
 

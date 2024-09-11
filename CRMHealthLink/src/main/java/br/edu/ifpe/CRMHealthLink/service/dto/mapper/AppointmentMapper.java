@@ -6,9 +6,9 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.service.DoctorService;
+import br.edu.ifpe.CRMHealthLink.service.DoctorServiceImpl;
 import br.edu.ifpe.CRMHealthLink.service.EmployeeServiceImpl;
-import br.edu.ifpe.CRMHealthLink.service.PatientService;
+import br.edu.ifpe.CRMHealthLink.service.PatientServiceImpl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,14 +20,14 @@ import java.util.stream.Collectors;
 @Component
 public class AppointmentMapper {
 
-    private final DoctorService doctorService;
-    private final PatientService patientService;
+    private final DoctorServiceImpl doctorServiceImpl;
+    private final PatientServiceImpl patientServiceImpl;
     private final EmployeeServiceImpl employeeService;
 
 
     public Appointment toAppointment(AppointmentCreateDto appointmentCreateDto) {
-        Doctor doctor = doctorService.findById(appointmentCreateDto.getFk_doctor());
-        Patient patient = patientService.findById(appointmentCreateDto.getFk_patient());
+        Doctor doctor = doctorServiceImpl.findById(appointmentCreateDto.getFk_doctor());
+        Patient patient = patientServiceImpl.findById(appointmentCreateDto.getFk_patient());
         Employee employee = employeeService.findById(appointmentCreateDto.getFk_employee());
 
         Appointment appointment = new Appointment();

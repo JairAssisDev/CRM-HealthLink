@@ -14,7 +14,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class PatientService {
+public class PatientServiceImpl {
 
     private final PatientRepository patientRepository;
     private final PasswordEncoder encoder;

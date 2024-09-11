@@ -1,12 +1,11 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.User;
+import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
+import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
+import br.edu.ifpe.CRMHealthLink.service.UserService;
 import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginDTO;
 import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginResponseDto;
-import br.edu.ifpe.CRMHealthLink.domain.entity.User;
-import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
-import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
-import br.edu.ifpe.CRMHealthLink.service.PatientService;
-import br.edu.ifpe.CRMHealthLink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,8 +21,6 @@ public class AuthenticationController {
     private TokenService tokenService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private PatientService patientService;
     @Autowired
     private UserRepository userRepository;
 

@@ -1,10 +1,10 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IAppointmentService;
 import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentCreateDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentResponseDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.mapper.AppointmentMapper;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @Tag(name = "Appointment API", description = "API para gestão de Consultas")
 public class AppointmentController {
 
-    private final AppointmentService appointmentService;
+    private final IAppointmentService appointmentService;
     private final AppointmentMapper appointmentMapper;
 
     @Operation(summary = "Cria uma nova Consulta", description = "Cria uma nova Consulta com base nas informações fornecidas")
@@ -35,7 +35,7 @@ public class AppointmentController {
     @Operation(summary = "Obtém todas as Consultas", description = "Obtém a lista de todas as Consultas")
     @GetMapping
     public ResponseEntity<List<AppointmentResponseDto>> findAll() {
-        List<Appointment> appointments = appointmentService.getAllAppointment();
+        List<Appointment> appointments = appointmentService.getAll();
         List<AppointmentResponseDto> responseDtos = appointmentMapper.toDtoAppointments(appointments);
         return ResponseEntity.ok(responseDtos);
     }
@@ -65,7 +65,7 @@ public class AppointmentController {
     @Operation(summary = "Atualiza uma Consulta", description = "Atualiza a consulta com base nas novas informações fornecidas")
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody AppointmentCreateDto appointmentCreateDto) {
-        appointmentService.update(id, appointmentCreateDto);
+        appointmentService.update(id, null);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

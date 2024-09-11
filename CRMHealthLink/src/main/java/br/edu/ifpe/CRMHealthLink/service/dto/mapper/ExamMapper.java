@@ -4,7 +4,7 @@ import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamCreateDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamResponseDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
-import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
+import br.edu.ifpe.CRMHealthLink.service.AppointmentServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 @Component
 public class ExamMapper {
 
-    private final AppointmentService appointmentService;
+    private final AppointmentServiceImpl appointmentServiceImpl;
 
     public Exam toExam(ExamCreateDto examDto){
-        Appointment appointment = appointmentService.findById(examDto.getFk_appointment());
+        Appointment appointment = appointmentServiceImpl.findById(examDto.getFk_appointment());
 
         Exam exam = new Exam();
         exam.setDate(examDto.getDate());
