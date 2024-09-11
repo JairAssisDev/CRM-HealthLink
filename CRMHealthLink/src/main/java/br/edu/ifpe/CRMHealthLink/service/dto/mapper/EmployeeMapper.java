@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink.dto.mapper;
 
 import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeResponseDto;
 import br.edu.ifpe.CRMHealthLink.dto.employeeDto.EmployeeCreateDto;
-import br.edu.ifpe.CRMHealthLink.entity.Employee;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;

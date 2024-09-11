@@ -2,16 +2,15 @@ package br.edu.ifpe.CRMHealthLink.dto.mapper;
 
 import br.edu.ifpe.CRMHealthLink.dto.appointmentDto.AppointmentCreateDto;
 import br.edu.ifpe.CRMHealthLink.dto.appointmentDto.AppointmentResponseDto;
-import br.edu.ifpe.CRMHealthLink.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.entity.Doctor;
-import br.edu.ifpe.CRMHealthLink.entity.Employee;
-import br.edu.ifpe.CRMHealthLink.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

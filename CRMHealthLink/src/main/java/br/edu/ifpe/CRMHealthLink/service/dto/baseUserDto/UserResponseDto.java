@@ -1,6 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.dto.baseUserDto;
 
-import br.edu.ifpe.CRMHealthLink.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -2,8 +2,8 @@ package br.edu.ifpe.CRMHealthLink.dto.mapper;
 
 import br.edu.ifpe.CRMHealthLink.dto.examDto.ExamCreateDto;
 import br.edu.ifpe.CRMHealthLink.dto.examDto.ExamResponseDto;
-import br.edu.ifpe.CRMHealthLink.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.entity.Exam;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
 import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
