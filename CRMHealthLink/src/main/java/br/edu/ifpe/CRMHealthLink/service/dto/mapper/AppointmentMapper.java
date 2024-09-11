@@ -7,7 +7,7 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
-import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
+import br.edu.ifpe.CRMHealthLink.service.EmployeeServiceImpl;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class AppointmentMapper {
 
     private final DoctorService doctorService;
     private final PatientService patientService;
-    private final EmployeeService employeeService;
+    private final EmployeeServiceImpl employeeService;
 
 
     public Appointment toAppointment(AppointmentCreateDto appointmentCreateDto) {

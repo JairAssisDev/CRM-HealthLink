@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.service.EmployeeServiceImpl;
 import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserCreateDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.doctorDto.DoctorCreateDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.doctorDto.DoctorResponseDto;
@@ -15,7 +16,6 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
-import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
 import jakarta.validation.Valid;
@@ -35,7 +35,7 @@ import java.util.List;
 @Tag(name = "Employee API", description = "API para gestão de funcionários")
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
+    private final EmployeeServiceImpl employeeService;
 
     @Autowired
     private UserService userService;
