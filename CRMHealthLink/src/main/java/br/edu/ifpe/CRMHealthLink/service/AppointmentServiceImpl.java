@@ -24,7 +24,7 @@ public class AppointmentServiceImpl {
     }
 
     @Transactional(readOnly = true)
-    public List<Appointment> getAllAppointment() {
+    public List<Appointment> getAll() {
         return appointmentRepository.findAll();
     }
 
@@ -53,4 +53,6 @@ public class AppointmentServiceImpl {
 
         appointmentRepository.save(appointmentToUpdate);
     }
+
+
 }

@@ -55,29 +55,4 @@ public class PatientServiceImpl implements IPatientService {
         patientRepository.save(patientDB);
     }
 
-    public static void updateFields(Object source, Object mod){
-
-        List<Class> classes = new ArrayList<>();
-        Class currentClass = source.getClass();
-        while(currentClass!=null){
-            if(currentClass != Object.class)
-                classes.add(currentClass);
-            currentClass = currentClass.getSuperclass();
-        }
-
-        for(Class clasz : classes){
-            for(Field field: clasz.getDeclaredFields()){
-                try {
-                    field.setAccessible(true);
-                    var fieldDTO = field.get(source);
-                    if( fieldDTO != null){
-                        field.set(mod,fieldDTO);
-                    }
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
-    }
 }
