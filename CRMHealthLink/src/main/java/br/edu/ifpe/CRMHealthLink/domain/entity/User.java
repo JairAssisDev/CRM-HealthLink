@@ -41,16 +41,13 @@ public  class User implements UserDetails {
     @Column
     private LocalDate birthDate;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
-
-    @Column(name = "login")
-    private String Login;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "cpf" )
+    @Column(name = "cpf",unique = true)
     private String cpf;
 
     @Column(name = "acess_level")
