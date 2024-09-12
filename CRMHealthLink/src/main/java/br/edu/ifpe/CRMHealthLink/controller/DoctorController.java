@@ -36,4 +36,10 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+
+    public ResponseEntity<Void> addAvailability(){
+
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }
