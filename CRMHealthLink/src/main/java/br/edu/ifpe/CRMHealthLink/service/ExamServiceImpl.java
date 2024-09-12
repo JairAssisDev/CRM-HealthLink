@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
 import br.edu.ifpe.CRMHealthLink.domain.repository.ExamRespository;
-import br.edu.ifpe.CRMHealthLink.domain.useCase.ICrudService;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IExamService;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class ExamServiceImpl implements ICrudService<Exam> {
+public class ExamServiceImpl implements IExamService {
     private final ExamRespository examRespository;
 
     public Exam save(Exam exam) {return examRespository.save(exam);}

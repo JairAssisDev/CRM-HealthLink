@@ -13,15 +13,16 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public abstract class UserCreateDTO {
-    public UserCreateDTO(String name, LocalDate date, String cpf, String email,String password) {
+    public UserCreateDTO(String name, LocalDate date, String cpf, String email,String password,AcessLevel level) {
         this.name = name;
         this.birthDate = date;
         this.cpf = cpf;
         this.email = email;
         this.password = password;
+        this.acessLevel = level;
     }
     @NotBlank
-    @Size(min = 2, max = 140)
+    @Size(min = 3, max = 140)
     private String name;
 
     @PastOrPresent
@@ -36,4 +37,7 @@ public abstract class UserCreateDTO {
     private String email;
     @NotBlank
     private String password;
+
+    @NotNull
+    private AcessLevel acessLevel;
 }

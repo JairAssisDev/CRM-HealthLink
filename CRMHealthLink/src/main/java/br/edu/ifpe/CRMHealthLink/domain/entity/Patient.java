@@ -13,12 +13,7 @@ import java.time.LocalDate;
 public class Patient extends User{
 
     public Patient(String name, LocalDate birthDate, String cpf, String email, String password){
-        this.setCpf(cpf);
-        this.setBirthDate(birthDate);
-        this.setName(name);
-        this.setPassword(password);
-        this.setEmail(email);
-        this.setAcessLevel(AcessLevel.PATIENT);
+        super(name,birthDate,cpf,email,password,AcessLevel.PATIENT);
     }
 
     public Patient(User user){

@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.repository.AppointmentRepository;
-import br.edu.ifpe.CRMHealthLink.domain.useCase.ICrudService;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IAppointmentService;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class AppointmentServiceImpl implements ICrudService<Appointment> {
+public class AppointmentServiceImpl implements IAppointmentService {
 
     private final AppointmentRepository appointmentRepository;
 

@@ -33,7 +33,7 @@ public class PatientServiceImplTest {
         BCryptPasswordEncoder auxEncoder = new BCryptPasswordEncoder();
         PatientCreateDto patient = new PatientCreateDto("NomeComOito",LocalDate.now(),"12345678910",
                 "email",AcessLevel.PATIENT,"password");
-        patientServiceImpl.save(patient);
+        patientServiceImpl.save(null);
 
         verify(passwordEncoder,times(1)).encode(patient.getPassword());
         verify(passwordEncoder,atMostOnce()).encode(anyString());

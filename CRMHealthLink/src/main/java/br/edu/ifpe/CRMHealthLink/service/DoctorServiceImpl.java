@@ -1,24 +1,24 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
-import br.edu.ifpe.CRMHealthLink.service.dto.doctorDto.DoctorCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
-import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.domain.repository.DoctorRepository;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
+import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Service
 public class DoctorServiceImpl implements IDoctorService {
 
-    private final DoctorRepository doctorRepository;
 
+    private final DoctorRepository doctorRepository;
+    public DoctorServiceImpl(DoctorRepository doctorRepository){
+        this.doctorRepository = doctorRepository;
+    }
 
     @Transactional
     public Doctor save(Doctor doctor) {

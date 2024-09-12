@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller.request;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 
 import java.time.LocalDate;
@@ -7,7 +8,7 @@ import java.time.LocalDate;
 public class PatientCreateDTO extends UserCreateDTO{
 
     public PatientCreateDTO(String name, LocalDate birthDate, String cpf, String email, String password) {
-        super(name, birthDate, cpf, email, password);
+        super(name, birthDate, cpf, email, password, AcessLevel.PATIENT);
     }
 
     public Patient toEntity(){
