@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+import br.edu.ifpe.CRMHealthLink.domain.useCase.ICrudService;
 import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentCreateDto;
 import br.edu.ifpe.CRMHealthLink.service.dto.mapper.AppointmentMapper;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
@@ -13,10 +14,9 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class AppointmentServiceImpl {
+public class AppointmentServiceImpl implements ICrudService<Appointment> {
 
     private final AppointmentRepository appointmentRepository;
-    private final AppointmentMapper appointmentMapper;
 
     @Transactional
     public Appointment save(Appointment appointment) {
@@ -28,10 +28,10 @@ public class AppointmentServiceImpl {
         return appointmentRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
+
     public Appointment findById(Long id) {
         return appointmentRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Appointment não encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found"));
     }
 
     @Transactional
@@ -40,18 +40,12 @@ public class AppointmentServiceImpl {
     }
 
     @Transactional
-    public void update(Long id, AppointmentCreateDto appointmentCreateDto) {
-        Appointment appointmentToUpdate = findById(id);
+    public void update(Long id, Appointment appointmentDto) {
+        Appointment appointment = findById(id);
 
-        Appointment updatedAppointment = appointmentMapper.toAppointment(appointmentCreateDto);
+        updateFields(appointmentDto,appointment);
 
-        appointmentToUpdate.setDate(updatedAppointment.getDate());
-        appointmentToUpdate.setDescription(updatedAppointment.getDescription());
-        appointmentToUpdate.setDoctor(updatedAppointment.getDoctor());
-        appointmentToUpdate.setPatient(updatedAppointment.getPatient());
-        appointmentToUpdate.setEmployee(updatedAppointment.getEmployee());
-
-        appointmentRepository.save(appointmentToUpdate);
+        appointmentRepository.save(appointment);
     }
 
 
