@@ -1,11 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.domain.useCase.ICrudService;
-import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentCreateDto;
-import br.edu.ifpe.CRMHealthLink.service.dto.mapper.AppointmentMapper;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.domain.repository.AppointmentRepository;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.ICrudService;
+import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

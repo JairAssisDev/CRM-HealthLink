@@ -1,19 +1,15 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
-import br.edu.ifpe.CRMHealthLink.domain.useCase.IPatientService;
-import br.edu.ifpe.CRMHealthLink.service.dto.mapper.PatientMapper;
-import br.edu.ifpe.CRMHealthLink.service.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.domain.repository.PatientRepository;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IPatientService;
+import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
