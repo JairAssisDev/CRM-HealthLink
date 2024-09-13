@@ -9,4 +9,6 @@ import java.time.LocalDateTime;
 public interface IDoctorService extends ICrudService<Doctor> {
 
     void addAvailability(DoctorAvailability doctorAvailability);
+
+    void schedule(LocalDateTime beginTime,LocalDateTime endTime, Doctor doctor);
 }

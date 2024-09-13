@@ -62,4 +62,21 @@ public class DoctorServiceImpl implements IDoctorService {
     public void addAvailability(DoctorAvailability doctorAvailability) {
         availabilityRepository.save(doctorAvailability);
     }
+
+    @Override
+    @Transactional
+    public void schedule(LocalDateTime beginTime, LocalDateTime endTime, Doctor doctor) {
+        DoctorAvailability availability = availabilityRepository
+                .findByDoctorAndBeginTimeLessThanEqualAndEndTimeIsGreaterThanEqual(doctor, beginTime, endTime);
+
+        long ticketAmount = availability.getTickets();
+
+        if(ticketAmount > 0)
+            availability.setTickets(ticketAmount-1);
+        else
+            throw new RuntimeException("Dont available");
+
+        availabilityRepository.save(availability);
+
+    }
 }
