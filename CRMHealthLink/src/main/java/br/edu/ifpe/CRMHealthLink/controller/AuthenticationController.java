@@ -1,11 +1,12 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.config.security.TokenService;
+import br.edu.ifpe.CRMHealthLink.controller.request.UserLogin;
+import br.edu.ifpe.CRMHealthLink.controller.response.UserLoginResponse;
 import br.edu.ifpe.CRMHealthLink.domain.entity.User;
 import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
-import br.edu.ifpe.CRMHealthLink.config.security.TokenService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
-import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginDTO;
-import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginResponseDto;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,23 +30,18 @@ public class AuthenticationController {
 
 
     @PostMapping("login")
-    public ResponseEntity<UserLoginResponseDto> login(@RequestBody UserLoginDTO user) {
+    public ResponseEntity<UserLoginResponse> login(@RequestBody @Valid UserLogin user) {
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(user.getEmail(),user.getPassword());
-        auth = authenticationManager.authenticate(auth);
+        Authentication auth = new UsernamePasswordAuthenticationToken(user.email(),user.password());
 
-        if(!auth.isAuthenticated()){
-            return ResponseEntity.badRequest().build();
-        }
-        User u = userService.getUserByEmail(user.getEmail());
-        UserLoginResponseDto userLoginResponseDto = new UserLoginResponseDto();
-        userLoginResponseDto.setToken(tokenService.generateToken(u));
-        userLoginResponseDto.setId(u.getId());
-        userLoginResponseDto.setEmail(u.getEmail());
-        userLoginResponseDto.setAcessLevel(u.getAcessLevel());
-        userLoginResponseDto.setName(u.getName());
+        authenticationManager.authenticate(auth);
 
-        return ResponseEntity.ok(userLoginResponseDto);
+        User u = userService.getUserByEmail(user.email());
+
+        return ResponseEntity.ok(
+                new UserLoginResponse(u.getName(),u.getEmail(),
+                tokenService.generateToken(u),u.getAcessLevel())
+        );
     }
 
 
