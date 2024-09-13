@@ -1,9 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.controller.request.AppointmentCreateDTO;
 import br.edu.ifpe.CRMHealthLink.controller.request.AvailabilityDTO;
 import br.edu.ifpe.CRMHealthLink.controller.request.DoctorCreateDTO;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
-import br.edu.ifpe.CRMHealthLink.domain.entity.DoctorAvailability;
+import br.edu.ifpe.CRMHealthLink.domain.entity.*;
 import br.edu.ifpe.CRMHealthLink.domain.repository.DoctorAvailabilityRepository;
 import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -43,7 +44,7 @@ public class DoctorController {
     @Operation(summary = "marca disponibilidade do médico")
 
     @PostMapping("/available")
-    public ResponseEntity<Void> addAvailability(AvailabilityDTO availabilityDTO){
+    public ResponseEntity<Void> addAvailability(@RequestBody @Valid AvailabilityDTO availabilityDTO){
         var doctor = getDoctorByEmail(availabilityDTO.doctorEmail());
 
         if(doctor == null)
@@ -54,15 +55,7 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @Operation(summary = "marca consulta")
-    @PostMapping("/schedule")
-    public ResponseEntity<Void> schedule(@RequestBody @Valid AvailabilityDTO availabilityDTO){
-        var doctor = getDoctorByEmail(availabilityDTO.doctorEmail());
 
-        doctorService.schedule(availabilityDTO.beginTime(),availabilityDTO.endTime(),doctor);
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    }
 
 
 

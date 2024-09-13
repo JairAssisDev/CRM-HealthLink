@@ -1,9 +1,11 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.DoctorAvailability;
 import br.edu.ifpe.CRMHealthLink.domain.repository.DoctorAvailabilityRepository;
 import br.edu.ifpe.CRMHealthLink.domain.repository.DoctorRepository;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IAppointmentService;
 import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +23,15 @@ public class DoctorServiceImpl implements IDoctorService {
     @Autowired
     private PasswordEncoder encoder;
     private final DoctorRepository doctorRepository;
-    private DoctorAvailabilityRepository availabilityRepository;
+    private final DoctorAvailabilityRepository availabilityRepository;
+
+    private final IAppointmentService appointmentService;
     public DoctorServiceImpl(DoctorRepository doctorRepository,
-                             DoctorAvailabilityRepository availabilityRepository){
+                             DoctorAvailabilityRepository availabilityRepository,
+                             IAppointmentService appointmentService){
         this.doctorRepository = doctorRepository;
         this.availabilityRepository = availabilityRepository;
+        this.appointmentService = appointmentService;
     }
 
     @Transactional
@@ -65,7 +71,7 @@ public class DoctorServiceImpl implements IDoctorService {
 
     @Override
     @Transactional
-    public void schedule(LocalDateTime beginTime, LocalDateTime endTime, Doctor doctor) {
+    public void schedule(LocalDateTime beginTime, LocalDateTime endTime, Doctor doctor, Appointment appointment) {
         DoctorAvailability availability = availabilityRepository
                 .findByDoctorAndBeginTimeLessThanEqualAndEndTimeIsGreaterThanEqual(doctor, beginTime, endTime);
 
@@ -76,6 +82,8 @@ public class DoctorServiceImpl implements IDoctorService {
         else
             throw new RuntimeException("Dont available");
 
+        appointment.setDate(availability.getBeginTime());
+        appointmentService.save(appointment);
         availabilityRepository.save(availability);
 
     }

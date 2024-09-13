@@ -19,6 +19,9 @@ public class AppointmentCreateDTO {
     @NotNull
     public LocalDateTime date;
 
+    @NotNull
+    public AvailabilityDTO availability;
+
 
     public Appointment toEntity(Patient patient, Doctor doctor, Employee employee){
         var appointment = new Appointment();
