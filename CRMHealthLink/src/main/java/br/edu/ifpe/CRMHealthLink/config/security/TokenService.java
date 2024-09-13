@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.infra.security;
+package br.edu.ifpe.CRMHealthLink.config.security;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.User;
 import com.auth0.jwt.JWT;

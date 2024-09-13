@@ -1,6 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.config.schedule;
 
-import br.edu.ifpe.CRMHealthLink.service.dto.email.Email;
+import br.edu.ifpe.CRMHealthLink.service.Email;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.repository.AppointmentRepository;
 import br.edu.ifpe.CRMHealthLink.service.EmailService;

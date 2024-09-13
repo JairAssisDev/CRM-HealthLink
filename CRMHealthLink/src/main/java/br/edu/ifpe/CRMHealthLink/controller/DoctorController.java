@@ -1,25 +1,19 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
-import br.edu.ifpe.CRMHealthLink.controller.request.AppointmentCreateDTO;
 import br.edu.ifpe.CRMHealthLink.controller.request.AvailabilityDTO;
 import br.edu.ifpe.CRMHealthLink.controller.request.DoctorCreateDTO;
 import br.edu.ifpe.CRMHealthLink.controller.response.DoctorResponseDTO;
-import br.edu.ifpe.CRMHealthLink.domain.entity.*;
-import br.edu.ifpe.CRMHealthLink.domain.repository.DoctorAvailabilityRepository;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController

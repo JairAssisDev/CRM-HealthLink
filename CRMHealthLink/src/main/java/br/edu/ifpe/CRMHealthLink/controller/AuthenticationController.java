@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink.controller;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.User;
 import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
-import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
+import br.edu.ifpe.CRMHealthLink.config.security.TokenService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
 import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginDTO;
 import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginResponseDto;

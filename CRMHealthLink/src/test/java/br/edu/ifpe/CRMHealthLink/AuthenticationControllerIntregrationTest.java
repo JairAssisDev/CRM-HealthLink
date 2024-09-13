@@ -4,7 +4,7 @@ import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginDTO;
 import br.edu.ifpe.CRMHealthLink.service.dto.baseUserDto.UserLoginResponseDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
+import br.edu.ifpe.CRMHealthLink.config.security.TokenService;
 import static org.junit.jupiter.api.Assertions.*;
 
 import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
