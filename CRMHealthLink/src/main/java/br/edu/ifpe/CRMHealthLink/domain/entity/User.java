@@ -22,7 +22,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public  class User implements UserDetails {
 
-
     public User(String name, LocalDate birthDate, String cpf, String email, String password,AcessLevel level){
         this.name = name;
         this.birthDate = birthDate;
@@ -53,6 +52,7 @@ public  class User implements UserDetails {
     @Column(name = "acess_level")
     @Enumerated(EnumType.STRING)
     private AcessLevel acessLevel;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

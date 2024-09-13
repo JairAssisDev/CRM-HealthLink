@@ -1,12 +1,13 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.controller.request.AvailabilityDTO;
 import br.edu.ifpe.CRMHealthLink.controller.request.DoctorCreateDTO;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.useCase.IDoctorService;
+import br.edu.ifpe.CRMHealthLink.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class DoctorController {
 
     private IDoctorService doctorService;
+    private UserService userService;
 
-
-    public DoctorController(IDoctorService doctorService) {
+    public DoctorController(IDoctorService doctorService,
+                            UserService userService) {
         this.doctorService = doctorService;
+        this.userService = userService;
     }
 
     @Operation(summary = "cria médico")
@@ -36,9 +39,17 @@ public class DoctorController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @Operation(summary = "marca disponibilidade do médico")
 
-    public ResponseEntity<Void> addAvailability(){
+    @PostMapping("/available")
 
+    public ResponseEntity<Void> addAvailability(AvailabilityDTO availabilityDTO){
+        var doctor = (Doctor) userService.getUserByEmail(availabilityDTO.doctorEmail());
+
+        if(doctor == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        doctorService.addAvailability(availabilityDTO.toEntity(doctor));
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

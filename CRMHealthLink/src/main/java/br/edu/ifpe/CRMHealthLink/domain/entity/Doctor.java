@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Doctor extends User {
+public class Doctor extends User implements Serializable {
 
     public Doctor(String name, LocalDate birthDate, String cpf, String email, String password,String CRM,String speciality){
         super(name,birthDate,cpf,email,password,AcessLevel.DOCTOR);
