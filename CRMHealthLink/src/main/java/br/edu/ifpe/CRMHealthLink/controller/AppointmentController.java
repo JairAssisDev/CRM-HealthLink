@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.controller.exception.IncorrectInputException;
 import br.edu.ifpe.CRMHealthLink.controller.request.AppointmentCreateDTO;
 import br.edu.ifpe.CRMHealthLink.controller.request.AvailabilityDTO;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
@@ -41,14 +42,16 @@ public class AppointmentController {
     @PostMapping
     public ResponseEntity<Void> createAppointment(@RequestBody @Valid AppointmentCreateDTO appointmentDTO){
 
-        var patient = (Patient) userService.getUserByEmail(appointmentDTO.patientEmail);
-        var doctor = (Doctor) userService.getUserByEmail(appointmentDTO.doctorEmail);
+        var patient =userService.getUserByEmail(appointmentDTO.patientEmail,Patient.class);
+        var doctor = userService.getUserByEmail(appointmentDTO.doctorEmail, Doctor.class);
         var employee = (Employee) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var appointment = appointmentDTO.toEntity(patient,doctor,employee);
 
-        doctorService.schedule(appointmentDTO.availability.beginTime(),appointmentDTO.availability.endTime(),doctor,appointment);
+        doctorService.schedule(appointmentDTO.availability.beginTime(),appointmentDTO.availability.endTime(),
+                doctor,appointment);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
 
 }
