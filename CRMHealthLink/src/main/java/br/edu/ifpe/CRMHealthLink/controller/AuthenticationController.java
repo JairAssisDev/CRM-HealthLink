@@ -4,7 +4,7 @@ import br.edu.ifpe.CRMHealthLink.config.security.TokenService;
 import br.edu.ifpe.CRMHealthLink.controller.request.UserLogin;
 import br.edu.ifpe.CRMHealthLink.controller.response.UserLoginResponse;
 import br.edu.ifpe.CRMHealthLink.domain.entity.User;
-import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
+import br.edu.ifpe.CRMHealthLink.repository.UserRepository;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

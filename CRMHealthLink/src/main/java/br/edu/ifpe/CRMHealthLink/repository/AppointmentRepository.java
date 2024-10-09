@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.domain.repository;
+package br.edu.ifpe.CRMHealthLink.repository;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;

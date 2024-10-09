@@ -36,6 +36,15 @@ public class Doctor extends User implements Serializable {
     @Column
     private String Specialty;
 
+    @Column(name = "specialty")
+    @Enumerated(EnumType.STRING)
+    private Specialty specialtyType;
+
+
+
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "doctor",cascade = CascadeType.ALL)
     private List<DoctorAvailability> availabilities;
+
+
+
 }

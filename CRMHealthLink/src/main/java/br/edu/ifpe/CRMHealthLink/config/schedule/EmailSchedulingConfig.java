@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink.config.schedule;
 
 import br.edu.ifpe.CRMHealthLink.service.Email;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.domain.repository.AppointmentRepository;
+import br.edu.ifpe.CRMHealthLink.repository.AppointmentRepository;
 import br.edu.ifpe.CRMHealthLink.service.EmailService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
-import br.edu.ifpe.CRMHealthLink.domain.repository.EmployeeRepository;
+import br.edu.ifpe.CRMHealthLink.repository.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

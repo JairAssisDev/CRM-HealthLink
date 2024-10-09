@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.domain.repository.PatientRepository;
+import br.edu.ifpe.CRMHealthLink.repository.PatientRepository;
 import br.edu.ifpe.CRMHealthLink.domain.useCase.IPatientService;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;

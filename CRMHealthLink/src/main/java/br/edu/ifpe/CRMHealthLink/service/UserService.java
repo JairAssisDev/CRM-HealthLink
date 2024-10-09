@@ -3,7 +3,7 @@ package br.edu.ifpe.CRMHealthLink.service;
 import br.edu.ifpe.CRMHealthLink.controller.exception.IncorrectInputException;
 import br.edu.ifpe.CRMHealthLink.controller.exception.UserNotFoundException;
 import br.edu.ifpe.CRMHealthLink.domain.entity.User;
-import br.edu.ifpe.CRMHealthLink.domain.repository.UserRepository;
+import br.edu.ifpe.CRMHealthLink.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
