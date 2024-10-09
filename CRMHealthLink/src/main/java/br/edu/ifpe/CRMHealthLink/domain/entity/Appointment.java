@@ -42,4 +42,6 @@ public class Appointment {
 
     private boolean notified;
 
+    private boolean done;
+
 }

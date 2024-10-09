@@ -1,68 +1,34 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
-import br.edu.ifpe.CRMHealthLink.service.dto.appointmentDto.AppointmentResponseDto;
-import br.edu.ifpe.CRMHealthLink.service.dto.examDto.ExamResponseDto;
-import br.edu.ifpe.CRMHealthLink.service.dto.mapper.AppointmentMapper;
-import br.edu.ifpe.CRMHealthLink.service.dto.mapper.ExamMapper;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Exam;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
-import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
-import br.edu.ifpe.CRMHealthLink.service.ExamService;
-import br.edu.ifpe.CRMHealthLink.service.PatientService;
+import br.edu.ifpe.CRMHealthLink.controller.request.PatientCreateDTO;
+import br.edu.ifpe.CRMHealthLink.domain.useCase.IPatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
-@CrossOrigin
-@RequestMapping("crmhealthlink/api/patient")
+@RequestMapping("patient")
 @Tag(name = "Patient API", description = "API para gestão de Pacientes")
 public class PatientController {
-    private final AppointmentService appointmentService;
-    private final AppointmentMapper appointmentMapper;
-    private final PatientService patientService;
-    private final ExamService examService;
-    private final ExamMapper examMapper;
 
+    private IPatientService patientService;
 
-
-    @Operation(summary = "Obtém todas as Consultas do pacente", description = "Obtém a lista de todas as Consultas do pacente")
-    @GetMapping("/appointments/{id}")
-    public ResponseEntity<List<AppointmentResponseDto>> findAllAppointments(@PathVariable Long id) {
-
-        Patient patient = patientService.findById(id);
-        List<Appointment> appointments = appointmentService.getAllAppointment();
-        List<Appointment> patientAppointments = new ArrayList<>();
-        for (Appointment appointment : appointments) {
-            if (appointment.getPatient().getId() == patient.getId()) {
-                patientAppointments.add(appointment);
-            }
-        }
-        List<AppointmentResponseDto> responseDtos = appointmentMapper.toDtoAppointments(patientAppointments);
-        return ResponseEntity.ok(responseDtos);
+    public PatientController(IPatientService patientService) {
+        this.patientService = patientService;
     }
 
-    @Operation(summary = "Obtém todas os enxames do pacente", description = "Obtém a lista de todas os enxames do pacente")
-    @GetMapping("/exams/{id}")
-    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable Long id) {
-        Patient patient = patientService.findById(id);
-        List<Exam> exams = examService.getAllExams();
-        List<Exam> patientExams = new ArrayList<>();
-        for (Exam exam : exams) {
-            if (exam.getAppointment().getPatient().getId() == patient.getId()) {
-                patientExams.add(exam);
-            }
-        }
-        List<ExamResponseDto> responseDtos = examMapper.toDtoExamsPatient(patientExams);
-        return ResponseEntity.ok(responseDtos);
+    @Operation(summary = "cria paciente")
+    @PostMapping
+    public ResponseEntity<Void> createPatient(@RequestBody @Valid PatientCreateDTO patientDTO){
+        patientService.save(patientDTO.toEntity());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
 }

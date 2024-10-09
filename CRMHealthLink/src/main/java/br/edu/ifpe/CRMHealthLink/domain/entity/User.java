@@ -21,6 +21,15 @@ import java.util.List;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public  class User implements UserDetails {
+
+    public User(String name, LocalDate birthDate, String cpf, String email, String password,AcessLevel level){
+        this.name = name;
+        this.birthDate = birthDate;
+        this.cpf = cpf;
+        this.email = email;
+        this.password = password;
+        this.acessLevel = level;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,21 +40,19 @@ public  class User implements UserDetails {
     @Column
     private LocalDate birthDate;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
-
-    @Column(name = "login")
-    private String Login;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "cpf" )
+    @Column(name = "cpf",unique = true)
     private String cpf;
 
     @Column(name = "acess_level")
     @Enumerated(EnumType.STRING)
     private AcessLevel acessLevel;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
