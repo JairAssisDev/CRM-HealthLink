@@ -36,9 +36,10 @@ public class Doctor extends User implements Serializable {
     @Column
     private String Specialty;
 
-    @Column(name = "specialty")
+    @Column(name = "specialty_Type")
     @Enumerated(EnumType.STRING)
     private Specialty specialtyType;
+
 
 
 
