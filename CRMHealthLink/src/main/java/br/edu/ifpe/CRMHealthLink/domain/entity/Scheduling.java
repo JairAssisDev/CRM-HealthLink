@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "scheduling")
@@ -25,6 +26,9 @@ public class Scheduling {
 
     @Column(nullable = false)
     private LocalDateTime endDateTime;
+
+    @OneToMany
+    private List<Appointment> appointments;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id")

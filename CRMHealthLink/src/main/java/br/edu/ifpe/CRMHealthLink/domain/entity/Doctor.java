@@ -26,5 +26,8 @@ public class Doctor extends User {
     private String CRM;
 
     @Column
-    private String Specialty;
+    private Specialty Specialty;
+
+    @Column
+    private Float workload;
 }
