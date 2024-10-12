@@ -18,10 +18,9 @@ public class MockEntities {
     private IAppointmentRepository IAppointmentRepository;
     private IUserRepository IUserRepository;
 
-    public MockEntities(PasswordEncoder encoder,
-                        IAppointmentRepository IAppointmentRepository,
-                        IUserRepository IUserRepository) {
-        this.encoder = encoder;
+    public MockEntities(PasswordEncoder passwordEncoder, IAppointmentRepository IAppointmentRepository, IUserRepository IUserRepository) {
+
+        this.encoder = passwordEncoder;
         this.IAppointmentRepository = IAppointmentRepository;
         this.IUserRepository = IUserRepository;
     }
@@ -72,7 +71,7 @@ public class MockEntities {
     public Doctor getDoctor(){
         Doctor doctor = new Doctor(getUser());
         doctor.setCRM("CRM-here");
-        doctor.setSpecialty("Speciality");
+        doctor.setSpecialty(Specialty.CARDIOLOGISTA);
         return doctor;
     }
     public Appointment getAppointment(){

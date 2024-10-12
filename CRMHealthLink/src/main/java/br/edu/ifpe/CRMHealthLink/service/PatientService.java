@@ -7,6 +7,7 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IPatientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,15 +45,17 @@ public class PatientService {
     }
 
     @Transactional
-    public void update(Long id,PatientCreateDto patientCreateDto) {
+    public void update(Long id,Patient patientNew) {
         Patient patient = findById(id);
 
-        patient.setName(patientCreateDto.getName());
-        patient.setBirthDate(patientCreateDto.getBirthDate());
-        patient.setEmail(patientCreateDto.getEmail());
-        patient.setCpf(patientCreateDto.getCpf());
+        patient.setName(patientNew.getName());
+        patient.setBirthDate(patientNew.getBirthDate());
+        patient.setEmail(patientNew.getEmail());
+        patient.setCpf(patientNew.getCpf());
 
-        patient.setPassword(patientCreateDto.getPassword());
+        if (patientNew.getPassword() != null) {
+            patient.setPassword(encoder.encode(patientNew.getPassword()));
+        }
 
         IPatientRepository.save(patient);
 

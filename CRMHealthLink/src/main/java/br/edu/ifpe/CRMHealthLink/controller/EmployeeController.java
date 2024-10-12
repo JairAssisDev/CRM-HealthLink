@@ -10,10 +10,7 @@ import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.EmployeeMapper;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.PatientMapper;
 import br.edu.ifpe.CRMHealthLink.controller.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.controller.dto.patientDto.PatientResponseDto;
-import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.domain.entity.*;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
@@ -90,7 +87,8 @@ public class EmployeeController {
     @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
     @PutMapping("/paciente/{id}")
     public ResponseEntity<Void> updateEmployee(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
-        patientService.update(id,patientCreateDto);
+        Patient patient = patientMapper.toPatient(patientCreateDto);
+        patientService.update(id,patient);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -177,5 +175,11 @@ public class EmployeeController {
     public ResponseEntity<Void> updateDoctor(@PathVariable Long id, @RequestBody DoctorCreateDto doctor) {
         doctorService.update(id, doctor);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping("/doctors/specialty")
+    private ResponseEntity<List<Doctor>> findAllSpecialties(Specialty specialty) {
+        List<Doctor> doctors = doctorService.findAllDoctorBySpecialty(specialty);
+        return ResponseEntity.status(HttpStatus.OK).body(doctors);
     }
 }

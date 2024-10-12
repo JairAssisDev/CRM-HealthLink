@@ -1,7 +1,9 @@
 package br.edu.ifpe.CRMHealthLink;
 
+import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.PatientMapper;
 import br.edu.ifpe.CRMHealthLink.controller.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.repository.IPatientRepository;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 import org.junit.jupiter.api.Test;
@@ -31,8 +33,9 @@ public class PatientServiceTest {
     @Test
     public void testPatientPasswordIsEncoded(){
         BCryptPasswordEncoder auxEncoder = new BCryptPasswordEncoder();
-        PatientCreateDto patient = new PatientCreateDto("NomeComOito",LocalDate.now(),"12345678910",
+        PatientCreateDto patientCreateDto = new PatientCreateDto("NomeComOito",LocalDate.now(),"12345678910",
                 "email",AcessLevel.PATIENT,"password");
+        Patient patient = PatientMapper.toPatient(patientCreateDto);
         patientService.save(patient);
 
         verify(passwordEncoder,times(1)).encode(patient.getPassword());

@@ -1,12 +1,12 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.doctorDto;
 
 import br.edu.ifpe.CRMHealthLink.controller.dto.baseUserDto.UserCreateDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Specialty;
+import lombok.*;
 
-@Data
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class DoctorCreateDto extends UserCreateDto {
@@ -15,5 +15,5 @@ public class DoctorCreateDto extends UserCreateDto {
     private String CRM;
 
     @NonNull
-    private String Specialty;
+    private Specialty Specialty;
 }

@@ -1,8 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -26,7 +24,8 @@ public class Doctor extends User {
     private String CRM;
 
     @Column
-    private Specialty Specialty;
+    @Enumerated(EnumType.STRING)
+    private Specialty specialty;
 
     @Column
     private Float workload;
