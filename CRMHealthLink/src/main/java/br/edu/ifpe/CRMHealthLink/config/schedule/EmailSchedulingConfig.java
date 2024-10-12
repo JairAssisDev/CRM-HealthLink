@@ -1,8 +1,8 @@
 package br.edu.ifpe.CRMHealthLink.config.schedule;
 
-import br.edu.ifpe.CRMHealthLink.service.Email;
+import br.edu.ifpe.CRMHealthLink.controller.dto.email.Email;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
-import br.edu.ifpe.CRMHealthLink.domain.repository.AppointmentRepository;
+import br.edu.ifpe.CRMHealthLink.repository.IAppointmentRepository;
 import br.edu.ifpe.CRMHealthLink.service.EmailService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -17,14 +17,14 @@ public class EmailSchedulingConfig {
     private static final long oneHour = 1000 * 60 * 60;
     private static final long fixed_delay = oneHour * 24;
 
-    private AppointmentRepository appointmentRepository;
+    private IAppointmentRepository IAppointmentRepository;
 
     private EmailService emailService;
 
-    public EmailSchedulingConfig(AppointmentRepository appointmentRepository,
+    public EmailSchedulingConfig(IAppointmentRepository IAppointmentRepository,
                                  EmailService emailService
                                  ) {
-        this.appointmentRepository = appointmentRepository;
+        this.IAppointmentRepository = IAppointmentRepository;
         this.emailService = emailService;
     }
 
@@ -35,7 +35,7 @@ public class EmailSchedulingConfig {
 
         LocalDateTime start = LocalDateTime.now().plusDays(1).withHour(0).withMinute(0);
         LocalDateTime end = start.plusDays(1);
-        List<Appointment>  appointments = appointmentRepository.findByDateBetweenAndNotifiedIsFalse(start,end);
+        List<Appointment>  appointments = IAppointmentRepository.findByDateBetweenAndNotifiedIsFalse(start,end);
 
         for(Appointment appointment : appointments){
             var email = new Email(appointment.getPatient().getEmail(),
@@ -45,7 +45,7 @@ public class EmailSchedulingConfig {
             appointment.setNotified(true);
             System.out.println("Email sent to: "+email.to());
         }
-        appointmentRepository.saveAll(appointments);
+        IAppointmentRepository.saveAll(appointments);
     }
 
 }
