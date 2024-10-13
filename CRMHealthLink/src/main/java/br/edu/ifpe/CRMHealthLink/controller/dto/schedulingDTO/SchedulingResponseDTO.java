@@ -6,16 +6,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class SchedulingResponseDTO {
-    private LocalDateTime homeDateTime;
 
-    private LocalDateTime endDateTime;
+    private LocalDate date;
+
+    private LocalTime homeTime;
+
+    private LocalTime endTime;
 
     private Specialty specialtyType;
 }

@@ -1,10 +1,13 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Specialty;
 import br.edu.ifpe.CRMHealthLink.service.SchedulingService;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.SchedulingMapper;
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingCreateDTO;
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingResponseDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("crmhealthlink/api/calendario")
-@Tag(name = "calendario API", description = "API para gestão do calendario dos médicos")
+@Tag(name = "calendario API", description = "API para gestão do calendário dos médicos")
 public class SchedulingController {
     @Autowired
     private final SchedulingService schedulingService;
@@ -27,15 +30,15 @@ public class SchedulingController {
     private SchedulingMapper schedulingMapper;
 
     @PostMapping
+    @Operation(summary = "Criar agendamento", description = "Cria um novo agendamento para um médico.")
     public ResponseEntity<SchedulingResponseDTO> create(@RequestBody @Valid SchedulingCreateDTO schedulingCreateDTO) {
-        Scheduling schedulingtemp = schedulingService.findByHomeDateTimeAndEndDateTime(schedulingCreateDTO.getHomeDateTime(),
-                schedulingCreateDTO.getEndDateTime());
+        Scheduling schedulingtemp = schedulingService.findByHomeDateTimeAndEndDateTimeAndScheduling(
+                schedulingCreateDTO.getDate(),
+                schedulingCreateDTO.getHomeTime(),
+                schedulingCreateDTO.getSpecialtyType()
+        );
 
-        if (schedulingtemp != null &&
-                (schedulingCreateDTO.getHomeDateTime().isEqual(schedulingtemp.getHomeDateTime()) ||
-                        schedulingCreateDTO.getHomeDateTime().isBefore(schedulingtemp.getEndDateTime()) ||
-                        schedulingCreateDTO.getEndDateTime().isBefore(schedulingtemp.getEndDateTime()))) {
-
+        if (schedulingtemp != null || schedulingCreateDTO.getEndTime().isBefore(schedulingCreateDTO.getHomeTime())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
@@ -43,16 +46,30 @@ public class SchedulingController {
         Scheduling schedulingSave = schedulingService.save(scheduling);
 
         SchedulingResponseDTO responseDTO = new SchedulingResponseDTO();
-        responseDTO.setEndDateTime(schedulingSave.getEndDateTime());
-        responseDTO.setHomeDateTime(schedulingSave.getHomeDateTime());
+        responseDTO.setDate(schedulingSave.getDate());
+        responseDTO.setHomeTime(schedulingSave.getHomeTime());
         responseDTO.setSpecialtyType(schedulingSave.getSpecialtyType());
+        responseDTO.setEndTime(schedulingSave.getEndTime());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @GetMapping
+    @Operation(summary = "Listar todos os agendamentos", description = "Retorna uma lista de todos os agendamentos.")
     public ResponseEntity<List<SchedulingResponseDTO>> getAll() {
         List<Scheduling> schedulings = schedulingService.findAll();
+        List<SchedulingResponseDTO> schedulingResponseDTOS = schedulingMapper.toDtoSchedulings(schedulings);
+        return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
+    }
+
+    @GetMapping("/specialty")
+    @Operation(summary = "Listar agendamentos por especialidade, mês e ano",
+            description = "Retorna uma lista de agendamentos filtrados por especialidade, mês e ano.")
+    public ResponseEntity<List<SchedulingResponseDTO>> getBySpecialtyAndMonthYear(
+            @Parameter(description = "Tipo de especialidade a ser filtrada") @RequestParam Specialty specialty,
+            @Parameter(description = "Mês para filtrar os agendamentos (1-12)") @RequestParam int month,
+            @Parameter(description = "Ano para filtrar os agendamentos") @RequestParam int year) {
+        List<Scheduling> schedulings = schedulingService.getSchedulesBySpecialtyAndMonthYear(specialty, month, year);
         List<SchedulingResponseDTO> schedulingResponseDTOS = schedulingMapper.toDtoSchedulings(schedulings);
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
     }
