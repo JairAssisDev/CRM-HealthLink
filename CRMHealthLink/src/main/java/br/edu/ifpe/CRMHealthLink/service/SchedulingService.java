@@ -1,12 +1,14 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Specialty;
 import br.edu.ifpe.CRMHealthLink.repository.ISchedulingRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -14,8 +16,8 @@ import java.util.List;
 public class SchedulingService {
     private final ISchedulingRepository schedulingRepository;
 
-    public Scheduling findByHomeDateTimeAndEndDateTime(LocalDateTime homeDateTime ,LocalDateTime endDateTime) {
-        return schedulingRepository.findByHomeDateTimeOrEndDateTime(homeDateTime, endDateTime);
+    public Scheduling findByHomeDateTimeAndEndDateTimeAndScheduling(LocalDate date , LocalTime homeTime, Specialty specialty ) {
+        return schedulingRepository.findByDateAndHomeTimeAndSpecialtyType(date,homeTime,specialty);
     }
 
     @Transactional
@@ -26,4 +28,7 @@ public class SchedulingService {
         return schedulingRepository.findAll();
     }
 
+    public List<Scheduling> getSchedulesBySpecialtyAndMonthYear(Specialty specialty, int month, int year) {
+        return schedulingRepository.findBySpecialtyAndMonthAndYear(specialty, month, year);
+    }
 }

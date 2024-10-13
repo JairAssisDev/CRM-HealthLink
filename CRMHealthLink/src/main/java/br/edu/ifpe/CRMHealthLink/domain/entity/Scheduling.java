@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -22,10 +24,13 @@ public class Scheduling {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime homeDateTime;
+    private LocalDate date;
 
     @Column(nullable = false)
-    private LocalDateTime endDateTime;
+    private LocalTime homeTime;
+
+    @Column(nullable = false)
+    private LocalTime endTime;
 
     @OneToMany
     private List<Appointment> appointments;
@@ -38,28 +43,22 @@ public class Scheduling {
     @Enumerated(EnumType.STRING)
     private Specialty specialtyType;
 
-    public Scheduling(Specialty specialtyType, Doctor doctor, LocalDateTime homeDateTime, LocalDateTime endDateTime) {
+    public Scheduling(Specialty specialtyType, LocalDate date,LocalTime homeTime , LocalTime endTime) {
         this.specialtyType = specialtyType;
-        this.doctor = doctor;
-        this.homeDateTime = homeDateTime;
-        this.endDateTime = endDateTime;
-    }
-
-    public Scheduling(Specialty specialtyType, LocalDateTime homeDateTime, LocalDateTime endDateTime) {
-        this.specialtyType = specialtyType;
-        this.homeDateTime = homeDateTime;
-        this.endDateTime = endDateTime;
+        this.date = date;
+        this.homeTime = homeTime;
+        this.endTime = endTime;
     }
 
     @PrePersist
     @PreUpdate
     private void validateDates() {
-        if (homeDateTime == null || endDateTime == null) {
-            throw new IllegalArgumentException("Datas de início e fim não podem ser nulas.");
+        if (homeTime == null || endTime == null) {
+            throw new IllegalArgumentException("Hora de início e fim não podem ser nulas.");
         }
 
-        if (!homeDateTime.isBefore(endDateTime)) {
-            throw new IllegalArgumentException("A data de início deve ser anterior à data de fim.");
+        if (!homeTime.isBefore(endTime)) {
+            throw new IllegalArgumentException("A hora de início deve ser anterior à data de fim.");
         }
 
     }
