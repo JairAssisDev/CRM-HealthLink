@@ -3,6 +3,7 @@ package br.edu.ifpe.CRMHealthLink.service;
 import br.edu.ifpe.CRMHealthLink.controller.dto.employeeDto.EmployeeCreateDto;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.EmployeeMapper;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IEmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -54,4 +56,8 @@ public class EmployeeService {
         employee.setOffice(employeeCreateDto.getOffice());
         IEmployeeRepository.save(employee);
     }
+
+
+
+
 }

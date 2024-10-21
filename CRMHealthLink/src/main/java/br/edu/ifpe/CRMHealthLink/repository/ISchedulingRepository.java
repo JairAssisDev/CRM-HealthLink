@@ -22,4 +22,5 @@ public interface ISchedulingRepository extends JpaRepository<Scheduling, Long> {
             @Param("month") int month,
             @Param("year") int year);
 
+
 }

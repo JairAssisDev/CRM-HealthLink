@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -91,5 +92,9 @@ public class SchedulingController {
                             associateDoctorDTO.getSpecialityType(),associateDoctorDTO.getCrm());
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(SchedulingMapper.toSchedulingDoctorResponseDTO(scheduling));
+    }
+    @GetMapping("/getAllTimeSlots")
+    public ResponseEntity<Map<Speciality,Long>> getTimeSlots(){
+        return ResponseEntity.ok(schedulingService.getSpecialityTimeSlots());
     }
 }

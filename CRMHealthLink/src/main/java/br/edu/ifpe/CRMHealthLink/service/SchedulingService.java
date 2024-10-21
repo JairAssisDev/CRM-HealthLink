@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -56,7 +59,18 @@ public class SchedulingService {
     public List<Scheduling> getSchedulesBySpecialtyAndMonthYear(Speciality speciality, int month, int year) {
         return schedulingRepository.findBySpecialtyAndMonthAndYear(speciality, month, year);
     }
-
+    public Map<Speciality,Long> getSpecialityTimeSlots(){
+        List<Doctor> doctors = doctorService.getAllDoctors();
+        Map<Speciality,Long> maps = new HashMap<>();
+        for(Doctor doctor : doctors){
+            Speciality speciality =doctor.getSpeciality();
+            if(!maps.containsKey(speciality)){
+                maps.put(speciality,0L);
+            }
+            maps.put(speciality,maps.get(speciality)+doctor.getNumberOfTimeSlots());
+        }
+        return maps;
+    }
 
 
 }
