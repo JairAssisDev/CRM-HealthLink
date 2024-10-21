@@ -1,8 +1,10 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.mapper;
 
+import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingDoctorResponseDTO;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingCreateDTO;
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingResponseDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -32,4 +34,12 @@ public class SchedulingMapper {
                 .map(SchedulingMapper::toScheduling)
                 .collect(Collectors.toList());
     }
+
+    public static SchedulingDoctorResponseDTO toSchedulingDoctorResponseDTO(Scheduling scheduling){
+
+        return new SchedulingDoctorResponseDTO(scheduling.getDate(),scheduling.getHomeTime(),scheduling.getEndTime(),
+                scheduling.getSpecialityType(),scheduling.getDoctor().getCRM(),scheduling.getDoctor().getName());
+
+    }
+
 }

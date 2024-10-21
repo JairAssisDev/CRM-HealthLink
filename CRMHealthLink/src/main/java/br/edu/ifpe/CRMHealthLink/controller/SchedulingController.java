@@ -1,5 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
+import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.AssociateDoctorDTO;
+import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingDoctorResponseDTO;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.service.SchedulingService;
@@ -26,8 +28,6 @@ public class SchedulingController {
     @Autowired
     private final SchedulingService schedulingService;
 
-    @Autowired
-    private SchedulingMapper schedulingMapper;
 
     @PostMapping
     @Operation(summary = "Criar agendamento", description = "Cria um novo agendamento para um médico.")
@@ -42,7 +42,7 @@ public class SchedulingController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        Scheduling scheduling = schedulingMapper.toScheduling(schedulingCreateDTO);
+        Scheduling scheduling = SchedulingMapper.toScheduling(schedulingCreateDTO);
         Scheduling schedulingSave = schedulingService.save(scheduling);
 
         SchedulingResponseDTO responseDTO = new SchedulingResponseDTO();
@@ -56,9 +56,9 @@ public class SchedulingController {
 
     @PostMapping("/savaList")
     public List<SchedulingResponseDTO> createListScheduling(@RequestBody @Valid List<SchedulingCreateDTO> schedulingCreateDTOList) {
-        List<Scheduling> schedulings = schedulingMapper.toDtoSchedulingCreateDTOs(schedulingCreateDTOList);
+        List<Scheduling> schedulings = SchedulingMapper.toDtoSchedulingCreateDTOs(schedulingCreateDTOList);
         List<Scheduling> schedulingList = schedulingService.saveAll(schedulings);
-        List<SchedulingResponseDTO> responseDTOList = schedulingMapper.toDtoSchedulings(schedulingList);
+        List<SchedulingResponseDTO> responseDTOList = SchedulingMapper.toDtoSchedulings(schedulingList);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTOList).getBody();
 
     }
@@ -67,7 +67,7 @@ public class SchedulingController {
     @Operation(summary = "Listar todos os agendamentos", description = "Retorna uma lista de todos os agendamentos.")
     public ResponseEntity<List<SchedulingResponseDTO>> getAll() {
         List<Scheduling> schedulings = schedulingService.findAll();
-        List<SchedulingResponseDTO> schedulingResponseDTOS = schedulingMapper.toDtoSchedulings(schedulings);
+        List<SchedulingResponseDTO> schedulingResponseDTOS = SchedulingMapper.toDtoSchedulings(schedulings);
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
     }
 
@@ -79,7 +79,17 @@ public class SchedulingController {
             @Parameter(description = "Mês para filtrar os agendamentos (1-12)") @RequestParam int month,
             @Parameter(description = "Ano para filtrar os agendamentos") @RequestParam int year) {
         List<Scheduling> schedulings = schedulingService.getSchedulesBySpecialtyAndMonthYear(speciality, month, year);
-        List<SchedulingResponseDTO> schedulingResponseDTOS = schedulingMapper.toDtoSchedulings(schedulings);
+        List<SchedulingResponseDTO> schedulingResponseDTOS = SchedulingMapper.toDtoSchedulings(schedulings);
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
+    }
+
+
+    @PostMapping("/associateDoctor")
+    public ResponseEntity<SchedulingDoctorResponseDTO> associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO){
+
+        var scheduling = schedulingService.scheduleDoctor(associateDoctorDTO.getDate(),associateDoctorDTO.getHomeTime(),
+                            associateDoctorDTO.getSpecialityType(),associateDoctorDTO.getCrm());
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(SchedulingMapper.toSchedulingDoctorResponseDTO(scheduling));
     }
 }

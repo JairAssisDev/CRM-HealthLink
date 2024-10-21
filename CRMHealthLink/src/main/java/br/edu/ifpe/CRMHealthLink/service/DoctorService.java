@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +22,10 @@ public class DoctorService {
     @Transactional
     public Doctor save(Doctor doctor) {
         return doctorRepository.save(doctor);
+    }
+
+    public Optional<Doctor> getByCRM(String crm){
+        return doctorRepository.findByCRM(crm);
     }
 
     @Transactional(readOnly = true)

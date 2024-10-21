@@ -23,4 +23,6 @@ public class SchedulingResponseDTO {
     private LocalTime endTime;
 
     private Speciality specialityType;
+
+
 }
