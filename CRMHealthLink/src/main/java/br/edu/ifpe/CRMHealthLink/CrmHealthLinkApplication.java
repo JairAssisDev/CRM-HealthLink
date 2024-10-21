@@ -22,10 +22,8 @@ public class CrmHealthLinkApplication {
 	}
 
 	@Bean
-	public CommandLineRunner temporaryManager(IEmployeeRepository IEmployeeRepository,
-											  IAppointmentRepository IAppointmentRepository,
-											  PasswordEncoder encoder,
-											  MockEntities mock, IUserRepository IUserRepository, IDoctorRepository IDoctorRepository) {
+	public CommandLineRunner temporaryManager(PasswordEncoder encoder
+											  , IUserRepository userRepository) {
 		return a ->{
 			var manager = new Employee();
 			manager.setAcessLevel(AcessLevel.MANAGER);
@@ -33,30 +31,7 @@ public class CrmHealthLinkApplication {
 			manager.setEmail("admin@email.com");
 			manager.setPassword(encoder.encode("123"));
 
-			var emp = new Employee();
-			emp.setAcessLevel(AcessLevel.ATTENDANT);
-			emp.setName("Carmen Jurema");
-			emp.setEmail("att@email.com");
-			emp.setPassword(encoder.encode("123"));
-
-			var doctor = new Doctor();
-			doctor.setAcessLevel(AcessLevel.DOCTOR);
-			doctor.setName("Anastasia Inés");
-			doctor.setEmail("doctor@email.com");
-			doctor.setPassword(encoder.encode("123"));
-
-
-
-			IUserRepository.save(doctor);
-			IEmployeeRepository.save(manager);
-			IEmployeeRepository.save(emp);
-			mock.saveAppointment();
-			mock.saveAppointment();
-
-			var ap = mock.getAppointment();
-			ap.setDoctor(doctor);
-			ap.setNotified(false);
-			mock.saveAppointment(ap);
+			userRepository.save(manager);
 		};
 	}
 }

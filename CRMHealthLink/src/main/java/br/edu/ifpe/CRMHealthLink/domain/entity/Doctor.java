@@ -1,9 +1,11 @@
 package br.edu.ifpe.CRMHealthLink.domain.entity;
 
+import br.edu.ifpe.CRMHealthLink.config.Constants;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
+import org.springframework.core.env.Environment;
 
 @Entity
 @Table(name = "doctor")
@@ -28,5 +30,12 @@ public class Doctor extends User {
     private Speciality speciality;
 
     @Column
-    private Float workload;
+    private Long workload;//em horas
+
+
+    private Long numberOfTimeSlots; //mês
+    @PrePersist
+    public void setNumberTimeSlots(){
+        numberOfTimeSlots = workload/ Constants.timeSlot;
+    }
 }
