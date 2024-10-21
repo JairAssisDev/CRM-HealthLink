@@ -1,7 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Specialty;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.service.SchedulingService;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.SchedulingMapper;
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingCreateDTO;
@@ -35,7 +35,7 @@ public class SchedulingController {
         Scheduling schedulingtemp = schedulingService.findByHomeDateTimeAndEndDateTimeAndScheduling(
                 schedulingCreateDTO.getDate(),
                 schedulingCreateDTO.getHomeTime(),
-                schedulingCreateDTO.getSpecialtyType()
+                schedulingCreateDTO.getSpecialityType()
         );
 
         if (schedulingtemp != null || schedulingCreateDTO.getEndTime().isBefore(schedulingCreateDTO.getHomeTime())) {
@@ -48,10 +48,19 @@ public class SchedulingController {
         SchedulingResponseDTO responseDTO = new SchedulingResponseDTO();
         responseDTO.setDate(schedulingSave.getDate());
         responseDTO.setHomeTime(schedulingSave.getHomeTime());
-        responseDTO.setSpecialtyType(schedulingSave.getSpecialtyType());
+        responseDTO.setSpecialityType(schedulingSave.getSpecialityType());
         responseDTO.setEndTime(schedulingSave.getEndTime());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+    }
+
+    @PostMapping("/savaList")
+    public List<SchedulingResponseDTO> createListScheduling(@RequestBody @Valid List<SchedulingCreateDTO> schedulingCreateDTOList) {
+        List<Scheduling> schedulings = schedulingMapper.toDtoSchedulingCreateDTOs(schedulingCreateDTOList);
+        List<Scheduling> schedulingList = schedulingService.saveAll(schedulings);
+        List<SchedulingResponseDTO> responseDTOList = schedulingMapper.toDtoSchedulings(schedulingList);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTOList).getBody();
+
     }
 
     @GetMapping
@@ -66,10 +75,10 @@ public class SchedulingController {
     @Operation(summary = "Listar agendamentos por especialidade, mês e ano",
             description = "Retorna uma lista de agendamentos filtrados por especialidade, mês e ano.")
     public ResponseEntity<List<SchedulingResponseDTO>> getBySpecialtyAndMonthYear(
-            @Parameter(description = "Tipo de especialidade a ser filtrada") @RequestParam Specialty specialty,
+            @Parameter(description = "Tipo de especialidade a ser filtrada") @RequestParam Speciality speciality,
             @Parameter(description = "Mês para filtrar os agendamentos (1-12)") @RequestParam int month,
             @Parameter(description = "Ano para filtrar os agendamentos") @RequestParam int year) {
-        List<Scheduling> schedulings = schedulingService.getSchedulesBySpecialtyAndMonthYear(specialty, month, year);
+        List<Scheduling> schedulings = schedulingService.getSchedulesBySpecialtyAndMonthYear(speciality, month, year);
         List<SchedulingResponseDTO> schedulingResponseDTOS = schedulingMapper.toDtoSchedulings(schedulings);
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
     }

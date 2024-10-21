@@ -71,7 +71,7 @@ public class MockEntities {
     public Doctor getDoctor(){
         Doctor doctor = new Doctor(getUser());
         doctor.setCRM("CRM-here");
-        doctor.setSpecialty(Specialty.CARDIOLOGISTA);
+        doctor.setSpeciality(Speciality.CARDIOLOGISTA);
         return doctor;
     }
     public Appointment getAppointment(){

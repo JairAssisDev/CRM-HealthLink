@@ -25,7 +25,7 @@ public class Doctor extends User {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Specialty specialty;
+    private Speciality speciality;
 
     @Column
     private Float workload;

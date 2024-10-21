@@ -1,7 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Specialty;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.repository.ISchedulingRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,12 @@ import java.util.List;
 public class SchedulingService {
     private final ISchedulingRepository schedulingRepository;
 
-    public Scheduling findByHomeDateTimeAndEndDateTimeAndScheduling(LocalDate date , LocalTime homeTime, Specialty specialty ) {
-        return schedulingRepository.findByDateAndHomeTimeAndSpecialtyType(date,homeTime,specialty);
+    public Scheduling findByHomeDateTimeAndEndDateTimeAndScheduling(LocalDate date , LocalTime homeTime, Speciality speciality) {
+        return schedulingRepository.findByDateAndHomeTimeAndSpecialityType(date,homeTime, speciality);
+    }
+    @Transactional
+    public List<Scheduling> saveAll(List<Scheduling> schedulings) {
+        return schedulingRepository.saveAll(schedulings);
     }
 
     @Transactional
@@ -28,7 +32,7 @@ public class SchedulingService {
         return schedulingRepository.findAll();
     }
 
-    public List<Scheduling> getSchedulesBySpecialtyAndMonthYear(Specialty specialty, int month, int year) {
-        return schedulingRepository.findBySpecialtyAndMonthAndYear(specialty, month, year);
+    public List<Scheduling> getSchedulesBySpecialtyAndMonthYear(Speciality speciality, int month, int year) {
+        return schedulingRepository.findBySpecialtyAndMonthAndYear(speciality, month, year);
     }
 }

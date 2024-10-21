@@ -27,4 +27,9 @@ public class SchedulingMapper {
                 .map(SchedulingMapper::toSchedulingResponseDTO)
                 .collect(Collectors.toList());
     }
+    public static List<Scheduling> toDtoSchedulingCreateDTOs(List<SchedulingCreateDTO> schedulingList) {
+        return schedulingList.stream()
+                .map(SchedulingMapper::toScheduling)
+                .collect(Collectors.toList());
+    }
 }

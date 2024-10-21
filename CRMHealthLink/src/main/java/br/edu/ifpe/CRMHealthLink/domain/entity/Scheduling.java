@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -41,10 +40,10 @@ public class Scheduling {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Specialty specialtyType;
+    private Speciality specialityType;
 
-    public Scheduling(Specialty specialtyType, LocalDate date,LocalTime homeTime , LocalTime endTime) {
-        this.specialtyType = specialtyType;
+    public Scheduling(Speciality specialityType, LocalDate date, LocalTime homeTime , LocalTime endTime) {
+        this.specialityType = specialityType;
         this.date = date;
         this.homeTime = homeTime;
         this.endTime = endTime;

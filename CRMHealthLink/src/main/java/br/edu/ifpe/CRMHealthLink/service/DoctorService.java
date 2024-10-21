@@ -2,7 +2,7 @@ package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.controller.dto.doctorDto.DoctorCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Specialty;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IDoctorRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,12 +51,12 @@ public class DoctorService {
 
         doctor.setPassword(doctorCreateDto.getPassword());
         doctor.setCRM(doctorCreateDto.getCRM());
-        doctor.setSpecialty(doctorCreateDto.getSpecialty());
+        doctor.setSpeciality(doctorCreateDto.getSpeciality());
 
         doctorRepository.save(doctor);
     }
 
-    public List<Doctor> findAllDoctorBySpecialty(Specialty specialty) {
-        return doctorRepository.findAllBySpecialty(specialty);
+    public List<Doctor> findAllDoctorBySpecialty(Speciality speciality) {
+        return doctorRepository.findAllBySpeciality(speciality);
     }
 }

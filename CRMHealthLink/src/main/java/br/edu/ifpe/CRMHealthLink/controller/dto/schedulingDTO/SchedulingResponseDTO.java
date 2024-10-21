@@ -1,6 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO;
 
-import br.edu.ifpe.CRMHealthLink.domain.entity.Specialty;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +22,5 @@ public class SchedulingResponseDTO {
 
     private LocalTime endTime;
 
-    private Specialty specialtyType;
+    private Speciality specialityType;
 }

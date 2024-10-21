@@ -1,6 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.domain.entity;
 
-public enum Specialty {
+public enum Speciality {
     CLINICOGERAL(0),
     PEDIATRA(1),
     UROLOGISTA(2),
@@ -17,7 +17,7 @@ public enum Specialty {
     ONCOLOGISTA(13),
     GASTROENTEROLOGISTA(14);
     private final Integer specialty;
-    Specialty(Integer specialty) {
+    Speciality(Integer specialty) {
         this.specialty = specialty;
     }
 }

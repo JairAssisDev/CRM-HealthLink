@@ -178,8 +178,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/doctors/specialty")
-    private ResponseEntity<List<Doctor>> findAllSpecialties(Specialty specialty) {
-        List<Doctor> doctors = doctorService.findAllDoctorBySpecialty(specialty);
+    private ResponseEntity<List<Doctor>> findAllSpecialties(Speciality speciality) {
+        List<Doctor> doctors = doctorService.findAllDoctorBySpecialty(speciality);
         return ResponseEntity.status(HttpStatus.OK).body(doctors);
     }
 }
