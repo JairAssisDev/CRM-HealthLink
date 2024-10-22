@@ -1,13 +1,7 @@
 package br.edu.ifpe.CRMHealthLink;
 
-import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
-import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
-import br.edu.ifpe.CRMHealthLink.repository.IAppointmentRepository;
-import br.edu.ifpe.CRMHealthLink.repository.IDoctorRepository;
-import br.edu.ifpe.CRMHealthLink.repository.IEmployeeRepository;
+import br.edu.ifpe.CRMHealthLink.domain.entity.*;
 import br.edu.ifpe.CRMHealthLink.repository.IUserRepository;
-import br.edu.ifpe.CRMHealthLink.service.MockEntities;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
