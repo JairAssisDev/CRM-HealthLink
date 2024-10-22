@@ -12,5 +12,5 @@ public class DoctorResponseDto  extends UserResponseDto {
 
     private String CRM;
 
-    private String Specialty;
+    private String Speciality;
 }
