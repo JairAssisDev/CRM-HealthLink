@@ -12,7 +12,7 @@ http://localhost:8080/swagger-ui/index.html
 
 
 ## 🔗 Produto Back-Log
-[Acesse o Link](https://docs.google.com/document/d/1R0C11sMI5x-yDcHCfOsaxGLl-PzvXjToRo8NivxX5kI/edit?tab=t.0)
+[Acesse o Link do Back-Log](https://docs.google.com/document/d/1R0C11sMI5x-yDcHCfOsaxGLl-PzvXjToRo8NivxX5kI/edit?tab=t.0)
 
 
 ## 📋 Sobre o Projeto - Sistema de Gestão de Pacientes
