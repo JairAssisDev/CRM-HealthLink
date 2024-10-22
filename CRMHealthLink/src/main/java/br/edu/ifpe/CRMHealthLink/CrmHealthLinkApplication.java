@@ -31,7 +31,26 @@ public class CrmHealthLinkApplication {
 			manager.setEmail("admin@email.com");
 			manager.setPassword(encoder.encode("123"));
 
+			var doctor = new Doctor();
+			doctor.setAcessLevel(AcessLevel.DOCTOR);
+			doctor.setName("Paulo Muzy");
+			doctor.setEmail("doctor@email.com");
+			doctor.setCRM("20123-PE");
+			doctor.setWorkload(10L);
+			doctor.setNumberTimeSlots();
+			doctor.setSpeciality(Speciality.CLINICOGERAL);
+			doctor.setPassword(encoder.encode("123"));
+
+			var patient = new Patient();
+			patient.setAcessLevel(AcessLevel.PATIENT);
+			patient.setName("Moacir Junior");
+			patient.setEmail("patient@email.com");
+			patient.setPassword(encoder.encode("123"));
+
+			
 			userRepository.save(manager);
+			userRepository.save(doctor);
+			userRepository.save(patient);
 		};
 	}
 }
