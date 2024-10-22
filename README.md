@@ -11,6 +11,10 @@ http://localhost:8080/swagger-ui/index.html
 [Acesse o Link](https://github.com/LucasM1415/CRM-HealthLink-FrontEnd)
 
 
+## 🔗 Produto Back-Log
+[Acesse o Link](https://docs.google.com/document/d/1R0C11sMI5x-yDcHCfOsaxGLl-PzvXjToRo8NivxX5kI/edit?tab=t.0)
+
+
 ## 📋 Sobre o Projeto - Sistema de Gestão de Pacientes
 
 O sistema de gestão hospitalar tem como objetivo resolver problemas de má gestão em hospitais, abrangendo desde o registro de pacientes e médicos até o agendamento de consultas e exames. Oferecendo uma plataforma integrada, o sistema visa melhorar a eficiência operacional e garantir um atendimento de qualidade aos pacientes. 
