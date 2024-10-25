@@ -34,4 +34,4 @@ Em resumo, o sistema de gestão hospitalar é uma solução abrangente e indispe
 - [Jair Victor](https://github.com/JairAssisDev)
 - [Lucas Patrick](https://github.com/lucasptrick)
 - [Lucas Manoel](https://github.com/lucasM1415)
-- [Matheus Kennedy](https://github.com/MasterKingRR)
+- [Matheus Kennedy](https://github.com/MatheusKSantiago)
