@@ -28,15 +28,21 @@ public class PatientService {
         return IPatientRepository.save(patient);
     }
 
-    @Transactional(readOnly = true)
     public List<Patient> getAllPatient() {
         return IPatientRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public Patient findById(Long id) {
         return IPatientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente não encomtrado"));
+    }
+
+    public Patient findByNameAndEmail(String name,String email) {
+        try {
+            return IPatientRepository.findByNameAndEmail(name, email);
+        } catch (Exception e) {
+            throw new RuntimeException("Paciente não encomtrado");
+        }
     }
 
     @Transactional
