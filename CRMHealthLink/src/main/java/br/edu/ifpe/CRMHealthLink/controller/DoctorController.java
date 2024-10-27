@@ -26,7 +26,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("crmhealthlink/api/doctor")
+@RequestMapping("/api/doctor")
 @Tag(name = "Doctor API", description = "API para gestão de médicos")
 public class DoctorController {
     @Autowired
@@ -55,12 +55,14 @@ public class DoctorController {
 
 
     @Operation(summary = "Obtém todas as Consultas atribidas ao doutor", description = "Obtém a lista de todas as Consulta satribidas ao doutor")
-    @GetMapping("/appointment/{doctorId}")
-    public ResponseEntity<List<AppointmentResponseDto>> findAll(@PathVariable Long doctorId) {
+    @GetMapping("/appointment/{crm}")
+    public ResponseEntity<List<AppointmentResponseDto>> findAll(@PathVariable String crm) {
+        Doctor doctor = doctorService.getByCRM(crm)
+                .orElseThrow(()->new RuntimeException("Doctor doesn't exist!"));
         List<Appointment> appointmentsResponse = new ArrayList<>();
         List<Appointment> appointments = appointmentService.getAllAppointment();
         for (Appointment appointment : appointments) {
-            if (appointment.getDoctor().getId() == doctorId) {
+            if (appointment.getDoctor().getId() == doctor.getId()) {
                 appointmentsResponse.add(appointment);
             }
         }
@@ -69,9 +71,10 @@ public class DoctorController {
     }
 
     @Operation(summary = "Obtém todas os enxames que o Doutor fez", description = "Obtém a lista de todas os enxames que foi atribuido au doutor")
-    @GetMapping("/exams/{idDoctor}")
-    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable Long idDoctor) {
-        Doctor doctor = doctorService.findById(idDoctor);
+    @GetMapping("/exams/{crm}")
+    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable String crm) {
+        Doctor doctor = doctorService.getByCRM(crm)
+                .orElseThrow(()->new RuntimeException("Doctor doesn't exist!"));
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {
@@ -85,9 +88,10 @@ public class DoctorController {
 
 
     @Operation(summary = "Obtém todas os enxames que o pacente fez", description = "Obtém a lista de todas os enxames do pacente")
-    @GetMapping("/exams/patinet/{patientId}")
-    public ResponseEntity<List<ExamResponseDto>> findAllPatientExams( @PathVariable Long patientId) {
-        Patient patient = patientService.findById(patientId);
+    @GetMapping("/exams/patients/{name}/{email}")
+    public ResponseEntity<List<ExamResponseDto>> findAllPatientExams( @PathVariable String name,String email) {
+        Patient patient = patientService.findByNameAndEmail(name,email);
+
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {
@@ -96,7 +100,11 @@ public class DoctorController {
             }
         }
         List<ExamResponseDto> responseDtos = examMapper.toDtoExams(patientExams);
-        return ResponseEntity.ok(responseDtos);
+        if (!responseDtos.isEmpty()) {
+            return ResponseEntity.ok(responseDtos);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
