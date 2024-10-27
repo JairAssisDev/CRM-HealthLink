@@ -27,6 +27,9 @@ public class DoctorService {
     public Optional<Doctor> getByCRM(String crm){
         return doctorRepository.findByCRM(crm);
     }
+    public Optional<Doctor> getByEmail(String email){
+        return doctorRepository.findByEmail(email);
+    }
 
     @Transactional(readOnly = true)
     public List<Doctor> getAllDoctors() {

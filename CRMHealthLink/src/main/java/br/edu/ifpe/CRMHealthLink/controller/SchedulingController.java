@@ -23,7 +23,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("crmhealthlink/api/calendario")
+@RequestMapping("api/calendario")
 @Tag(name = "calendario API", description = "API para gestão do calendário dos médicos")
 public class SchedulingController {
     @Autowired

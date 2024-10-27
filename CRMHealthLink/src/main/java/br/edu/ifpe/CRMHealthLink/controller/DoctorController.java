@@ -72,7 +72,7 @@ public class DoctorController {
 
     @Operation(summary = "Obtém todas os enxames que o Doutor fez", description = "Obtém a lista de todas os enxames que foi atribuido au doutor")
     @GetMapping("/exams/{crm}")
-    public ResponseEntity<List<ExamResponseDto>> findAllexams(@PathVariable String crm) {
+    public ResponseEntity<List<ExamResponseDto>> findAllExams(@PathVariable String crm) {
         Doctor doctor = doctorService.getByCRM(crm)
                 .orElseThrow(()->new RuntimeException("Doctor doesn't exist!"));
         List<Exam> exams = examService.getAllExams();
@@ -89,7 +89,7 @@ public class DoctorController {
 
     @Operation(summary = "Obtém todas os enxames que o pacente fez", description = "Obtém a lista de todas os enxames do pacente")
     @GetMapping("/exams/patients/{name}/{email}")
-    public ResponseEntity<List<ExamResponseDto>> findAllPatientExams( @PathVariable String name,String email) {
+    public ResponseEntity<List<ExamResponseDto>> findAllPatientExams( @PathVariable String name,@PathVariable String email) {
         Patient patient = patientService.findByNameAndEmail(name,email);
 
         List<Exam> exams = examService.getAllExams();

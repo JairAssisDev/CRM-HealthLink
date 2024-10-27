@@ -1,18 +1,16 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.PatientMapper;
-import br.edu.ifpe.CRMHealthLink.controller.dto.patientDto.PatientCreateDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IPatientRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +24,10 @@ public class PatientService {
         patient.setAcessLevel(AcessLevel.PATIENT);
         patient.setPassword(encoder.encode(patient.getPassword()));
         return IPatientRepository.save(patient);
+    }
+
+    public Optional<Patient> getByEmail(String email){
+        return IPatientRepository.findByEmail(email);
     }
 
     public List<Patient> getAllPatient() {

@@ -25,11 +25,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
-import java.util.Map;
+
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("crmhealthlink/api/employee")
+@RequestMapping("api/employee")
 @Tag(name = "Employee API", description = "API para gestão de funcionários")
 public class EmployeeController {
 
@@ -87,7 +87,7 @@ public class EmployeeController {
 
     @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
     @PutMapping("/paciente/{id}")
-    public ResponseEntity<Void> updateEmployee(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
+    public ResponseEntity<Void> updatePatient(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
         Patient patient = patientMapper.toPatient(patientCreateDto);
         patientService.update(id,patient);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -110,10 +110,6 @@ public class EmployeeController {
     public boolean userExists(UserCreateDto user){
         return userService.getUserByEmail(user.getEmail()) != null;
     }
-
-
-
-
 
     @Operation(summary = "Obtém todos os funcionários", description = "Obtém a lista de todos os funcionários")
     @GetMapping

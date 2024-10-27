@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @CrossOrigin
-@RequestMapping("crmhealthlink/api/patient")
+@RequestMapping("api/patient")
 @Tag(name = "Patient API", description = "API para gestão de Pacientes")
 public class PatientController {
 

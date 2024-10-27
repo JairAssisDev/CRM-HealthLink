@@ -3,13 +3,17 @@ package br.edu.ifpe.CRMHealthLink.service;
 import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentCreateDto;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.AppointmentMapper;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IAppointmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +25,10 @@ public class AppointmentService {
     @Transactional
     public Appointment save(Appointment appointment) {
         return IAppointmentRepository.save(appointment);
+    }
+
+    public Optional<Appointment> getByDoctorAndPatientAndDate(Doctor doctor, Patient patient, LocalDateTime date ) {
+        return IAppointmentRepository.findByDoctorAndPatientAndDate(doctor, patient, date);
     }
 
     @Transactional(readOnly = true)
