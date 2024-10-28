@@ -7,7 +7,6 @@ import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
 import br.edu.ifpe.CRMHealthLink.repository.IUserRepository;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,18 +17,25 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("auth")
 public class AuthenticationController {
-    @Autowired
-    private TokenService tokenService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PatientService patientService;
-    @Autowired
-    private IUserRepository IUserRepository;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
+    private final  UserService userService;
+
+    private final PatientService patientService;
+
+    private final IUserRepository userRepository;
+
+    private final AuthenticationManager authenticationManager;
+
+    public AuthenticationController(TokenService tokenService, UserService userService, PatientService patientService,
+                                    IUserRepository userRepository, AuthenticationManager authenticationManager) {
+        this.tokenService = tokenService;
+        this.userService = userService;
+        this.patientService = patientService;
+        this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
+    }
 
     @PostMapping("login")
     public ResponseEntity<UserLoginResponseDto> login(@RequestBody UserLoginDTO user) {

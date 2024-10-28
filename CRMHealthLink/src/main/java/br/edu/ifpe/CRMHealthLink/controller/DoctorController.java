@@ -13,8 +13,6 @@ import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import br.edu.ifpe.CRMHealthLink.service.ExamService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,24 +22,27 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/doctor")
 @Tag(name = "Doctor API", description = "API para gestão de médicos")
 public class DoctorController {
-    @Autowired
-    private ExamMapper examMapper ;
 
-    @Autowired
-    private PatientService patientService ;
-    @Autowired
-    private DoctorService doctorService ;
-    @Autowired
-    private ExamService examService;
-    @Autowired
-    private AppointmentService appointmentService;
-    @Autowired
-    private AppointmentMapper appointmentMapper;
+    private final ExamMapper examMapper ;
+    private final PatientService patientService ;
+    private final DoctorService doctorService ;
+    private final ExamService examService;
+    private final AppointmentService appointmentService;
+    private final AppointmentMapper appointmentMapper;
+
+    public DoctorController(ExamMapper examMapper, PatientService patientService, DoctorService doctorService
+            , ExamService examService, AppointmentService appointmentService, AppointmentMapper appointmentMapper) {
+        this.examMapper = examMapper;
+        this.patientService = patientService;
+        this.doctorService = doctorService;
+        this.examService = examService;
+        this.appointmentService = appointmentService;
+        this.appointmentMapper = appointmentMapper;
+    }
 
     @Operation(summary = "Cria um novo Exam", description = "Cria um novo Exam com base nas informações fornecidas")
     @PostMapping
@@ -78,7 +79,7 @@ public class DoctorController {
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {
-            if (exam.getAppointment().getDoctor().getId() == doctor.getId()) {
+            if (exam.getAppointment().getDoctor().getId().equals(doctor.getId())) {
                 patientExams.add(exam);
             }
         }
@@ -95,7 +96,7 @@ public class DoctorController {
         List<Exam> exams = examService.getAllExams();
         List<Exam> patientExams = new ArrayList<>();
         for (Exam exam : exams) {
-            if (exam.getAppointment().getPatient().getId() == patient.getId()) {
+            if (exam.getAppointment().getPatient().getId().equals(patient.getId())) {
                 patientExams.add(exam);
             }
         }

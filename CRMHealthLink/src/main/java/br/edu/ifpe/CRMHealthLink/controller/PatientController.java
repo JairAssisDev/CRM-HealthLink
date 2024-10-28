@@ -12,35 +12,36 @@ import br.edu.ifpe.CRMHealthLink.service.ExamService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @CrossOrigin
 @RequestMapping("api/patient")
 @Tag(name = "Patient API", description = "API para gestão de Pacientes")
 public class PatientController {
 
-    @Autowired
-    private AppointmentService appointmentService;
 
-    @Autowired
-    private AppointmentMapper appointmentMapper;
+    private final AppointmentService appointmentService;
 
-    @Autowired
-    private PatientService patientService;
+    private final AppointmentMapper appointmentMapper;
 
-    @Autowired
-    private ExamService examService;
+    private final PatientService patientService;
 
-    @Autowired
-    private ExamMapper examMapper;
+    private final ExamService examService;
+
+    private final ExamMapper examMapper;
+
+    public PatientController(AppointmentService appointmentService, AppointmentMapper appointmentMapper, PatientService patientService, ExamService examService, ExamMapper examMapper) {
+        this.appointmentService = appointmentService;
+        this.appointmentMapper = appointmentMapper;
+        this.patientService = patientService;
+        this.examService = examService;
+        this.examMapper = examMapper;
+    }
 
     @Operation(summary = "Obtém todas as Consultas do paciente", description = "Obtém a lista de todas as Consultas do paciente")
     @GetMapping("/appointments/{name}/{email}")

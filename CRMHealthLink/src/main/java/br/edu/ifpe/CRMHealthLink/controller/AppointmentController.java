@@ -21,19 +21,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/appointment")
 @Tag(name = "Appointment API", description = "API para gestão de Consultas")
 public class AppointmentController {
-    @Autowired
-    private AppointmentService appointmentService;
-    @Autowired
-    private AppointmentMapper appointmentMapper;
-    @Autowired
-    private DoctorService doctorService;
-    @Autowired
-    private PatientService patientService;
+
+    private final  AppointmentService appointmentService;
+
+    private final AppointmentMapper appointmentMapper;
+
+    private final DoctorService doctorService;
+
+    private final PatientService patientService;
+
+    public AppointmentController(AppointmentService appointmentService, AppointmentMapper appointmentMapper
+            , DoctorService doctorService, PatientService patientService) {
+        this.appointmentService = appointmentService;
+        this.appointmentMapper = appointmentMapper;
+        this.doctorService = doctorService;
+        this.patientService = patientService;
+    }
 
     @Operation(summary = "Cria uma nova Consulta", description = "Cria uma nova Consulta com base nas informações fornecidas")
     @PostMapping

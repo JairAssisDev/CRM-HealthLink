@@ -16,8 +16,6 @@ import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
 import br.edu.ifpe.CRMHealthLink.service.UserService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,35 +27,35 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@RequiredArgsConstructor
+
 @RestController
 @RequestMapping("api/employee")
 @Tag(name = "Employee API", description = "API para gestão de funcionários")
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private PatientService patientService;
-    @Autowired
-    private PatientMapper patientMapper;
-    @Autowired
-    private EmployeeMapper employeeMapper;
-    @Autowired
-    private DoctorMapper doctorMapper;
+    private final UserService userService;
 
+    private final PatientService patientService;
+
+    private final DoctorService doctorService;
+
+    public EmployeeController(EmployeeService employeeService, UserService userService, PatientService patientService, DoctorService doctorService) {
+        this.employeeService = employeeService;
+        this.userService = userService;
+        this.patientService = patientService;
+        this.doctorService = doctorService;
+    }
     // pacentes
 
     @Operation(summary = "Cria um novo Paciente",description = "Cria um novo  médico  com base nas informações fornecidas")
     @PostMapping("create/patient")
-    public ResponseEntity createPatient(@RequestBody @Valid PatientCreateDto patientDTO){
+    public ResponseEntity<String> createPatient(@RequestBody @Valid PatientCreateDto patientDTO){
         if(userExists(patientDTO)){
             return ResponseEntity.badRequest().body("User already exists!");
         }
-        Patient patient = patientMapper.toPatient(patientDTO);
+        Patient patient = PatientMapper.toPatient(patientDTO);
         patientService.save(patient);
         return ResponseEntity.ok().build();
     }
@@ -92,7 +90,7 @@ public class EmployeeController {
     @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
     @PutMapping("/paciente/{id}")
     public ResponseEntity<Void> updatePatient(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
-        Patient patient = patientMapper.toPatient(patientCreateDto);
+        Patient patient = PatientMapper.toPatient(patientCreateDto);
         patientService.update(id,patient);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -101,13 +99,13 @@ public class EmployeeController {
     //employee
 
     @PostMapping("create/employee")
-    public ResponseEntity createEmployee(@RequestBody @Valid EmployeeCreateDto employeeDTO){
+    public ResponseEntity<String> createEmployee(@RequestBody @Valid EmployeeCreateDto employeeDTO){
         employeeDTO.setAcessLevel(AcessLevel.ATTENDANT);
 
         if(userExists(employeeDTO)){
             return ResponseEntity.badRequest().body("User already exists!");
         }
-        Employee employee = employeeMapper.toEmployee(employeeDTO);
+        Employee employee = EmployeeMapper.toEmployee(employeeDTO);
         employeeService.save(employee);
         return ResponseEntity.ok().build();
     }
@@ -139,10 +137,6 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-
-    //medico
-    @Autowired
-    private final DoctorService doctorService;
 
     @Operation(summary = "Cria um novo médico", description = "Cria um novo médico com base nas informações fornecidas")
     @PostMapping("/doctor")
@@ -183,7 +177,7 @@ public class EmployeeController {
     @GetMapping("/doctors/specialty")
     private ResponseEntity<List<DoctorResponseDto>> findAllSpecialties(Speciality speciality) {
         List<Doctor> doctors = doctorService.findAllDoctorBySpecialty(speciality);
-        List<DoctorResponseDto> doctorResponseDtos = doctorMapper.toDtoDoctors(doctors);
+        List<DoctorResponseDto> doctorResponseDtos = DoctorMapper.toDtoDoctors(doctors);
         return ResponseEntity.status(HttpStatus.OK).body(doctorResponseDtos);
     }
     @Operation(summary = "Lista todas especialindades", description = "Lista todas especialindades")

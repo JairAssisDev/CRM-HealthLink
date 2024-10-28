@@ -12,8 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +19,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/calendario")
 @Tag(name = "calendario API", description = "API para gestão do calendário dos médicos")
 public class SchedulingController {
-    @Autowired
+
     private final SchedulingService schedulingService;
 
+    public SchedulingController(SchedulingService schedulingService) {
+        this.schedulingService = schedulingService;
+    }
 
     @PostMapping
     @Operation(summary = "Criar agendamento", description = "Cria um novo agendamento para um médico.")
