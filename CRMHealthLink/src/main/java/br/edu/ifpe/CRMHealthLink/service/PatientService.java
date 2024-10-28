@@ -51,8 +51,8 @@ public class PatientService {
     }
 
     @Transactional
-    public void delete(Long id) {
-        patientRepository.deleteById(id);
+    public void delete(String email) {
+        patientRepository.deletePatientByEmail(email);
     }
 
     @Transactional

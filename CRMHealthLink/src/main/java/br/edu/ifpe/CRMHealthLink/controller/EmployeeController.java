@@ -76,15 +76,11 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(PatientMapper.toDtoPatient(patient));
     }
 
-    @Operation(summary = "Remove um Paciente pelo ID",description = "Remove um Paciente pelo seu ID")
-    @DeleteMapping("/paciente/{id}")
-    public ResponseEntity<Void> deletePacinet(@PathVariable Long id) {
-        try {
-            patientService.delete(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @Operation(summary = "Remove um Paciente pelo email",description = "Remove um Paciente pelo seu email")
+    @DeleteMapping("/paciente/{email}")
+    public ResponseEntity<Void> deletePacinet(@PathVariable String email) {
+        patientService.delete(email);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
