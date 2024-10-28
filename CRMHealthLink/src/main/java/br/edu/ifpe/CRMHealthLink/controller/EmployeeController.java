@@ -120,10 +120,10 @@ public class EmployeeController {
         return ResponseEntity.ok(EmployeeMapper.toDtoEmployees(employees));
     }
 
-    @Operation(summary = "Obtém um funcionário pelo ID", description = "Obtém os detalhes de um funcionário pelo seu ID")
-    @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable Long id) {
-        Employee employee = employeeService.findById(id);
+    @Operation(summary = "Obtém um funcionário pelo email", description = "Obtém os detalhes de um funcionário pelo seu email")
+    @GetMapping("/{email}")
+    public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable String email) {
+        Employee employee = employeeService.findByEmail(email).orElse(null);
         if (employee == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
