@@ -6,6 +6,7 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import br.edu.ifpe.CRMHealthLink.service.EmployeeService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
@@ -29,9 +30,14 @@ public class AppointmentMapper {
 
 
     public Appointment toAppointment(AppointmentCreateDto appointmentCreateDto) {
-        Doctor doctor = doctorService.findById(appointmentCreateDto.getFk_doctor());
-        Patient patient = patientService.findById(appointmentCreateDto.getFk_patient());
-        Employee employee = employeeService.findById(appointmentCreateDto.getFk_employee());
+        Doctor doctor = doctorService.getByEmail(appointmentCreateDto.getEmail_doctor())
+                .orElseThrow(() -> new ResourceNotFoundException("Doutor não encontrado"));
+
+        Patient patient = patientService.findByEmail(appointmentCreateDto.getEmail_patient())
+                .orElseThrow(() -> new ResourceNotFoundException(("Pacinte não encontrado")));
+
+        Employee employee = employeeService.findByEmail(appointmentCreateDto.getEmail_employee())
+                .orElseThrow(() -> new ResourceNotFoundException(("Employee não encontrado")));
 
         Appointment appointment = new Appointment();
         appointment.setDoctor(doctor);

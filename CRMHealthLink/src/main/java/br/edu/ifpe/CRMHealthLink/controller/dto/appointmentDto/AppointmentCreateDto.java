@@ -14,13 +14,13 @@ public class AppointmentCreateDto {
 
 
     @NonNull
-    private Long fk_patient;
+    private String email_patient;
 
     @NonNull
-    private Long fk_doctor;
+    private String email_doctor;
 
     @NonNull
-    private Long fk_employee;
+    private String email_employee;
 
     @NonNull
     private LocalDateTime data;

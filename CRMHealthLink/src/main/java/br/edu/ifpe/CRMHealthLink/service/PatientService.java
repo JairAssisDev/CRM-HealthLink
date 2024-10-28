@@ -46,6 +46,9 @@ public class PatientService {
             throw new RuntimeException("Paciente não encomtrado");
         }
     }
+    public Optional<Patient> findByEmail(String email) {
+        return IPatientRepository.findByEmail(email);
+    }
 
     @Transactional
     public void delete(Long id) {

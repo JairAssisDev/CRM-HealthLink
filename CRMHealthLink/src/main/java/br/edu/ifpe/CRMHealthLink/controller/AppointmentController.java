@@ -52,7 +52,7 @@ public class AppointmentController {
         return ResponseEntity.ok(responseDtos);
     }
 
-    @Operation(summary = "Obtém uma Consulta pelo ID", description = "Obtém os detalhes de uma consulta pelo seu ID")
+    @Operation(summary = "Obtém uma Consulta pelo emailPatient,emailDoctor e date", description = "Obtém os detalhes de uma consulta pelo emailPatient,emailDoctor e date")
     @GetMapping("")
     public ResponseEntity<AppointmentResponseDto> getAppointmentId(@RequestBody AppointmentGetDto dto) {
         Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor())
