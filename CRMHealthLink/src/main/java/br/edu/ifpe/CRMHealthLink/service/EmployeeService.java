@@ -41,8 +41,8 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void update(Long id, EmployeeCreateDto employeeCreateDto) {
-        Employee employee = findById(id);
+    public void update(EmployeeCreateDto employeeCreateDto) {
+        Employee employee = IEmployeeRepository.findByEmail(employeeCreateDto.getEmail()).orElseThrow(()->new RuntimeException("Funcionário não encontrado"));
 
         employee.setName(employeeCreateDto.getName());
         employee.setBirthDate(employeeCreateDto.getBirthDate());
