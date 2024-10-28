@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -141,10 +142,11 @@ public class EmployeeController {
     private final DoctorService doctorService;
 
     @Operation(summary = "Cria um novo médico", description = "Cria um novo médico com base nas informações fornecidas")
-    @PostMapping("/doctor/{managerid}")
-    public ResponseEntity<Doctor> createDoctor(@RequestBody DoctorCreateDto doctor, @PathVariable Long managerid) {
-        Employee employee = employeeService.findById(managerid);
-        if (employee.getAcessLevel()==AcessLevel.MANAGER) {
+    @PostMapping("/doctor")
+    public ResponseEntity<Doctor> createDoctor(@RequestBody DoctorCreateDto doctor) {
+
+        var loggedUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (loggedUser.getAcessLevel()==AcessLevel.MANAGER) {
             Doctor responseDoctor = doctorService.save(DoctorMapper.toDoctorEntity(doctor));
             return ResponseEntity.status(HttpStatus.CREATED).body(responseDoctor);
         }
