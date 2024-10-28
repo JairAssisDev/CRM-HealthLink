@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -45,6 +46,8 @@ public class EmployeeController {
     private PatientMapper patientMapper;
     @Autowired
     private EmployeeMapper employeeMapper;
+    @Autowired
+    private DoctorMapper doctorMapper;
 
     // pacentes
 
@@ -176,10 +179,18 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping("/doctors/specialty")
-    private ResponseEntity<List<Doctor>> findAllSpecialties(Speciality speciality) {
+    @Operation(summary = "Lista todos os medicos por especialidade",description = "Lista todos os medicos por especialidade")
+    @GetMapping("/doctors/specialty")
+    private ResponseEntity<List<DoctorResponseDto>> findAllSpecialties(Speciality speciality) {
         List<Doctor> doctors = doctorService.findAllDoctorBySpecialty(speciality);
-        return ResponseEntity.status(HttpStatus.OK).body(doctors);
+        List<DoctorResponseDto> doctorResponseDtos = doctorMapper.toDtoDoctors(doctors);
+        return ResponseEntity.status(HttpStatus.OK).body(doctorResponseDtos);
+    }
+    @Operation(summary = "Lista todas especialindades", description = "Lista todas especialindades")
+    @GetMapping("allspecialities")
+    public List<Speciality> getAllSpecialities() {
+
+        return Arrays.asList(Speciality.values());
     }
 
 
