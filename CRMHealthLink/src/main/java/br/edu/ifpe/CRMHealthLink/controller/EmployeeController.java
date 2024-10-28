@@ -88,10 +88,10 @@ public class EmployeeController {
     }
 
     @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
-    @PutMapping("/paciente/{id}")
-    public ResponseEntity<Void> updatePatient(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
+    @PutMapping("/paciente")
+    public ResponseEntity<Void> updatePatient(@RequestBody PatientCreateDto patientCreateDto){
         Patient patient = PatientMapper.toPatient(patientCreateDto);
-        patientService.update(id,patient);
+        patientService.update(patient);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
