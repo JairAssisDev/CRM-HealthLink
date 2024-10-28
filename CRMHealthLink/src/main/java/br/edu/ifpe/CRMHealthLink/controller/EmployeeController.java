@@ -66,10 +66,10 @@ public class EmployeeController {
         return ResponseEntity.ok(PatientMapper.toDtoPacients(patientService.getAllPatient()));
     }
 
-    @Operation(summary = "Obtém um Paciente pelo ID", description = "Obtém os detalhes de um Paciente pelo seu ID")
-    @GetMapping("/getpaciente/{id}")
-    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id) {
-        Patient patient = patientService.findById(id);
+    @Operation(summary = "Obtém um Paciente pelo email", description = "Obtém os detalhes de um Paciente pelo seu email")
+    @GetMapping("/paciente/{email}")
+    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable String email) {
+        Patient patient = patientService.getByEmail(email).orElse(null);
         if(patient == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
