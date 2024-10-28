@@ -48,8 +48,8 @@ public class DoctorService {
     }
 
     @Transactional
-    public void update(Long id, DoctorCreateDto doctorCreateDto) {
-        Doctor doctor = findById(id);
+    public void update(DoctorCreateDto doctorCreateDto) {
+        Doctor doctor = doctorRepository.findByEmail(doctorCreateDto.getEmail()).orElseThrow(()->new RuntimeException("Médico não encontrado"));
 
         doctor.setName(doctorCreateDto.getName());
         doctor.setBirthDate(doctorCreateDto.getBirthDate());

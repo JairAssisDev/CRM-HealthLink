@@ -162,10 +162,10 @@ public class EmployeeController {
         return ResponseEntity.status(HttpStatus.OK).body(DoctorMapper.toDtoDoctor(doctor));
     }
 
-    @Operation(summary = "Atualiza um médico pelo ID", description = "Atualiza os dados de um médico pelo seu ID")
-    @PutMapping("/doctor/{id}")
-    public ResponseEntity<Void> updateDoctor(@PathVariable Long id, @RequestBody DoctorCreateDto doctor) {
-        doctorService.update(id, doctor);
+    @Operation(summary = "Atualiza um médico", description = "Atualiza os dados de um médico")
+    @PutMapping("/doctor")
+    public ResponseEntity<Void> updateDoctor(@RequestBody DoctorCreateDto doctor) {
+        doctorService.update(doctor);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
