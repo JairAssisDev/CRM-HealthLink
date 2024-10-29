@@ -16,48 +16,48 @@ import java.util.Optional;
 @Service
 public class PatientService {
 
-    private final IPatientRepository IPatientRepository;
+    private final IPatientRepository patientRepository;
     private final PasswordEncoder encoder;
 
     @Transactional
     public Patient save(Patient patient) {
         patient.setAcessLevel(AcessLevel.PATIENT);
         patient.setPassword(encoder.encode(patient.getPassword()));
-        return IPatientRepository.save(patient);
+        return patientRepository.save(patient);
     }
 
     public Optional<Patient> getByEmail(String email){
-        return IPatientRepository.findByEmail(email);
+        return patientRepository.findByEmail(email);
     }
 
     public List<Patient> getAllPatient() {
-        return IPatientRepository.findAll();
+        return patientRepository.findAll();
     }
 
     public Patient findById(Long id) {
-        return IPatientRepository.findById(id)
+        return patientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Paciente não encomtrado"));
     }
 
     public Patient findByNameAndEmail(String name,String email) {
         try {
-            return IPatientRepository.findByNameAndEmail(name, email);
+            return patientRepository.findByNameAndEmail(name, email);
         } catch (Exception e) {
             throw new RuntimeException("Paciente não encomtrado");
         }
     }
     public Optional<Patient> findByEmail(String email) {
-        return IPatientRepository.findByEmail(email);
+        return patientRepository.findByEmail(email);
     }
 
     @Transactional
-    public void delete(Long id) {
-        IPatientRepository.deleteById(id);
+    public void delete(String email) {
+        patientRepository.deletePatientByEmail(email);
     }
 
     @Transactional
-    public void update(Long id,Patient patientNew) {
-        Patient patient = findById(id);
+    public void update(Patient patientNew) {
+        Patient patient = patientRepository.findByEmail(patientNew.getEmail()).orElseThrow(()->new RuntimeException("Paciente não encontrado"));
 
         patient.setName(patientNew.getName());
         patient.setBirthDate(patientNew.getBirthDate());
@@ -68,7 +68,7 @@ public class PatientService {
             patient.setPassword(encoder.encode(patientNew.getPassword()));
         }
 
-        IPatientRepository.save(patient);
+        patientRepository.save(patient);
 
     }
 

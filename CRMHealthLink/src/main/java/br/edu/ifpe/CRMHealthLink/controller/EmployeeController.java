@@ -66,32 +66,28 @@ public class EmployeeController {
         return ResponseEntity.ok(PatientMapper.toDtoPacients(patientService.getAllPatient()));
     }
 
-    @Operation(summary = "Obtém um Paciente pelo ID", description = "Obtém os detalhes de um Paciente pelo seu ID")
-    @GetMapping("/getpaciente/{id}")
-    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable Long id) {
-        Patient patient = patientService.findById(id);
+    @Operation(summary = "Obtém um Paciente pelo email", description = "Obtém os detalhes de um Paciente pelo seu email")
+    @GetMapping("/paciente/{email}")
+    public ResponseEntity<PatientResponseDto> getPatientById(@PathVariable String email) {
+        Patient patient = patientService.getByEmail(email).orElse(null);
         if(patient == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(PatientMapper.toDtoPatient(patient));
     }
 
-    @Operation(summary = "Remove um Paciente pelo ID",description = "Remove um Paciente pelo seu ID")
-    @DeleteMapping("/paciente/{id}")
-    public ResponseEntity<Void> deletePacinet(@PathVariable Long id) {
-        try {
-            patientService.delete(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    @Operation(summary = "Remove um Paciente pelo email",description = "Remove um Paciente pelo seu email")
+    @DeleteMapping("/paciente/{email}")
+    public ResponseEntity<Void> deletePacinet(@PathVariable String email) {
+        patientService.delete(email);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Operation(summary = "Atualiza um Paciente", description = "Atualiza o Paciente com base nas novas informações fornecidas ")
-    @PutMapping("/paciente/{id}")
-    public ResponseEntity<Void> updatePatient(@PathVariable Long id, @RequestBody PatientCreateDto patientCreateDto){
+    @PutMapping("/paciente")
+    public ResponseEntity<Void> updatePatient(@RequestBody PatientCreateDto patientCreateDto){
         Patient patient = PatientMapper.toPatient(patientCreateDto);
-        patientService.update(id,patient);
+        patientService.update(patient);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -120,20 +116,20 @@ public class EmployeeController {
         return ResponseEntity.ok(EmployeeMapper.toDtoEmployees(employees));
     }
 
-    @Operation(summary = "Obtém um funcionário pelo ID", description = "Obtém os detalhes de um funcionário pelo seu ID")
-    @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable Long id) {
-        Employee employee = employeeService.findById(id);
+    @Operation(summary = "Obtém um funcionário pelo email", description = "Obtém os detalhes de um funcionário pelo seu email")
+    @GetMapping("/{email}")
+    public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable String email) {
+        Employee employee = employeeService.findByEmail(email).orElse(null);
         if (employee == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(EmployeeMapper.toDtoEmployee(employee));
     }
 
-    @Operation(summary = "Atualiza um funcionário pelo ID", description = "Atualiza os dados de um funcionário pelo seu ID")
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateEmployee(@PathVariable Long id, @RequestBody EmployeeCreateDto employee) {
-        employeeService.update(id, employee);
+    @Operation(summary = "Atualiza um funcionário ", description = "Atualiza os dados de um funcionário")
+    @PutMapping()
+    public ResponseEntity<Void> updateEmployee(@RequestBody EmployeeCreateDto employee) {
+        employeeService.update(employee);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -156,20 +152,20 @@ public class EmployeeController {
         List<Doctor> doctors = doctorService.getAllDoctors();
         return ResponseEntity.ok(DoctorMapper.toDtoDoctors(doctors));
     }
-    @Operation(summary = "Obtém um médico pelo ID", description = "Obtém os detalhes de um médico pelo seu ID")
-    @GetMapping("/doctor/{id}")
-    private ResponseEntity<DoctorResponseDto> getDoctorById(@PathVariable Long id) {
-        Doctor doctor = doctorService.findById(id);
+    @Operation(summary = "Obtém um médico pelo email", description = "Obtém os detalhes de um médico pelo seu email")
+    @GetMapping("/doctor/{email}")
+    private ResponseEntity<DoctorResponseDto> getDoctorById(@PathVariable String email) {
+        Doctor doctor = doctorService.getByEmail(email).orElse(null);
         if (doctor == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(DoctorMapper.toDtoDoctor(doctor));
     }
 
-    @Operation(summary = "Atualiza um médico pelo ID", description = "Atualiza os dados de um médico pelo seu ID")
-    @PutMapping("/doctor/{id}")
-    public ResponseEntity<Void> updateDoctor(@PathVariable Long id, @RequestBody DoctorCreateDto doctor) {
-        doctorService.update(id, doctor);
+    @Operation(summary = "Atualiza um médico", description = "Atualiza os dados de um médico")
+    @PutMapping("/doctor")
+    public ResponseEntity<Void> updateDoctor(@RequestBody DoctorCreateDto doctor) {
+        doctorService.update(doctor);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
