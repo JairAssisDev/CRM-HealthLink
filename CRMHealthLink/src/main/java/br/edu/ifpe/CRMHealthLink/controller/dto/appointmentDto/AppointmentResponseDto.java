@@ -11,15 +11,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AppointmentResponseDto {
 
-    private Long  id;
     
     private LocalDateTime date;
 
     private String description;
 
-    private Long patientId;
-
     private String namePatient;
+
+    private String emailPatient;
 
     private String nameDoctor;
 

@@ -29,7 +29,6 @@ public class ExamMapper {
     public ExamResponseDto toDtoExam(Exam exam){
 
         ExamResponseDto examResponseDto = new ExamResponseDto();
-        examResponseDto.setId(exam.getId());
 
         examResponseDto.setDate(exam.getDate());
 
@@ -51,7 +50,6 @@ public class ExamMapper {
     public ExamResponseDto toDtoExamPatient(Exam exam){
 
         ExamResponseDto examResponseDto = new ExamResponseDto();
-        examResponseDto.setId(exam.getId());
 
         examResponseDto.setDate(exam.getDate());
 
