@@ -25,12 +25,14 @@ public class CrmHealthLinkApplication {
 			manager.setAcessLevel(AcessLevel.MANAGER);
 			manager.setName("Jão Jorge");
 			manager.setEmail("admin@email.com");
+			manager.setBirthDate(LocalDate.of(1985, 5, 15));
 			manager.setPassword(encoder.encode("123"));
 
 			var doctor = new Doctor();
 			doctor.setAcessLevel(AcessLevel.DOCTOR);
 			doctor.setName("Paulo Muzy");
 			doctor.setEmail("doctor@email.com");
+			doctor.setBirthDate(LocalDate.of(1989, 4, 9));
 			doctor.setCRM("20123-PE");
 			doctor.setSpeciality(List.of(Speciality.CLINICOGERAL,Speciality.DERMATOLOGISTA));
 			doctor.setPassword(encoder.encode("123"));
@@ -39,6 +41,7 @@ public class CrmHealthLinkApplication {
 			patient.setAcessLevel(AcessLevel.PATIENT);
 			patient.setName("Moacir Junior");
 			patient.setEmail("patient@email.com");
+			doctor.setBirthDate(LocalDate.of(2001, 8, 30));
 			patient.setPassword(encoder.encode("123"));
 
 			
