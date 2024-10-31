@@ -93,8 +93,5 @@ public class SchedulingController {
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(SchedulingMapper.toSchedulingDoctorResponseDTO(scheduling));
     }
-    @GetMapping("/getAllTimeSlots")
-    public ResponseEntity<Map<Speciality,Long>> getTimeSlots(){
-        return ResponseEntity.ok(schedulingService.getSpecialityTimeSlots());
-    }
+
 }

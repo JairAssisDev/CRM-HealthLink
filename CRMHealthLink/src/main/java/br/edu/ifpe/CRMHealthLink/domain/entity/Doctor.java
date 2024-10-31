@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.springframework.core.env.Environment;
 
+import java.util.List;
+
 @Entity
 @Table(name = "doctor")
 @Getter
@@ -25,17 +27,11 @@ public class Doctor extends User {
     @Column
     private String CRM;
 
-    @Column
     @Enumerated(EnumType.STRING)
-    private Speciality speciality;
-
     @Column
-    private Long workload;//em horas
+    @ElementCollection
+    @CollectionTable(name="doctor_speciality",joinColumns = @JoinColumn(name="doctor_id"))
+    private List<Speciality> speciality;
 
 
-    private Long numberOfTimeSlots; //mês
-    @PrePersist
-    public void setNumberTimeSlots(){
-        numberOfTimeSlots = workload/ Constants.timeSlot;
-    }
 }

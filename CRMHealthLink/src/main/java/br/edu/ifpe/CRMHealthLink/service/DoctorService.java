@@ -59,7 +59,6 @@ public class DoctorService {
 
         doctor.setPassword(doctorCreateDto.getPassword());
         doctor.setCRM(doctorCreateDto.getCRM());
-        doctor.setSpeciality(doctorCreateDto.getSpeciality());
 
         doctorRepository.save(doctor);
     }

@@ -31,12 +31,12 @@ public class Scheduling {
     @Column(nullable = false)
     private LocalTime endTime;
 
-    @OneToMany
-    private List<Appointment> appointments;
-
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @OneToOne
     private Doctor doctor;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TypeAppointment typeAppointment;
 
     @Column
     @Enumerated(EnumType.STRING)

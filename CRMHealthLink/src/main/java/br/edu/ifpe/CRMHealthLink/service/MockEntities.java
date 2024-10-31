@@ -68,7 +68,7 @@ public class MockEntities {
     }
 
 
-    public Doctor getDoctor(){
+   /* public Doctor getDoctor(){
         Doctor doctor = new Doctor(getUser());
         doctor.setCRM("CRM-here");
         doctor.setSpeciality(Speciality.CARDIOLOGISTA);
@@ -103,5 +103,5 @@ public class MockEntities {
     }
     private void saveUsers(List<User> users){
         IUserRepository.saveAll(users);
-    }
+    }*/
 }

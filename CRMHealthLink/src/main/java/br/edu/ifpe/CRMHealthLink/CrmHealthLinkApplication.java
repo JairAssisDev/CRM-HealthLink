@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CrmHealthLinkApplication {
 
@@ -30,9 +32,7 @@ public class CrmHealthLinkApplication {
 			doctor.setName("Paulo Muzy");
 			doctor.setEmail("doctor@email.com");
 			doctor.setCRM("20123-PE");
-			doctor.setWorkload(10L);
-			doctor.setNumberTimeSlots();
-			doctor.setSpeciality(Speciality.CLINICOGERAL);
+			doctor.setSpeciality(List.of(Speciality.CLINICOGERAL,Speciality.DERMATOLOGISTA));
 			doctor.setPassword(encoder.encode("123"));
 
 			var patient = new Patient();
