@@ -5,6 +5,8 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -14,10 +16,6 @@ public class DoctorCreateDto extends UserCreateDto {
 
     @NotNull
     private String CRM;
-
     @NotNull
-    private Speciality Speciality;
-
-    @NotNull
-    private Long workload;
+    private List<Speciality> speciality;
 }

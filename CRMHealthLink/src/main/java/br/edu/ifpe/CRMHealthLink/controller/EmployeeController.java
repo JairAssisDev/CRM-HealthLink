@@ -136,12 +136,13 @@ public class EmployeeController {
 
     @Operation(summary = "Cria um novo médico", description = "Cria um novo médico com base nas informações fornecidas")
     @PostMapping("/doctor")
-    public ResponseEntity<Doctor> createDoctor(@RequestBody DoctorCreateDto doctor) {
+    public ResponseEntity<DoctorResponseDto> createDoctor(@RequestBody DoctorCreateDto doctor) {
 
         var loggedUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (loggedUser.getAcessLevel()==AcessLevel.MANAGER) {
             Doctor responseDoctor = doctorService.save(DoctorMapper.toDoctorEntity(doctor));
-            return ResponseEntity.status(HttpStatus.CREATED).body(responseDoctor);
+            responseDoctor.setAcessLevel(AcessLevel.DOCTOR);
+            return ResponseEntity.status(HttpStatus.CREATED).body(DoctorMapper.toDtoDoctor(responseDoctor));
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }

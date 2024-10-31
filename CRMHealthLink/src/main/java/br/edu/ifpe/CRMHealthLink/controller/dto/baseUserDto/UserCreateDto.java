@@ -19,7 +19,6 @@ public abstract class UserCreateDto {
         this.birthDate = date;
         this.cpf = cpf;
         this.email = email;
-        this.acessLevel = acessLevel;
         this.password = password;
     }
 
@@ -37,11 +36,6 @@ public abstract class UserCreateDto {
 
     @NotBlank
     private String email;
-
-    @NotNull
-    private AcessLevel acessLevel;
-
-
 
     @NotBlank
     private String password;

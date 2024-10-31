@@ -55,7 +55,6 @@ public class DoctorService {
         doctor.setBirthDate(doctorCreateDto.getBirthDate());
         doctor.setCpf(doctorCreateDto.getCpf());
         doctor.setEmail(doctorCreateDto.getEmail());
-        doctor.setAcessLevel(doctorCreateDto.getAcessLevel());
 
         doctor.setPassword(doctorCreateDto.getPassword());
         doctor.setCRM(doctorCreateDto.getCRM());
