@@ -24,8 +24,8 @@ public class DoctorService {
         return doctorRepository.save(doctor);
     }
 
-    public Optional<Doctor> getByCRM(String crm){
-        return doctorRepository.findByCRM(crm);
+    public Doctor getByCRM(String crm){
+        return doctorRepository.findByCRM(crm).orElseThrow(()->new RuntimeException("Médico não encontrado"));
     }
     public Optional<Doctor> getByEmail(String email){
         return doctorRepository.findByEmail(email);

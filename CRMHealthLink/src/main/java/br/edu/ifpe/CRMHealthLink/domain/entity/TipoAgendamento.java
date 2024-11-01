@@ -1,5 +1,5 @@
 package br.edu.ifpe.CRMHealthLink.domain.entity;
 
-public enum TypeAppointment{
+public enum TipoAgendamento{
    CONSULTA,PRONTIDAO,CONSULTA_ONLINE
 }

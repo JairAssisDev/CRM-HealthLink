@@ -32,27 +32,9 @@ public class SchedulingController {
 
     @PostMapping
     @Operation(summary = "Criar agendamento", description = "Cria um novo agendamento para um médico.")
-    public ResponseEntity<SchedulingResponseDTO> create(@RequestBody @Valid SchedulingCreateDTO schedulingCreateDTO) {
-        Scheduling schedulingtemp = schedulingService.findByHomeDateTimeAndEndDateTimeAndScheduling(
-                schedulingCreateDTO.getDate(),
-                schedulingCreateDTO.getHomeTime(),
-                schedulingCreateDTO.getSpecialityType()
-        );
-
-        if (schedulingtemp != null || schedulingCreateDTO.getEndTime().isBefore(schedulingCreateDTO.getHomeTime())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
-        Scheduling scheduling = SchedulingMapper.toScheduling(schedulingCreateDTO);
-        Scheduling schedulingSave = schedulingService.save(scheduling);
-
-        SchedulingResponseDTO responseDTO = new SchedulingResponseDTO();
-        responseDTO.setDate(schedulingSave.getDate());
-        responseDTO.setHomeTime(schedulingSave.getHomeTime());
-        responseDTO.setSpecialityType(schedulingSave.getSpecialityType());
-        responseDTO.setEndTime(schedulingSave.getEndTime());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+    public ResponseEntity<SchedulingResponseDTO> create(@RequestBody @Valid SchedulingCreateDTO schedulingCreateDTO,int vagas) {
+    	schedulingService.criarAgenda(schedulingCreateDTO, vagas);
+        return null;
     }
 
     @PostMapping("/savaList")
@@ -88,10 +70,7 @@ public class SchedulingController {
     @PostMapping("/associateDoctor")
     public ResponseEntity<SchedulingDoctorResponseDTO> associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO){
 
-        var scheduling = schedulingService.scheduleDoctor(associateDoctorDTO.getDate(),associateDoctorDTO.getHomeTime(),
-                            associateDoctorDTO.getSpecialityType(),associateDoctorDTO.getCrm());
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(SchedulingMapper.toSchedulingDoctorResponseDTO(scheduling));
+        return null;
     }
 
 }

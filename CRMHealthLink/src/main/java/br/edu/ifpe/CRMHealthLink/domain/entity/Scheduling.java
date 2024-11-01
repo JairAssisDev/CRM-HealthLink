@@ -36,29 +36,31 @@ public class Scheduling {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private TypeAppointment typeAppointment;
+    private TipoAgendamento tipoAgendamento;
 
     @Column
     @Enumerated(EnumType.STRING)
     private Speciality specialityType;
+    
+    private int vagas;
 
-    public Scheduling(Speciality specialityType, LocalDate date, LocalTime homeTime , LocalTime endTime) {
+    public Scheduling(Speciality specialityType, LocalDate date, LocalTime homeTime , LocalTime endTime,TipoAgendamento tipoAgendamento,int vagas) {
         this.specialityType = specialityType;
         this.date = date;
         this.homeTime = homeTime;
         this.endTime = endTime;
+        this.tipoAgendamento = tipoAgendamento;
+        this.vagas = vagas;
     }
 
     @PrePersist
     @PreUpdate
-    private void validateDates() {
-        if (homeTime == null || endTime == null) {
-            throw new IllegalArgumentException("Hora de início e fim não podem ser nulas.");
-        }
-
+    private void validate() {
         if (!homeTime.isBefore(endTime)) {
             throw new IllegalArgumentException("A hora de início deve ser anterior à data de fim.");
         }
+        if(vagas <= 0)
+        	throw new RuntimeException("Número de vagas deve ser maior que 0");
 
     }
 }
