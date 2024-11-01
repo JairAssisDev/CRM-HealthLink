@@ -42,9 +42,9 @@ public class Scheduling {
     @Enumerated(EnumType.STRING)
     private Speciality specialityType;
     
-    private int vagas;
+    private Integer vagas;
 
-    public Scheduling(Speciality specialityType, LocalDate date, LocalTime homeTime , LocalTime endTime,TipoAgendamento tipoAgendamento,int vagas) {
+    public Scheduling(Speciality specialityType, LocalDate date, LocalTime homeTime , LocalTime endTime,TipoAgendamento tipoAgendamento,Integer vagas) {
         this.specialityType = specialityType;
         this.date = date;
         this.homeTime = homeTime;
@@ -57,10 +57,15 @@ public class Scheduling {
     @PreUpdate
     private void validate() {
         if (!homeTime.isBefore(endTime)) {
-            throw new IllegalArgumentException("A hora de início deve ser anterior à data de fim.");
+            throw new IllegalArgumentException("A hora de início deve ser anterior à hora de fim.");
         }
         if(vagas <= 0)
         	throw new RuntimeException("Número de vagas deve ser maior que 0");
 
+    }
+    
+    @Override
+    public Scheduling clone() {
+    	return new Scheduling(specialityType, date, homeTime ,endTime,tipoAgendamento,vagas);
     }
 }

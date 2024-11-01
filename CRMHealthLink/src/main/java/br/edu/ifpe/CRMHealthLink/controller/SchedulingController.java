@@ -32,8 +32,8 @@ public class SchedulingController {
 
     @PostMapping
     @Operation(summary = "Criar agendamento", description = "Cria um novo agendamento para um médico.")
-    public ResponseEntity<SchedulingResponseDTO> create(@RequestBody @Valid SchedulingCreateDTO schedulingCreateDTO,int vagas) {
-    	schedulingService.criarAgenda(schedulingCreateDTO, vagas);
+    public ResponseEntity<SchedulingResponseDTO> create(@RequestBody @Valid SchedulingCreateDTO schedulingCreateDTO) {
+    	schedulingService.criarAgenda(schedulingCreateDTO);
         return null;
     }
 
@@ -69,7 +69,7 @@ public class SchedulingController {
 
     @PostMapping("/associateDoctor")
     public ResponseEntity<SchedulingDoctorResponseDTO> associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO){
-
+    	schedulingService.scheduleDoctor(associateDoctorDTO);
         return null;
     }
 

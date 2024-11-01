@@ -38,7 +38,7 @@ public class SchedulingCreateDTO {
     private TipoAgendamento tipoAgendamento;
     
     @Min(value = 1)
-    private int vagas;
+    private Integer vagas;
     
     public Scheduling toEntity() {
     	return new Scheduling(this.specialityType,this.date,this.homeTime,this.endTime,this.tipoAgendamento,this.vagas);
