@@ -41,7 +41,7 @@ public class CrmHealthLinkApplication {
 			patient.setAcessLevel(AcessLevel.PATIENT);
 			patient.setName("Moacir Junior");
 			patient.setEmail("patient@email.com");
-			doctor.setBirthDate(LocalDate.of(2001, 8, 30));
+			patient.setBirthDate(LocalDate.of(2001, 8, 30));
 			patient.setPassword(encoder.encode("123"));
 
 			
