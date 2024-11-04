@@ -156,10 +156,7 @@ public class EmployeeController {
     @Operation(summary = "Obtém um médico pelo email", description = "Obtém os detalhes de um médico pelo seu email")
     @GetMapping("/doctor/{email}")
     private ResponseEntity<DoctorResponseDto> getDoctorById(@PathVariable String email) {
-        Doctor doctor = doctorService.getByEmail(email).orElse(null);
-        if (doctor == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        Doctor doctor = doctorService.getByEmail(email);
         return ResponseEntity.status(HttpStatus.OK).body(DoctorMapper.toDtoDoctor(doctor));
     }
 

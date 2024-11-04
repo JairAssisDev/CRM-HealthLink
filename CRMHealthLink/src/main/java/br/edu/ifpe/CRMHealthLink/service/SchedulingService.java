@@ -146,10 +146,11 @@ public class SchedulingService {
     
     public void criarAgenda(SchedulingCreateDTO dto) {
     	var scheduling = dto.toEntity();
-    	
     	schedulingRepository.save(scheduling);
-    	    	
-    	
     }
 
+
+	public int pegarDisponibilidade(Doctor doctor, LocalDate date, LocalTime inicio,LocalTime fim,Speciality speciality){
+		return schedulingRepository.deleteByDataAndHoraAndDoctor(date,inicio,fim,doctor,speciality);
+	}
 }

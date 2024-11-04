@@ -44,11 +44,10 @@ public class AppointmentController {
 
     @Operation(summary = "Cria uma nova Consulta", description = "Cria uma nova Consulta com base nas informações fornecidas")
     @PostMapping
-    public ResponseEntity<AppointmentResponseDto> save(@RequestBody AppointmentCreateDto appointmentCreateDto) {
-        Appointment appointment = appointmentMapper.toAppointment(appointmentCreateDto);
-        Appointment savedAppointment = appointmentService.save(appointment);
-        AppointmentResponseDto responseDto = appointmentMapper.toDtoAppointment(savedAppointment);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    public ResponseEntity<Void> save(@RequestBody AppointmentCreateDto appointmentCreateDto) {
+        if(appointmentService.criar(appointmentCreateDto))
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        throw new RuntimeException("Não marcada");
     }
 
     @Operation(summary = "Obtém todas as Consultas", description = "Obtém a lista de todas as Consultas")
@@ -62,8 +61,7 @@ public class AppointmentController {
     @Operation(summary = "Obtém uma Consulta pelo emailPatient,emailDoctor e date", description = "Obtém os detalhes de uma consulta pelo emailPatient,emailDoctor e date")
     @GetMapping("")
     public ResponseEntity<AppointmentResponseDto> getAppointmentId(@RequestBody AppointmentGetDto dto) {
-        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor())
-                .orElseThrow(()->new RuntimeException("Doctor doesn't exist!"));
+        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
         Patient patient = patientService.getByEmail(dto.getEmailPatient())
                 .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
         Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
@@ -79,8 +77,7 @@ public class AppointmentController {
     @Operation(summary = "Remove uma Consulta pelo AppointmentGetDto", description = "Remove uma consulta pelo seu AppointmentGetDto")
     @DeleteMapping()
     public ResponseEntity<Void> delete(@RequestBody AppointmentGetDto dto) {
-        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor())
-                .orElseThrow(()->new RuntimeException("Doctor doesn't exist!"));
+        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
         Patient patient = patientService.getByEmail(dto.getEmailPatient())
                 .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
         Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
@@ -96,8 +93,7 @@ public class AppointmentController {
     @Operation(summary = "Atualiza uma Consulta", description = "Atualiza a consulta com base nas novas informações fornecidas")
     @PutMapping()
     public ResponseEntity<Void> update(@RequestBody AppointmentGetDto dto ,@RequestBody AppointmentCreateDto appointmentCreateDto) {
-        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor())
-                .orElseThrow(()->new RuntimeException("Doctor doesn't exist!"));
+        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
         Patient patient = patientService.getByEmail(dto.getEmailPatient())
                 .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
         Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())

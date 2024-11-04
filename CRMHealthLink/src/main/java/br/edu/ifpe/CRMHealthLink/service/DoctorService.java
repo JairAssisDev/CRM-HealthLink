@@ -27,8 +27,8 @@ public class DoctorService {
     public Doctor getByCRM(String crm){
         return doctorRepository.findByCRM(crm).orElseThrow(()->new RuntimeException("Médico não encontrado"));
     }
-    public Optional<Doctor> getByEmail(String email){
-        return doctorRepository.findByEmail(email);
+    public Doctor getByEmail(String email){
+        return doctorRepository.findByEmail(email).orElseThrow(()->new RuntimeException("Médico não encontrado"));
     }
 
     @Transactional(readOnly = true)
