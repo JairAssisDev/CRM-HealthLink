@@ -1,7 +1,12 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
+import br.edu.ifpe.CRMHealthLink.domain.entity.TipoAgendamento;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -29,5 +34,14 @@ public class SchedulingCreateDTO {
     private LocalTime endTime;
     @NotNull
     private Speciality specialityType;
+    @NotNull
+    private TipoAgendamento tipoAgendamento;
+    
+    @Min(value = 1)
+    private Integer vagas;
+    
+    public Scheduling toEntity() {
+    	return new Scheduling(this.specialityType,this.date,this.homeTime,this.endTime,this.tipoAgendamento,this.vagas);
+    }
 
 }

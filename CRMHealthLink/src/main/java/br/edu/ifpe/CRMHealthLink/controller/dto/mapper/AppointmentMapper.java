@@ -30,28 +30,25 @@ public class AppointmentMapper {
 
 
     public Appointment toAppointment(AppointmentCreateDto appointmentCreateDto) {
-        Doctor doctor = doctorService.getByEmail(appointmentCreateDto.getEmail_doctor())
-                .orElseThrow(() -> new ResourceNotFoundException("Doutor não encontrado"));
+        Doctor doctor = doctorService.getByEmail(appointmentCreateDto.getEmail_doctor());
 
-        Patient patient = patientService.findByEmail(appointmentCreateDto.getEmail_patient())
-                .orElseThrow(() -> new ResourceNotFoundException(("Pacinte não encontrado")));
+        Patient patient = patientService.findByEmail(appointmentCreateDto.getEmail_patient());
 
-        Employee employee = employeeService.findByEmail(appointmentCreateDto.getEmail_employee())
-                .orElseThrow(() -> new ResourceNotFoundException(("Employee não encontrado")));
+        //Employee employee = employeeService.findByEmail(appointmentCreateDto.getEmail_employee());
 
         Appointment appointment = new Appointment();
         appointment.setDoctor(doctor);
         appointment.setPatient(patient);
-        appointment.setEmployee(employee);
-        appointment.setDate(appointmentCreateDto.getData());
-        appointment.setDescription(appointmentCreateDto.getDescription());
+        //appointment.setEmployee(employee);
+        appointment.setDate(appointmentCreateDto.getDate());
+        //appointment.setDescription(appointmentCreateDto.getDescription());
 
         return appointment;
     }
 
     public AppointmentResponseDto toDtoAppointment(Appointment appointment) {
         AppointmentResponseDto appointmentResponseDto = new AppointmentResponseDto();
-        appointmentResponseDto.setDate(appointment.getDate());
+        //appointmentResponseDto.setDate(appointment.getDate());
         appointmentResponseDto.setEmailPatient(appointment.getPatient().getEmail());
         appointmentResponseDto.setDescription(appointment.getDescription());
         appointmentResponseDto.setNameDoctor(appointment.getDoctor().getName());

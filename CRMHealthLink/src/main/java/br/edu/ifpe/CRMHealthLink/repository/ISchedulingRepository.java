@@ -1,10 +1,13 @@
 package br.edu.ifpe.CRMHealthLink.repository;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,6 +24,11 @@ public interface ISchedulingRepository extends JpaRepository<Scheduling, Long> {
             @Param("specialty") Speciality speciality,
             @Param("month") int month,
             @Param("year") int year);
+    
+    List<Scheduling> findByHomeTimeIsLessThanEqualAndEndTimeIsGreaterThanEqualAndDoctorIsNull(LocalTime homeTime,LocalTime endTime);
 
-
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Scheduling s WHERE s.date = :data AND s.homeTime = :horaInicio AND s.endTime = :horaFim AND s.doctor = :doctor AND s.specialityType = :speciality")
+    int deleteByDataAndHoraAndDoctor(LocalDate data, LocalTime horaInicio,LocalTime horaFim, Doctor doctor,Speciality speciality);
 }

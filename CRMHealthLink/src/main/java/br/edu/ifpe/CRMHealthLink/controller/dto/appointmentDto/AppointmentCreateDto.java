@@ -1,11 +1,18 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -13,18 +20,22 @@ import java.time.LocalDateTime;
 public class AppointmentCreateDto {
 
 
-    @NonNull
+    @NotNull
     private String email_patient;
 
-    @NonNull
+    @NotNull
     private String email_doctor;
 
-    @NonNull
-    private String email_employee;
+    @NotNull
+    private LocalDate date;
 
-    @NonNull
-    private LocalDateTime data;
-
-    @NonNull
-    private String description;
+    @NotNull
+    private LocalTime inicio;
+    @NotNull
+    private Speciality speciality;
+    @NotNull
+    private LocalTime fim;
+    public Appointment toEntity(){
+        return new Appointment(speciality, date, inicio,fim);
+    }
 }

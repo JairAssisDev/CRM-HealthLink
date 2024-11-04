@@ -46,8 +46,8 @@ public class PatientService {
             throw new RuntimeException("Paciente não encomtrado");
         }
     }
-    public Optional<Patient> findByEmail(String email) {
-        return patientRepository.findByEmail(email);
+    public Patient findByEmail(String email) {
+        return patientRepository.findByEmail(email).orElseThrow(()->new RuntimeException("Paciente não encontrado"));
     }
 
     @Transactional
