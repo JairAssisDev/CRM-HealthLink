@@ -31,7 +31,7 @@ public class Scheduling {
     @Column(nullable = false)
     private LocalTime endTime;
 
-    @OneToOne
+    @ManyToOne
     private Doctor doctor;
 
     @Column
@@ -52,7 +52,15 @@ public class Scheduling {
         this.tipoAgendamento = tipoAgendamento;
         this.vagas = vagas;
     }
-
+    public Scheduling(Speciality specialityType, LocalDate date, LocalTime homeTime , LocalTime endTime,TipoAgendamento tipoAgendamento,Integer vagas,Doctor doctor) {
+        this.specialityType = specialityType;
+        this.date = date;
+        this.homeTime = homeTime;
+        this.endTime = endTime;
+        this.tipoAgendamento = tipoAgendamento;
+        this.vagas = vagas;
+        this.doctor = doctor;
+    }
     @PrePersist
     @PreUpdate
     private void validate() {
@@ -66,6 +74,6 @@ public class Scheduling {
     
     @Override
     public Scheduling clone() {
-    	return new Scheduling(specialityType, date, homeTime ,endTime,tipoAgendamento,vagas);
+    	return new Scheduling(specialityType, date, homeTime ,endTime,tipoAgendamento,vagas,doctor);
     }
 }

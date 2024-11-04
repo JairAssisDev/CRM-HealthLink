@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Isolation;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,15 +62,15 @@ public class SchedulingService {
     		
     		clone_mid.setHomeTime(dto.getHomeTime());
     		clone_mid.setEndTime(dto.getEndTime());
-    		clone_mid.setDoctor(doctor);
+
     		clone_mid.setVagas(scheduling.getVagas()-1);
-    		//var agendas = pegarAgendaFatiada(clone_mid, dto.getTempoMedioConsultaMinutos());
+    		var agendas = pegarAgendaFatiada(clone_mid, dto.getTempoMedioConsultaMinutos(),doctor);
     		
     		clone_end.setHomeTime(dto.getEndTime());
     		
-    		//agendas.addAll(List.of(clone_init,clone_end));
-    		//novasDemandas.addAll(agendas);
-    		novasDemandas.addAll(List.of(clone_init,clone_end,clone_mid));
+    		agendas.addAll(List.of(clone_init,clone_end,clone_mid));
+    		novasDemandas.addAll(agendas);
+
     	}else if(dto.getHomeTime().isAfter(scheduling.getHomeTime())) {
     		var clone_init = scheduling.clone();
     		var clone_end = scheduling.clone();
@@ -78,12 +79,13 @@ public class SchedulingService {
     		
     		clone_end.setHomeTime(dto.getHomeTime());
     		clone_end.setVagas(scheduling.getVagas()-1);
-    		clone_end.setDoctor(doctor);
-    		//var agendas = pegarAgendaFatiada(clone_end, dto.getTempoMedioConsultaMinutos());
+
+    		var agendas = pegarAgendaFatiada(clone_end, dto.getTempoMedioConsultaMinutos(),doctor);
     		
-    		//agendas.add(clone_init);
-    		//novasDemandas.addAll(agendas);
-    		novasDemandas.addAll(List.of(clone_init,clone_end));
+    		agendas.add(clone_init);
+			agendas.add(clone_end);
+    		novasDemandas.addAll(agendas);
+
     		
     	}else if(dto.getEndTime().isBefore(scheduling.getEndTime())) {
     		var clone_init = scheduling.clone();
@@ -91,43 +93,44 @@ public class SchedulingService {
     		
     		clone_init.setEndTime(dto.getEndTime());
     		clone_init.setVagas(scheduling.getVagas()-1);
-    		clone_init.setDoctor(doctor);
-    		//var agendas = pegarAgendaFatiada(clone_init, dto.getTempoMedioConsultaMinutos());
-    		
+
+    		var agendas = pegarAgendaFatiada(clone_init, dto.getTempoMedioConsultaMinutos(),doctor);
+    		agendas.add(clone_init);
     		clone_end.setHomeTime(dto.getEndTime());
     		
-    		//agendas.add(clone_end);
-    		//novasDemandas.addAll(agendas);
-    		novasDemandas.addAll(List.of(clone_init,clone_end));
-    	}
+    		agendas.add(clone_end);
+    		novasDemandas.addAll(agendas);
+
+    	}else{
+			var clone = scheduling.clone();
+			var agendas = pegarAgendaFatiada(clone,dto.getTempoMedioConsultaMinutos(),doctor);
+			novasDemandas.addAll(agendas);
+		}
     	
     	schedulingRepository.delete(scheduling);
-    	schedulingRepository.saveAll(novasDemandas.stream().flatMap(s ->{ 
-    		if(s.getDoctor() != null) {
-    			s.setVagas(null);
-    			var c = s.clone();
-    			c.setDoctor(null);
-    			return Stream.of(s,c);
-    		}
-    		return Stream.of(s);
-    	})
-    			.filter(s->s.getVagas()>0 || s.getDoctor() != null)
+
+    	schedulingRepository.saveAll(novasDemandas.stream()
+    			.filter(s->s.getVagas()>0 || s.getDoctor()!=null)
     			.toList());
     	
     	return null;
     }
     
-    private List<Scheduling> pegarAgendaFatiada(Scheduling scheduling, int tempo){
-    	int minutos = (scheduling.getHomeTime().getHour()*60 + scheduling.getHomeTime().getMinute()) 
-    			+(scheduling.getEndTime().getHour()*60 + scheduling.getEndTime().getMinute());
+    private List<Scheduling> pegarAgendaFatiada(Scheduling scheduling, int tempo,Doctor doctor){
+    	int minutos = (scheduling.getEndTime().getHour()*60 + scheduling.getEndTime().getMinute())
+				-(scheduling.getHomeTime().getHour()*60 + scheduling.getHomeTime().getMinute());
+
     	
     	int quantidadeConsultas = minutos / tempo;
-    	
+
     	List<Scheduling> fatiados = new ArrayList<>();
     	for( ; quantidadeConsultas>0;quantidadeConsultas--) {
-    		var temp = scheduling.clone();
-    		
-    		fatiados.add(temp);
+			var clone = scheduling.clone();
+			clone.setDoctor(doctor);
+			clone.setEndTime(clone.getHomeTime().plusMinutes(tempo*quantidadeConsultas));
+			clone.setHomeTime(clone.getEndTime().minusMinutes(tempo));
+			clone.setVagas(1);
+    		fatiados.add(clone);
     	}
     	return fatiados;
     }
