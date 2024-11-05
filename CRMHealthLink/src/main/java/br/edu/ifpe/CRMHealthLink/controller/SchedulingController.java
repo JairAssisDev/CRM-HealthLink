@@ -4,6 +4,7 @@ import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.AssociateDoctorDTO
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingDoctorResponseDTO;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
+import br.edu.ifpe.CRMHealthLink.domain.entity.TipoAgendamento;
 import br.edu.ifpe.CRMHealthLink.service.SchedulingService;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.SchedulingMapper;
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingCreateDTO;
@@ -54,6 +55,11 @@ public class SchedulingController {
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
     }
 
+    @GetMapping("disponibilidades/{especialidade}/{tipo}")
+    public ResponseEntity<List<SchedulingResponseDTO>> pegarDisponibilidades(@PathVariable Speciality especialidade,
+                                                                             @PathVariable TipoAgendamento tipo){
+        return ResponseEntity.ok(schedulingService.listaDisponibilidades(tipo,especialidade));
+    }
     @GetMapping("/specialty")
     @Operation(summary = "Listar agendamentos por especialidade, mês e ano",
             description = "Retorna uma lista de agendamentos filtrados por especialidade, mês e ano.")

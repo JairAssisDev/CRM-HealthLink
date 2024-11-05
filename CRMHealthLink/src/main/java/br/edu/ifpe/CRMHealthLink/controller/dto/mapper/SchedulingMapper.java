@@ -38,7 +38,7 @@ public class SchedulingMapper {
     public static SchedulingDoctorResponseDTO toSchedulingDoctorResponseDTO(Scheduling scheduling){
 
         return new SchedulingDoctorResponseDTO(scheduling.getDate(),scheduling.getHomeTime(),scheduling.getEndTime(),
-                scheduling.getSpecialityType(),scheduling.getDoctor().getCRM(),scheduling.getDoctor().getName());
+                scheduling.getSpecialityType(),scheduling.getDoctor().getCRM(),scheduling.getDoctor().getName(),scheduling.getTipoAgendamento(),scheduling.getDoctor().getName(),scheduling.getDoctor().getEmail());
 
     }
 

@@ -61,6 +61,10 @@ public class Scheduling {
         this.vagas = vagas;
         this.doctor = doctor;
     }
+
+
+
+
     @PrePersist
     @PreUpdate
     private void validate() {
@@ -76,4 +80,5 @@ public class Scheduling {
     public Scheduling clone() {
     	return new Scheduling(specialityType, date, homeTime ,endTime,tipoAgendamento,vagas,doctor);
     }
+
 }
