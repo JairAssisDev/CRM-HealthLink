@@ -3,6 +3,7 @@ package br.edu.ifpe.CRMHealthLink.repository;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
+import br.edu.ifpe.CRMHealthLink.domain.entity.TipoAgendamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,4 +32,6 @@ public interface ISchedulingRepository extends JpaRepository<Scheduling, Long> {
     @Transactional
     @Query("DELETE FROM Scheduling s WHERE s.date = :data AND s.homeTime = :horaInicio AND s.endTime = :horaFim AND s.doctor = :doctor AND s.specialityType = :speciality")
     int deleteByDataAndHoraAndDoctor(LocalDate data, LocalTime horaInicio,LocalTime horaFim, Doctor doctor,Speciality speciality);
+
+    List<Scheduling> findByDoctorIsNotNullAndSpecialityTypeAndTipoAgendamento(Speciality speciality, TipoAgendamento tipoAgendamento);
 }

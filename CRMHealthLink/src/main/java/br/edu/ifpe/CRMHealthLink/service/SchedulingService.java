@@ -2,9 +2,11 @@ package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.AssociateDoctorDTO;
 import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingCreateDTO;
+import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingResponseDTO;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Scheduling;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
+import br.edu.ifpe.CRMHealthLink.domain.entity.TipoAgendamento;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.ISchedulingRepository;
 import jakarta.transaction.Transactional;
@@ -152,5 +154,8 @@ public class SchedulingService {
 
 	public int pegarDisponibilidade(Doctor doctor, LocalDate date, LocalTime inicio,LocalTime fim,Speciality speciality){
 		return schedulingRepository.deleteByDataAndHoraAndDoctor(date,inicio,fim,doctor,speciality);
+	}
+	public List<SchedulingResponseDTO> listaDisponibilidades(TipoAgendamento tipoAgendamento,Speciality speciality){
+		return schedulingRepository.findByDoctorIsNotNullAndSpecialityTypeAndTipoAgendamento(speciality,tipoAgendamento).stream().map(SchedulingResponseDTO::fromEntity).toList();
 	}
 }
