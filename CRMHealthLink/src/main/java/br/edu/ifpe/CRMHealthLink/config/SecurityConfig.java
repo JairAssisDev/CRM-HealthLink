@@ -33,6 +33,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((auth)->{
                     auth
+                            .requestMatchers("api/employee/allspecialities").authenticated()
+                            .requestMatchers("api/calendario/disponibilidades/**").authenticated()
                             .requestMatchers("api/employee/**").hasRole("ATTENDANT")
                             .requestMatchers("api/employee/**").hasRole("MANAGER")
                             .requestMatchers("/h2-console/**").permitAll()
