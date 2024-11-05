@@ -67,7 +67,7 @@ public class SchedulingController {
     }
 
 
-    @PostMapping("/associateDoctor")
+    @PutMapping("/associateDoctor")
     public ResponseEntity<SchedulingDoctorResponseDTO> associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO){
     	schedulingService.scheduleDoctor(associateDoctorDTO);
         return null;

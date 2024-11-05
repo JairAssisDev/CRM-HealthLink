@@ -60,7 +60,7 @@ public class AppointmentService {
         appointmentToUpdate.setDescription(updatedAppointment.getDescription());
         appointmentToUpdate.setDoctor(updatedAppointment.getDoctor());
         appointmentToUpdate.setPatient(updatedAppointment.getPatient());
-        appointmentToUpdate.setEmployee(updatedAppointment.getEmployee());
+       // appointmentToUpdate.setEmployee(updatedAppointment.getEmployee());
 
         appointmentRepository.save(appointmentToUpdate);
     }
