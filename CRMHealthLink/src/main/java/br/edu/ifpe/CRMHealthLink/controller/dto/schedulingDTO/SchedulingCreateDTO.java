@@ -6,6 +6,7 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.TipoAgendamento;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,9 +29,11 @@ public class SchedulingCreateDTO {
     private LocalDate date;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @Schema(type = "string", pattern = "HH:mm:ss", example = "10:30:00")
     private LocalTime homeTime;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
+    @Schema(type = "string", pattern = "HH:mm:ss", example = "14:30:00")
     private LocalTime endTime;
     @NotNull
     private Speciality specialityType;

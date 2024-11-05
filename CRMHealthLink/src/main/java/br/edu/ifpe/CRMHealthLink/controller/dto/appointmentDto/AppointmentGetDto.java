@@ -1,23 +1,23 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentGetDto {
 
-    @NonNull
+    @NotNull
     private String emailPatient;
 
-    @NonNull
+    @NotNull
     private String emailDoctor;
 
-    @NonNull
-    private LocalDateTime date;
+    @NotNull
+    private LocalDate date;
 }
