@@ -181,5 +181,11 @@ public class EmployeeController {
         return Arrays.asList(Speciality.values());
     }
 
+    @Operation(summary = "Lista dos Tipo Agendamentos", description = "Lista dos Tipo Agendamentos")
+    @GetMapping("alltipoagendamentos")
+    public List<TipoAgendamento> getAllTipoAgendamentos() {
+
+        return Arrays.asList(TipoAgendamento.values());
+    }
 
 }
