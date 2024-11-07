@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.print.Doc;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -17,10 +18,12 @@ import java.util.Optional;
 @Repository
 public interface IAppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    Optional<Appointment> findByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio);
-
+    Optional<AppointmentResponseDto> findByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio);
+    Optional<Appointment> findAppointmentByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio);
     List<Appointment> findByDateBetweenAndNotifiedIsFalse(LocalDateTime start, LocalDateTime end);
 
-    @Query("SELECT new br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentResponseDto(a.date,a.inicio,a.fim,a.description,a.patient.name,a.patient.email,a.doctor.name) FROM Appointment a WHERE a.patient = :patient")
+
     List<AppointmentResponseDto> findByPatient(Patient patient);
+    List<AppointmentResponseDto> findByDoctor(Doctor doctor);
+    List<AppointmentResponseDto> findBy();
 }

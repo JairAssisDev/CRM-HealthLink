@@ -47,14 +47,14 @@ public class AppointmentMapper {
     }
 
     public AppointmentResponseDto toDtoAppointment(Appointment appointment) {
-        AppointmentResponseDto appointmentResponseDto = new AppointmentResponseDto();
+        //AppointmentResponseDto appointmentResponseDto = new AppointmentResponseDto();
         //appointmentResponseDto.setDate(appointment.getDate());
-        appointmentResponseDto.setPatientEmail(appointment.getPatient().getEmail());
+        //appointmentResponseDto.setPatientEmail(appointment.getPatient().getEmail());
 //        appointmentResponseDto.setDescription(appointment.getDescription());
 //        appointmentResponseDto.setNameDoctor(appointment.getDoctor().getName());
 //        appointmentResponseDto.setNamePatient(appointment.getPatient().getName());
 //
-        return appointmentResponseDto;
+        return null;//appointmentResponseDto;
     }
 
     public List<AppointmentResponseDto> toDtoAppointments(List<Appointment> appointments) {

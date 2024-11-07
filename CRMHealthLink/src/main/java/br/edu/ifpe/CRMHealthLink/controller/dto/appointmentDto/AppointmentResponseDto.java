@@ -7,30 +7,19 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Data
-@NoArgsConstructor
-public class AppointmentResponseDto {
+public interface AppointmentResponseDto {
 
     
-    private LocalDate date;
-    private LocalTime inicio;
-    private LocalTime fim;
-    private String description;
+     LocalDate getDate();
+     LocalTime getInicio();
+     LocalTime getFim();
+     String getDescription();
 
 
-    private String patientName;
+     String getPatientName();
 
-    private String patientEmail;
+     String getPatientEmail();
 
-    private String doctorName;
+     String getDoctorName();
 
-    public AppointmentResponseDto(LocalDate date, LocalTime inicio, LocalTime fim, String description, String patientName, String patientEmail, String doctorName) {
-        this.date = date;
-        this.inicio = inicio;
-        this.fim = fim;
-        this.description = description;
-        this.patientName = patientName;
-        this.patientEmail = patientEmail;
-        this.doctorName = doctorName;
-    }
 }

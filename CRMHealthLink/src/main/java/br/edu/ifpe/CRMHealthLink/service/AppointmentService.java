@@ -32,13 +32,15 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
-    public Optional<Appointment> getByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio) {
-        return appointmentRepository.findByDoctorAndPatientAndDateAndInicio(doctor, patient, date,inicio);
+    public AppointmentResponseDto getByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio) {
+        return appointmentRepository.findByDoctorAndPatientAndDateAndInicio(doctor, patient, date,inicio).orElseThrow(()->new RuntimeException("Consulta não encontrada"));
     }
-
+    public Appointment getApByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio) {
+        return appointmentRepository.findAppointmentByDoctorAndPatientAndDateAndInicio(doctor, patient, date,inicio).orElseThrow(()->new RuntimeException("Consulta não encontrada"));
+    }
     @Transactional(readOnly = true)
-    public List<Appointment> getAllAppointment() {
-        return appointmentRepository.findAll();
+    public List<AppointmentResponseDto> getAllAppointment() {
+        return appointmentRepository.findBy();
     }
 
     @Transactional(readOnly = true)
@@ -57,14 +59,14 @@ public class AppointmentService {
         var doctor = doctorService.getByEmail(appointmentCreateDto.getEmail_doctor());
         var patient = patientService.findByEmail(appointmentCreateDto.getEmail_patient());
         Appointment appointmentToUpdate = appointmentRepository
-                .findByDoctorAndPatientAndDateAndInicio(doctor,patient,appointmentCreateDto.getDate(),appointmentCreateDto.getInicio())
+                .findAppointmentByDoctorAndPatientAndDateAndInicio(doctor,patient,appointmentCreateDto.getDate(),appointmentCreateDto.getInicio())
                 .orElseThrow(()->new RuntimeException("Consulta não encontrada"));
 
         appointmentToUpdate.setDate(appointmentCreateDto.getDate());
         appointmentToUpdate.setDescription(appointmentCreateDto.getDescription());
         appointmentToUpdate.setDoctor(doctor);
         appointmentToUpdate.setPatient(patient);
-
+        appointmentToUpdate.setSpeciality(appointmentCreateDto.getSpeciality());
         appointmentRepository.save(appointmentToUpdate);
     }
     @Transactional
@@ -76,6 +78,7 @@ public class AppointmentService {
             var app = dto.toEntity();
             app.setDoctor(doctor);
             app.setPatient(patient);
+            app.setDescription(dto.getDescription());
             appointmentRepository.save(app);
         }
 
@@ -84,5 +87,8 @@ public class AppointmentService {
 
     public List<AppointmentResponseDto> consultasPaciente(String email){
         return appointmentRepository.findByPatient(patientService.findByEmail(email));
+    }
+    public List<AppointmentResponseDto> consultasMedicoCrm(String crm){
+        return appointmentRepository.findByDoctor(doctorService.getByCRM(crm));
     }
 }
