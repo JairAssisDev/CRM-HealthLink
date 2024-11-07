@@ -64,7 +64,7 @@ public class AppointmentController {
         Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
         Patient patient = patientService.getByEmail(dto.getEmailPatient())
                 .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
-        Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
+        Appointment appointment = appointmentService.getByDoctorAndPatientAndDateAndInicio(doctor, patient, dto.getDate(),dto.getInicio())
                 .orElseThrow(()->new RuntimeException("Appointment doesn't exist!"));
         Appointment appointmentResponse = appointmentService.findById(appointment.getId());
         if (appointmentResponse == null) {
@@ -80,7 +80,7 @@ public class AppointmentController {
         Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
         Patient patient = patientService.getByEmail(dto.getEmailPatient())
                 .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
-        Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
+        Appointment appointment = appointmentService.getByDoctorAndPatientAndDateAndInicio(doctor, patient, dto.getDate(),dto.getInicio())
                 .orElseThrow(()->new RuntimeException("Appointment doesn't exist!"));
         try {
             appointmentService.delete(appointment.getId());
@@ -96,9 +96,9 @@ public class AppointmentController {
         Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
         Patient patient = patientService.getByEmail(dto.getEmailPatient())
                 .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
-        Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
+        Appointment appointment = appointmentService.getByDoctorAndPatientAndDateAndInicio(doctor, patient, dto.getDate(),dto.getInicio())
                 .orElseThrow(()->new RuntimeException("Appointment doesn't exist!"));
-        appointmentService.update(appointment.getId(), appointmentCreateDto);
+        appointmentService.update(appointmentCreateDto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
