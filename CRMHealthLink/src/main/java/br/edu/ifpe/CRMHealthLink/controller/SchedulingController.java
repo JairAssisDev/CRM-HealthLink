@@ -60,14 +60,15 @@ public class SchedulingController {
                                                                              @PathVariable TipoAgendamento tipo){
         return ResponseEntity.ok(schedulingService.listaDisponibilidades(tipo,especialidade));
     }
-    @GetMapping("/specialty")
+    @GetMapping("/specialtyfordoctor")
     @Operation(summary = "Listar agendamentos por especialidade, mês e ano",
             description = "Retorna uma lista de agendamentos filtrados por especialidade, mês e ano.")
     public ResponseEntity<List<SchedulingResponseDTO>> getBySpecialtyAndMonthYear(
             @Parameter(description = "Tipo de especialidade a ser filtrada") @RequestParam Speciality speciality,
             @Parameter(description = "Mês para filtrar os agendamentos (1-12)") @RequestParam int month,
-            @Parameter(description = "Ano para filtrar os agendamentos") @RequestParam int year) {
-        List<Scheduling> schedulings = schedulingService.getSchedulesBySpecialtyAndMonthYear(speciality, month, year);
+            @Parameter(description = "Ano para filtrar os agendamentos") @RequestParam int year,
+            @Parameter(description = "Tipo de Agendamento para filtrar os agendaamentos") @RequestParam TipoAgendamento tipoAgendamento) {
+        List<Scheduling> schedulings = schedulingService.getSchedulesBySpecialtyAndMonthYear(speciality,tipoAgendamento, month, year);
         List<SchedulingResponseDTO> schedulingResponseDTOS = SchedulingMapper.toDtoSchedulings(schedulings);
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
     }

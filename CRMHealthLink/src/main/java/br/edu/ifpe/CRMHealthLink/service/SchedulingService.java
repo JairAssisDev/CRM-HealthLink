@@ -141,8 +141,8 @@ public class SchedulingService {
         return schedulingRepository.findAll();
     }
 
-    public List<Scheduling> getSchedulesBySpecialtyAndMonthYear(Speciality speciality, int month, int year) {
-        return schedulingRepository.findBySpecialtyAndMonthAndYear(speciality, month, year);
+    public List<Scheduling> getSchedulesBySpecialtyAndMonthYear(Speciality speciality,TipoAgendamento tipoAgendamento , int month, int year) {
+        return schedulingRepository.findBySpecialtyAndMonthAndYearAndTipoAgendamento(speciality, month, year,tipoAgendamento);
     }
     
     
