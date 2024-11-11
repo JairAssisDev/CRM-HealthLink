@@ -4,9 +4,11 @@ import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentCreate
 import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentGetDto;
 import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentResponseDto;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.AppointmentMapper;
+import br.edu.ifpe.CRMHealthLink.controller.dto.schedulingDTO.SchedulingResponseDTO;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
@@ -93,4 +95,5 @@ public class AppointmentController {
         appointmentService.update(appointmentCreateDto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }

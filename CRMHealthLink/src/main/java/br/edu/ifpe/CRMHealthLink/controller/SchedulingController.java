@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -55,10 +56,10 @@ public class SchedulingController {
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
     }
 
-    @GetMapping("disponibilidades/{especialidade}/{tipo}")
+    @GetMapping("disponibilidades/{especialidade}/{data}")
     public ResponseEntity<List<SchedulingResponseDTO>> pegarDisponibilidades(@PathVariable Speciality especialidade,
-                                                                             @PathVariable TipoAgendamento tipo){
-        return ResponseEntity.ok(schedulingService.listaDisponibilidades(tipo,especialidade));
+                                                                             @PathVariable LocalDate data){
+        return ResponseEntity.ok(schedulingService.listaDisponibilidades(data,especialidade));
     }
     @GetMapping("/specialtyfordoctor")
     @Operation(summary = "Listar agendamentos por especialidade, mês e ano",
