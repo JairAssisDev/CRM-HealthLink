@@ -158,4 +158,8 @@ public class SchedulingService {
 	public List<SchedulingResponseDTO> listaDisponibilidades(TipoAgendamento tipoAgendamento,Speciality speciality){
 		return schedulingRepository.findByDoctorIsNotNullAndSpecialityTypeAndTipoAgendamento(speciality,tipoAgendamento).stream().map(SchedulingResponseDTO::fromEntity).toList();
 	}
+
+	public void criarAgendaEmergencia(){
+
+	}
 }

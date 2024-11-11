@@ -44,29 +44,9 @@ public class PatientController {
     }
 
     @Operation(summary = "Obtém todas as Consultas do paciente", description = "Obtém a lista de todas as Consultas do paciente")
-    @GetMapping("/appointments/{name}/{email}")
-    public ResponseEntity<List<AppointmentResponseDto>> findAllAppointments(
-            @PathVariable String name, @PathVariable String email) {
-
-        Patient patient = patientService.findByNameAndEmail(name, email);
-        if (patient == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        List<Appointment> appointments = appointmentService.getAllAppointment();
-        List<Appointment> patientAppointments = new ArrayList<>();
-        for (Appointment appointment : appointments) {
-            if (appointment.getPatient().getId().equals(patient.getId())) {
-                patientAppointments.add(appointment);
-            }
-        }
-
-        List<AppointmentResponseDto> responseDtos = appointmentMapper.toDtoAppointments(patientAppointments);
-        if (!responseDtos.isEmpty()) {
-            return ResponseEntity.ok(responseDtos);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/appointments/{email}")
+    public ResponseEntity<List<AppointmentResponseDto>> findAllAppointments(@PathVariable String email) {
+        return ResponseEntity.ok(appointmentService.consultasPaciente(email));
     }
 
     @Operation(summary = "Obtém todos os exames do paciente", description = "Obtém a lista de todos os exames do paciente")

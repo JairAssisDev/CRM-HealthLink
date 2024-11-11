@@ -10,14 +10,21 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.service.AppointmentService;
 import br.edu.ifpe.CRMHealthLink.service.DoctorService;
 import br.edu.ifpe.CRMHealthLink.service.PatientService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -27,17 +34,13 @@ import java.util.List;
 public class AppointmentController {
 
     private final  AppointmentService appointmentService;
-
-    private final AppointmentMapper appointmentMapper;
-
     private final DoctorService doctorService;
 
     private final PatientService patientService;
 
-    public AppointmentController(AppointmentService appointmentService, AppointmentMapper appointmentMapper
+    public AppointmentController(AppointmentService appointmentService
             , DoctorService doctorService, PatientService patientService) {
         this.appointmentService = appointmentService;
-        this.appointmentMapper = appointmentMapper;
         this.doctorService = doctorService;
         this.patientService = patientService;
     }
@@ -53,25 +56,20 @@ public class AppointmentController {
     @Operation(summary = "Obtém todas as Consultas", description = "Obtém a lista de todas as Consultas")
     @GetMapping("/all")
     public ResponseEntity<List<AppointmentResponseDto>> findAll() {
-        List<Appointment> appointments = appointmentService.getAllAppointment();
-        List<AppointmentResponseDto> responseDtos = appointmentMapper.toDtoAppointments(appointments);
-        return ResponseEntity.ok(responseDtos);
+        return ResponseEntity.ok(appointmentService.getAllAppointment());
     }
 
-    @Operation(summary = "Obtém uma Consulta pelo emailPatient,emailDoctor e date", description = "Obtém os detalhes de uma consulta pelo emailPatient,emailDoctor e date")
-    @GetMapping("")
-    public ResponseEntity<AppointmentResponseDto> getAppointmentId(@RequestBody AppointmentGetDto dto) {
-        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
-        Patient patient = patientService.getByEmail(dto.getEmailPatient())
-                .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
-        Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
-                .orElseThrow(()->new RuntimeException("Appointment doesn't exist!"));
-        Appointment appointmentResponse = appointmentService.findById(appointment.getId());
-        if (appointmentResponse == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        AppointmentResponseDto responseDto = appointmentMapper.toDtoAppointment(appointmentResponse);
-        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    @Operation(summary = "Obtém uma Consulta pelo emailPatient,emailDoctor, date e hora de inicio", description = "Obtém os detalhes de uma consulta pelo emailPatient,emailDoctor e date")
+    @GetMapping()
+    public ResponseEntity<AppointmentResponseDto> getAppointmentId(@RequestParam String emailMedico,
+                                                                   @RequestParam String emailPaciente,
+                                                                   @RequestParam LocalDate date,
+                                                                   @RequestParam @Schema(type = "string", example = "14:15:00")String inicio) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(appointmentService.getByDoctorAndPatientAndDateAndInicio(doctorService.getByEmail(emailMedico),
+                        patientService.findByEmail(emailPaciente),
+                        date,
+                        LocalTime.parse(inicio, DateTimeFormatter.ofPattern("HH:mm:ss"))));
     }
 
     @Operation(summary = "Remove uma Consulta pelo AppointmentGetDto", description = "Remove uma consulta pelo seu AppointmentGetDto")
@@ -80,8 +78,7 @@ public class AppointmentController {
         Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
         Patient patient = patientService.getByEmail(dto.getEmailPatient())
                 .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
-        Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
-                .orElseThrow(()->new RuntimeException("Appointment doesn't exist!"));
+        Appointment appointment = appointmentService.getApByDoctorAndPatientAndDateAndInicio(doctor, patient, dto.getDate(),dto.getInicio());
         try {
             appointmentService.delete(appointment.getId());
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -92,13 +89,8 @@ public class AppointmentController {
 
     @Operation(summary = "Atualiza uma Consulta", description = "Atualiza a consulta com base nas novas informações fornecidas")
     @PutMapping()
-    public ResponseEntity<Void> update(@RequestBody AppointmentGetDto dto ,@RequestBody AppointmentCreateDto appointmentCreateDto) {
-        Doctor doctor = doctorService.getByEmail(dto.getEmailDoctor());
-        Patient patient = patientService.getByEmail(dto.getEmailPatient())
-                .orElseThrow(()->new RuntimeException("Patient doesn't exist!"));
-        Appointment appointment = appointmentService.getByDoctorAndPatientAndDate(doctor, patient, dto.getDate())
-                .orElseThrow(()->new RuntimeException("Appointment doesn't exist!"));
-        appointmentService.update(appointment.getId(), appointmentCreateDto);
+    public ResponseEntity<Void> update(@RequestBody AppointmentCreateDto appointmentCreateDto) {
+        appointmentService.update(appointmentCreateDto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
