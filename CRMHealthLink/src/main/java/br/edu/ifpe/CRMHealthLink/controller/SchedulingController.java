@@ -75,9 +75,10 @@ public class SchedulingController {
 
 
     @PutMapping("/associateDoctor")
-    public ResponseEntity<SchedulingDoctorResponseDTO> associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO){
-    	schedulingService.scheduleDoctor(associateDoctorDTO);
-        return null;
+    public ResponseEntity<String>associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO) {
+        schedulingService.scheduleDoctor(associateDoctorDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Doctor successfully associated with the schedule.");
     }
 
 }
