@@ -144,7 +144,10 @@ public class SchedulingService {
     public List<Scheduling> getSchedulesBySpecialtyAndMonthYear(Speciality speciality,TipoAgendamento tipoAgendamento , int month, int year) {
         return schedulingRepository.findBySpecialtyAndMonthAndYearAndTipoAgendamento(speciality, month, year,tipoAgendamento);
     }
-    
+
+	public List<Integer> test(Speciality speciality,TipoAgendamento tipoAgendamento , int month, int year){
+		return schedulingRepository.findAvailableDaysBySpecialtyAndMonthAndYearAndTipoAgendamento(speciality, month, year,tipoAgendamento);
+	}
     
     public void criarAgenda(SchedulingCreateDTO dto) {
     	var scheduling = dto.toEntity();
