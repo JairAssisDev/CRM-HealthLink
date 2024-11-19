@@ -23,10 +23,19 @@ public class CrmHealthLinkApplication {
 		return a ->{
 			var manager = new Employee();
 			manager.setAcessLevel(AcessLevel.MANAGER);
+			manager.setOffice(Office.MANAGER);
 			manager.setName("Jão Jorge");
 			manager.setEmail("admin@email.com");
 			manager.setBirthDate(LocalDate.of(1985, 5, 15));
 			manager.setPassword(encoder.encode("123"));
+
+			var attendant = new Employee();
+			attendant.setAcessLevel(AcessLevel.ATTENDANT);
+			attendant.setOffice(Office.RECEPTIONIST);
+			attendant.setName("Maria Joaquina");
+			attendant.setEmail("att@email.com");
+			attendant.setBirthDate(LocalDate.of(1999, 9, 4));
+			attendant.setPassword(encoder.encode("123"));
 
 			var doctor = new Doctor();
 			doctor.setAcessLevel(AcessLevel.DOCTOR);
@@ -46,6 +55,7 @@ public class CrmHealthLinkApplication {
 
 			
 			userRepository.save(manager);
+			userRepository.save(attendant);
 			userRepository.save(doctor);
 			userRepository.save(patient);
 		};
