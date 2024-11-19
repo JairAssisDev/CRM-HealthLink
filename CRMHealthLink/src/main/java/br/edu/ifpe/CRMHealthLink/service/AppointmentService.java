@@ -1,6 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentCreateDto;
+import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentResponseDto;
 import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.AppointmentMapper;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Appointment;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +23,6 @@ import java.util.Optional;
 public class AppointmentService {
 
     private final IAppointmentRepository appointmentRepository;
-    private final AppointmentMapper appointmentMapper;
     private final SchedulingService schedulingService;
     private final DoctorService doctorService;
     private final PatientService patientService;
@@ -31,13 +32,15 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
-    public Optional<Appointment> getByDoctorAndPatientAndDate(Doctor doctor, Patient patient, LocalDate date ) {
-        return appointmentRepository.findByDoctorAndPatientAndDate(doctor, patient, date);
+    public AppointmentResponseDto getByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio) {
+        return appointmentRepository.findByDoctorAndPatientAndDateAndInicio(doctor, patient, date,inicio).orElseThrow(()->new RuntimeException("Consulta não encontrada"));
     }
-
+    public Appointment getApByDoctorAndPatientAndDateAndInicio(Doctor doctor, Patient patient, LocalDate date, LocalTime inicio) {
+        return appointmentRepository.findAppointmentByDoctorAndPatientAndDateAndInicio(doctor, patient, date,inicio).orElseThrow(()->new RuntimeException("Consulta não encontrada"));
+    }
     @Transactional(readOnly = true)
-    public List<Appointment> getAllAppointment() {
-        return appointmentRepository.findAll();
+    public List<AppointmentResponseDto> getAllAppointment() {
+        return appointmentRepository.findBy();
     }
 
     @Transactional(readOnly = true)
@@ -52,17 +55,18 @@ public class AppointmentService {
     }
 
     @Transactional
-    public void update(Long id, AppointmentCreateDto appointmentCreateDto) {
-        Appointment appointmentToUpdate = findById(id);
+    public void update(AppointmentCreateDto appointmentCreateDto) {
+        var doctor = doctorService.getByEmail(appointmentCreateDto.getEmail_doctor());
+        var patient = patientService.findByEmail(appointmentCreateDto.getEmail_patient());
+        Appointment appointmentToUpdate = appointmentRepository
+                .findAppointmentByDoctorAndPatientAndDateAndInicio(doctor,patient,appointmentCreateDto.getDate(),appointmentCreateDto.getInicio())
+                .orElseThrow(()->new RuntimeException("Consulta não encontrada"));
 
-        Appointment updatedAppointment = appointmentMapper.toAppointment(appointmentCreateDto);
-
-        appointmentToUpdate.setDate(updatedAppointment.getDate());
-        appointmentToUpdate.setDescription(updatedAppointment.getDescription());
-        appointmentToUpdate.setDoctor(updatedAppointment.getDoctor());
-        appointmentToUpdate.setPatient(updatedAppointment.getPatient());
-       // appointmentToUpdate.setEmployee(updatedAppointment.getEmployee());
-
+        appointmentToUpdate.setDate(appointmentCreateDto.getDate());
+        appointmentToUpdate.setDescription(appointmentCreateDto.getDescription());
+        appointmentToUpdate.setDoctor(doctor);
+        appointmentToUpdate.setPatient(patient);
+        appointmentToUpdate.setSpeciality(appointmentCreateDto.getSpeciality());
         appointmentRepository.save(appointmentToUpdate);
     }
     @Transactional
@@ -74,9 +78,17 @@ public class AppointmentService {
             var app = dto.toEntity();
             app.setDoctor(doctor);
             app.setPatient(patient);
+            app.setDescription(dto.getDescription());
             appointmentRepository.save(app);
         }
 
         return criado > 0;
+    }
+
+    public List<AppointmentResponseDto> consultasPaciente(String email){
+        return appointmentRepository.findByPatient(patientService.findByEmail(email));
+    }
+    public List<AppointmentResponseDto> consultasMedicoCrm(String crm){
+        return appointmentRepository.findByDoctor(doctorService.getByCRM(crm));
     }
 }

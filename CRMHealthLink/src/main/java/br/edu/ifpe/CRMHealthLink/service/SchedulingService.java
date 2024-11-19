@@ -158,7 +158,11 @@ public class SchedulingService {
 	public int pegarDisponibilidade(Doctor doctor, LocalDate date, LocalTime inicio,LocalTime fim,Speciality speciality){
 		return schedulingRepository.deleteByDataAndHoraAndDoctor(date,inicio,fim,doctor,speciality);
 	}
-	public List<SchedulingResponseDTO> listaDisponibilidades(TipoAgendamento tipoAgendamento,Speciality speciality){
-		return schedulingRepository.findByDoctorIsNotNullAndSpecialityTypeAndTipoAgendamento(speciality,tipoAgendamento).stream().map(SchedulingResponseDTO::fromEntity).toList();
+	public List<SchedulingResponseDTO> listaDisponibilidades(LocalDate date,Speciality speciality){
+		return schedulingRepository.findByDoctorIsNotNullAndSpecialityTypeAndDate(speciality,date).stream().map(SchedulingResponseDTO::fromEntity).toList();
+	}
+
+	public void criarAgendaEmergencia(){
+
 	}
 }
