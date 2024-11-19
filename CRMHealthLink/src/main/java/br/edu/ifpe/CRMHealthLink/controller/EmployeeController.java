@@ -140,8 +140,9 @@ public class EmployeeController {
 
         var loggedUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (loggedUser.getAcessLevel()==AcessLevel.MANAGER) {
-            Doctor responseDoctor = doctorService.save(DoctorMapper.toDoctorEntity(doctor));
-            responseDoctor.setAcessLevel(AcessLevel.DOCTOR);
+            Doctor d = DoctorMapper.toDoctorEntity(doctor);
+            d.setAcessLevel(AcessLevel.DOCTOR); //Não estava salvando com o acess level de doctor
+            Doctor responseDoctor = doctorService.save(d);
             return ResponseEntity.status(HttpStatus.CREATED).body(DoctorMapper.toDtoDoctor(responseDoctor));
         }
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

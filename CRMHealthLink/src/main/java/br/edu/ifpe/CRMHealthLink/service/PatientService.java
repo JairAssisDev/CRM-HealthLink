@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
+import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentResponseDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
@@ -18,7 +19,6 @@ public class PatientService {
 
     private final IPatientRepository patientRepository;
     private final PasswordEncoder encoder;
-
     @Transactional
     public Patient save(Patient patient) {
         patient.setAcessLevel(AcessLevel.PATIENT);
@@ -71,6 +71,5 @@ public class PatientService {
         patientRepository.save(patient);
 
     }
-
 
 }

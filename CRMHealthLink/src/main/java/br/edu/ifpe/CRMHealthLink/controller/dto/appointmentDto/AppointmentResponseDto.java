@@ -1,25 +1,28 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class AppointmentResponseDto {
+public interface AppointmentResponseDto {
 
     
-    private LocalDateTime date;
+     LocalDate getDate();
+     LocalTime getInicio();
+     LocalTime getFim();
+     String getDescription();
 
-    private String description;
+     @JsonProperty(value = "namePatient")
+     String getPatientName();
 
-    private String namePatient;
+     @JsonProperty(value = "emailPatient")
+     String getPatientEmail();
 
-    private String emailPatient;
-
-    private String nameDoctor;
+     @JsonProperty(value = "nameDoctor")
+     String getDoctorName();
 
 }

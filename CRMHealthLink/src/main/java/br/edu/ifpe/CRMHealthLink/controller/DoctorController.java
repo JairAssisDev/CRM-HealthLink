@@ -58,16 +58,7 @@ public class DoctorController {
     @Operation(summary = "Obtém todas as Consultas atribidas ao doutor", description = "Obtém a lista de todas as Consulta satribidas ao doutor")
     @GetMapping("/appointment/{crm}")
     public ResponseEntity<List<AppointmentResponseDto>> findAll(@PathVariable String crm) {
-        Doctor doctor = doctorService.getByCRM(crm);
-        List<Appointment> appointmentsResponse = new ArrayList<>();
-        List<Appointment> appointments = appointmentService.getAllAppointment();
-        for (Appointment appointment : appointments) {
-            if (appointment.getDoctor().getId() == doctor.getId()) {
-                appointmentsResponse.add(appointment);
-            }
-        }
-        List<AppointmentResponseDto> responseDtos = appointmentMapper.toDtoAppointments(appointmentsResponse);
-        return ResponseEntity.ok(responseDtos);
+        return ResponseEntity.ok(appointmentService.consultasMedicoCrm(crm));
     }
 
     @Operation(summary = "Obtém todas os enxames que o Doutor fez", description = "Obtém a lista de todas os enxames que foi atribuido au doutor")

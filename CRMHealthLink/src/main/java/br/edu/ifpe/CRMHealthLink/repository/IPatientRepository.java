@@ -14,4 +14,5 @@ public interface IPatientRepository extends JpaRepository<Patient, Long> {
 
     void deletePatientByEmail(String email);
 
+
 }

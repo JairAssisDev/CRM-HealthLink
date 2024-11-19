@@ -35,6 +35,8 @@ public class AppointmentCreateDto {
     private Speciality speciality;
     @NotNull
     private LocalTime fim;
+
+    private String description;
     public Appointment toEntity(){
         return new Appointment(speciality, date, inicio,fim);
     }
