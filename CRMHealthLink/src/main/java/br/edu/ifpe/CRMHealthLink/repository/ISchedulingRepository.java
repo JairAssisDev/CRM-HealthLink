@@ -19,6 +19,15 @@ public interface ISchedulingRepository extends JpaRepository<Scheduling, Long> {
 
     Scheduling findByDateAndHomeTimeAndSpecialityType(LocalDate date, LocalTime homeTime, Speciality specialityType);
 
+    @Query("SELECT DISTINCT FUNCTION('DAY', s.date) FROM Scheduling s WHERE s.specialityType = :specialty AND "
+            + "FUNCTION('MONTH', s.date) = :month AND FUNCTION('YEAR', s.date) = :year "
+            + "AND s.tipoAgendamento = :tipoAgendamento AND s.doctor IS NULL")
+    List<Integer> findAvailableDaysBySpecialtyAndMonthAndYearAndTipoAgendamento(
+            @Param("specialty") Speciality speciality,
+            @Param("month") int month,
+            @Param("year") int year,
+            @Param("tipoAgendamento") TipoAgendamento tipoAgendamento);
+
    @Query("SELECT s FROM Scheduling s WHERE s.specialityType = :specialty AND "
            + "FUNCTION('MONTH', s.date) = :month AND FUNCTION('YEAR', s.date) = :year "
            + "AND s.tipoAgendamento = :tipoAgendamento AND s.doctor IS NULL")

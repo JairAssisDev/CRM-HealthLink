@@ -74,11 +74,23 @@ public class SchedulingController {
         return ResponseEntity.status(HttpStatus.OK).body(schedulingResponseDTOS);
     }
 
+    @GetMapping("/listofdays")
+    @Operation(summary = "Listar com os dias disponives com os parametos agendamentos por especialidade, mês e ano",
+            description = "Listar com os dias disponives com os parametos agendamentos por especialidade, mês e ano")
+    public ResponseEntity<List<Integer>> listOfdays(
+            @Parameter(description = "Tipo de especialidade a ser filtrada") @RequestParam Speciality speciality,
+            @Parameter(description = "Mês para filtrar os agendamentos (1-12)") @RequestParam int month,
+            @Parameter(description = "Ano para filtrar os agendamentos") @RequestParam int year,
+            @Parameter(description = "Tipo de Agendamento para filtrar os agendaamentos") @RequestParam TipoAgendamento tipoAgendamento) {
+        List<Integer> schedulings = schedulingService.test(speciality,tipoAgendamento, month, year);
+        return ResponseEntity.status(HttpStatus.OK).body(schedulings);
+    }
 
     @PutMapping("/associateDoctor")
-    public ResponseEntity<SchedulingDoctorResponseDTO> associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO){
-    	schedulingService.scheduleDoctor(associateDoctorDTO);
-        return null;
+    public ResponseEntity<?>associateDoctor(@RequestBody @Valid AssociateDoctorDTO associateDoctorDTO) {
+        schedulingService.scheduleDoctor(associateDoctorDTO);
+
+        return ResponseEntity.ok().body("Doctor successfully associated with the schedule.");
     }
 
 }
