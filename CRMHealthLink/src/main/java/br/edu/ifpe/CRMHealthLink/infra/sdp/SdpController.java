@@ -19,18 +19,34 @@ public class SdpController {
     private SimpMessagingTemplate messagingTemplate;
     private SimpUserRegistry simpUserRegistry;
 
-    public SdpController(SimpMessagingTemplate messagingTemplate, SimpUserRegistry simpUserRegistry) {
+    private PendingSDPRepository pendingSDPRepository;
+    public SdpController(SimpMessagingTemplate messagingTemplate,
+                         SimpUserRegistry simpUserRegistry,
+                         PendingSDPRepository pendingSDPRepository) {
         this.messagingTemplate = messagingTemplate;
         this.simpUserRegistry = simpUserRegistry;
+        this.pendingSDPRepository = pendingSDPRepository;
     }
 
     //mocado
     //Deve ser criada uma lógica para pegar o médico correto
     @MessageMapping("/prontidao")
     public void prontidao(Principal principal){
-        SimpUser doctor = simpUserRegistry.getUser("doctor@email.com");
-        if(Objects.nonNull(doctor)){
-            messagingTemplate.convertAndSendToUser(doctor.getName(),"/queue","{\"type\": \"prontidao\", \"sendTo\": \"%s\"}".formatted(principal.getName()));
+        String mensagem = "{\"type\": \"doOffer\", \"sendTo\": \"%s\"}".formatted(principal.getName());
+        String mockDoctorEmail = "doctor@email.com";
+
+        SimpUser doctor = simpUserRegistry.getUser(mockDoctorEmail);
+
+        if(Objects.isNull(doctor)){
+            var pendingSDP = new PendingSDP();
+            pendingSDP.setMessage("{\"type\": \"doOffer\", \"sendTo\": \"%s\"}".formatted(principal.getName()));
+            pendingSDP.setDoctorEmail(mockDoctorEmail);
+            pendingSDPRepository.save(pendingSDP);
+            System.out.println("Médico não está no momento. Salvando...");
+        }else{
+
+            messagingTemplate.convertAndSendToUser(doctor.getName(),"/queue",mensagem);
+            System.out.println("Médico está" + doctor.getName());
         }
 
     }
