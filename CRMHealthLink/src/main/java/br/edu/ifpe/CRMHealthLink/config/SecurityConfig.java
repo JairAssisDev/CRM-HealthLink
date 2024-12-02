@@ -41,6 +41,7 @@ public class SecurityConfig {
                             .requestMatchers("api/employee/**").hasRole("MANAGER")
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/auth/login").permitAll()
+                            .requestMatchers("/ws").permitAll()
                             //.requestMatchers("/crmhealthlink/api/patient/appointments").permitAll()
 
                             .anyRequest().authenticated();
