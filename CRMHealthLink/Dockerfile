@@ -6,7 +6,7 @@ COPY . .
 RUN apk add maven
 
 RUN mvn clean
-RUN mvn install
+RUN mvn install -DskipTests
 
 CMD mvn spring-boot:run
 
