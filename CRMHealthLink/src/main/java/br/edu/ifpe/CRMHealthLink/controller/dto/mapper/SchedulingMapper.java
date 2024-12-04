@@ -21,7 +21,19 @@ public class SchedulingMapper {
         return modelMapper.map(createDTO, Scheduling.class);
     }
     public static SchedulingResponseDTO toSchedulingResponseDTO(Scheduling scheduling){
-        return modelMapper.map(scheduling, SchedulingResponseDTO.class);
+            SchedulingResponseDTO responseDTO = new SchedulingResponseDTO();
+            responseDTO.setDate(scheduling.getDate());
+            responseDTO.setHomeTime(scheduling.getHomeTime());
+            responseDTO.setEndTime(scheduling.getEndTime());
+            responseDTO.setSpecialityType(scheduling.getSpecialityType());
+            responseDTO.setTipoAgendamento(scheduling.getTipoAgendamento());
+            if (scheduling.getDoctor() != null) {
+                responseDTO.setEmailMedico(scheduling.getDoctor().getEmail());
+                responseDTO.setNomeMedico(scheduling.getDoctor().getName());
+                responseDTO.setEmailMedico(scheduling.getDoctor().getEmail());
+            }
+
+        return responseDTO;
     }
 
     public static List<SchedulingResponseDTO> toDtoSchedulings(List<Scheduling> schedulingList){
