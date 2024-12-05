@@ -6,6 +6,7 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IDoctorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,11 @@ import java.util.Optional;
 public class DoctorService {
 
     private final IDoctorRepository doctorRepository;
-
+    private final PasswordEncoder encoder;
 
     @Transactional
     public Doctor save(Doctor doctor) {
+        doctor.setPassword(encoder.encode(doctor.getPassword()));
         return doctorRepository.save(doctor);
     }
 
