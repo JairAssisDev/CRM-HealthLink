@@ -59,7 +59,7 @@ public class DoctorService {
         doctor.setEmail(doctorCreateDto.getEmail());
         doctor.setPassword(encoder.encode(doctorCreateDto.getPassword()));
         doctor.setCRM(doctorCreateDto.getCRM());
-
+        doctor.setSpeciality(doctorCreateDto.getSpeciality());
         doctorRepository.save(doctor);
     }
 
