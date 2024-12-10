@@ -5,16 +5,14 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppointmentCreateDto {
