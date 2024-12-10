@@ -96,8 +96,6 @@ public class EmployeeController {
 
     @PostMapping("create/employee")
     public ResponseEntity<String> createEmployee(@RequestBody @Valid EmployeeCreateDto employeeDTO){
-        employeeDTO.setAcessLevel(AcessLevel.ATTENDANT);
-
         if(userExists(employeeDTO)){
             return ResponseEntity.badRequest().body("User already exists!");
         }
