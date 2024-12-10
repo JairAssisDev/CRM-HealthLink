@@ -105,7 +105,9 @@ public class SchedulingService {
 
     	}else{
 			var clone = scheduling.clone();
+			clone.setVagas(clone.getVagas()-1);
 			var agendas = pegarAgendaFatiada(clone,dto.getTempoMedioConsultaMinutos(),doctor);
+			agendas.add(clone);
 			novasDemandas.addAll(agendas);
 		}
     	
