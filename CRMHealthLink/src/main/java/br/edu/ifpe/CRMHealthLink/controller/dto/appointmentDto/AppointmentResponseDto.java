@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,7 @@ public interface AppointmentResponseDto {
 
      @JsonProperty(value = "nameDoctor")
      String getDoctorName();
+     @JsonProperty(value = "speciality")
+     Speciality getSpeciality();
 
 }
