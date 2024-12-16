@@ -46,14 +46,18 @@ public class SchedulingService {
     @org.springframework.transaction.annotation.Transactional(isolation = Isolation.REPEATABLE_READ)
     public Scheduling scheduleDoctor(AssociateDoctorDTO dto){
     	var doctor = doctorService.getByCRM(dto.getCrm());
-    	
-    	Scheduling scheduling = schedulingRepository.
-    			findByHomeTimeIsLessThanEqualAndEndTimeIsGreaterThanEqualAndDoctorIsNull(dto.getHomeTime(), dto.getEndTime())
-    			.stream()
-    			.findFirst()
-    			.orElseThrow(()->new RuntimeException("Não há agenda para esse horário"));
-    	
-    	List<Scheduling> novasDemandas = new ArrayList<>();
+		if(!schedulingRepository.findConflicts(dto.getDate(),dto.getHomeTime(),dto.getEndTime(),doctor).isEmpty()){
+			throw new RuntimeException("Conflito no horário");
+		}
+		Scheduling scheduling = schedulingRepository.
+				findByHomeTimeIsLessThanEqualAndEndTimeIsGreaterThanEqualAndDate(dto.getHomeTime(), dto.getEndTime(),dto.getDate())
+				.stream()
+				.filter(Objects::nonNull)
+				.findFirst()
+				.orElseThrow(()->new RuntimeException("Não há agenda para esse horário"));
+
+
+		List<Scheduling> novasDemandas = new ArrayList<>();
     	
     	if(dto.getHomeTime().isAfter(scheduling.getHomeTime()) && dto.getEndTime().isBefore(scheduling.getEndTime())) {
     		var clone_init = scheduling.clone();

@@ -37,8 +37,9 @@ public interface ISchedulingRepository extends JpaRepository<Scheduling, Long> {
            @Param("year") int year,
            @Param("tipoAgendamento") TipoAgendamento tipoAgendamento);
 
-    List<Scheduling> findByHomeTimeIsLessThanEqualAndEndTimeIsGreaterThanEqualAndDoctorIsNull(LocalTime homeTime,LocalTime endTime);
-
+    List<Scheduling> findByHomeTimeIsLessThanEqualAndEndTimeIsGreaterThanEqualAndDate(LocalTime homeTime,LocalTime endTime,LocalDate date);
+    @Query("SELECT s from Scheduling s WHERE s.date = :data AND (s.homeTime < :fim AND s.endTime > :inicio) AND s.doctor = :doctor")
+    List<Scheduling> findConflicts(LocalDate data, LocalTime inicio, LocalTime fim, Doctor doctor);
     @Modifying
     @Transactional
     @Query("DELETE FROM Scheduling s WHERE s.date = :data AND s.homeTime = :horaInicio AND s.endTime = :horaFim AND s.doctor = :doctor AND s.specialityType = :speciality")
