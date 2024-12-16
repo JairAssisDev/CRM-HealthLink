@@ -17,6 +17,7 @@ public abstract class UserResponseDto {
     private LocalDate birthDate;
 
     private String email;
+    private String cpf;
 
     private AcessLevel acessLevel;
 }

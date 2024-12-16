@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Patient extends User{
 
+
     public Patient(User user){
         this.setCpf(user.getCpf());
         this.setBirthDate(user.getBirthDate());

@@ -134,7 +134,7 @@ public class EmployeeController {
 
     @Operation(summary = "Cria um novo médico", description = "Cria um novo médico com base nas informações fornecidas")
     @PostMapping("/doctor")
-    public ResponseEntity<DoctorResponseDto> createDoctor(@RequestBody DoctorCreateDto doctor) {
+    public ResponseEntity<DoctorResponseDto> createDoctor(@RequestBody @Valid DoctorCreateDto doctor) {
 
         var loggedUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (loggedUser.getAcessLevel()==AcessLevel.MANAGER) {

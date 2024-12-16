@@ -2,9 +2,11 @@ package br.edu.ifpe.CRMHealthLink.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -88,5 +90,18 @@ public  class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+
+    @PrePersist
+    public void cpfVal(){
+        if(!ValidadorCPF.isCPF(cpf))
+            throw new RuntimeException("CPF Inválido");
+    }
+
+    @PreUpdate
+    public void cpfValUpdate(){
+        if(!ValidadorCPF.isCPF(cpf))
+            throw new RuntimeException("CPF Inválido");
     }
 }

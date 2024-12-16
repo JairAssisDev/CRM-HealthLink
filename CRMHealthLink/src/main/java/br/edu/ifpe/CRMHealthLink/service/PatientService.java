@@ -21,6 +21,7 @@ public class PatientService {
     private final PasswordEncoder encoder;
     @Transactional
     public Patient save(Patient patient) {
+
         patient.setAcessLevel(AcessLevel.PATIENT);
         patient.setPassword(encoder.encode(patient.getPassword()));
         return patientRepository.save(patient);
@@ -36,7 +37,7 @@ public class PatientService {
 
     public Patient findById(Long id) {
         return patientRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encomtrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado"));
     }
 
     public Patient findByNameAndEmail(String name,String email) {
