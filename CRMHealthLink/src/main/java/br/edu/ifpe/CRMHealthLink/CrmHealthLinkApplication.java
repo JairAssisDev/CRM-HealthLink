@@ -36,6 +36,7 @@ public class CrmHealthLinkApplication {
 			manager.setAcessLevel(AcessLevel.MANAGER);
 			manager.setOffice(Office.MANAGER);
 			manager.setName("Jair Assis");
+			manager.setCpf("45623369006");
 			manager.setEmail("admin@email.com");
 			manager.setBirthDate(LocalDate.of(1985, 5, 15));
 			manager.setPassword(encoder.encode("123"));
@@ -45,6 +46,7 @@ public class CrmHealthLinkApplication {
 			attendant.setOffice(Office.RECEPTIONIST);
 			attendant.setName("Lucas Manoel");
 			attendant.setEmail("att@email.com");
+			attendant.setCpf("21365376010"); //gerado
 			attendant.setBirthDate(LocalDate.of(1999, 9, 4));
 			attendant.setPassword(encoder.encode("123"));
 
@@ -54,6 +56,7 @@ public class CrmHealthLinkApplication {
 			doctor.setEmail("doctor@email.com");
 			doctor.setBirthDate(LocalDate.of(1989, 4, 9));
 			doctor.setCRM("20123-PE");
+			doctor.setCpf("57515110007"); //gerado
 			doctor.setSpeciality(List.of(Speciality.CLINICOGERAL,Speciality.DERMATOLOGISTA));
 			doctor.setPassword(encoder.encode("123"));
 
@@ -61,6 +64,7 @@ public class CrmHealthLinkApplication {
 			patient.setAcessLevel(AcessLevel.PATIENT);
 			patient.setName("Lucas Patrick");
 			patient.setEmail("patient@email.com");
+			patient.setCpf("09077066063"); // gerado
 			patient.setBirthDate(LocalDate.of(2001, 8, 30));
 			patient.setPassword(encoder.encode("123"));
 

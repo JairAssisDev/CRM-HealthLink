@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.baseUserDto;
 
+import br.edu.ifpe.CRMHealthLink.annontations.ValidCPF;
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,7 +32,7 @@ public abstract class UserCreateDto {
     private LocalDate birthDate;
 
     @NotBlank
-    @Size(min = 11, max = 11)
+    @ValidCPF
     private String cpf;
 
     @NotBlank
