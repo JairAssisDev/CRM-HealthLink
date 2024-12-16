@@ -19,7 +19,7 @@ public class DoctorResponseDto  extends UserResponseDto {
     private List<Speciality> speciality;
 
     public DoctorResponseDto(Doctor doctor){
-        super(doctor.getName(), doctor.getBirthDate(),doctor.getEmail(),doctor.getAcessLevel());
+        super(doctor.getName(), doctor.getBirthDate(),doctor.getEmail(), doctor.getCpf(), doctor.getAcessLevel());
         this.CRM = doctor.getCRM();
         this.speciality = doctor.getSpeciality();
     }
