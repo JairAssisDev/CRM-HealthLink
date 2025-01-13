@@ -1,6 +1,5 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
-import br.edu.ifpe.CRMHealthLink.controller.dto.appointmentDto.AppointmentResponseDto;
 import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
