@@ -1,11 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.domain.entity;
 
-import br.edu.ifpe.CRMHealthLink.config.Constants;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
-import org.springframework.core.env.Environment;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -14,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Doctor extends User {
     public Doctor(User user) {
         this.setCpf(user.getCpf());
