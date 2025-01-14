@@ -23,24 +23,16 @@ import java.util.List;
 @RequestMapping("api/patient")
 @Tag(name = "Patient API", description = "API para gestão de Pacientes")
 public class PatientController {
-
-
     private final AppointmentService appointmentService;
-
-    private final AppointmentMapper appointmentMapper;
 
     private final PatientService patientService;
 
-    private final ExamService examService;
 
-    private final ExamMapper examMapper;
-
-    public PatientController(AppointmentService appointmentService, AppointmentMapper appointmentMapper, PatientService patientService, ExamService examService, ExamMapper examMapper) {
+    public PatientController(AppointmentService appointmentService,
+                             PatientService patientService) {
         this.appointmentService = appointmentService;
-        this.appointmentMapper = appointmentMapper;
         this.patientService = patientService;
-        this.examService = examService;
-        this.examMapper = examMapper;
+
     }
 
     @Operation(summary = "Obtém todas as Consultas do paciente", description = "Obtém a lista de todas as Consultas do paciente")
@@ -49,29 +41,29 @@ public class PatientController {
         return ResponseEntity.ok(appointmentService.consultasPaciente(email));
     }
 
-    @Operation(summary = "Obtém todos os exames do paciente", description = "Obtém a lista de todos os exames do paciente")
-    @GetMapping("/exams/{name}/{email}")
-    public ResponseEntity<List<ExamResponseDto>> findAllExams(
-            @PathVariable String name, @PathVariable String email) {
-
-        Patient patient = patientService.findByNameAndEmail(name, email);
-        if (patient == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        List<Exam> exams = examService.getAllExams();
-        List<Exam> patientExams = new ArrayList<>();
-        for (Exam exam : exams) {
-            if (exam.getAppointment().getPatient().getId().equals(patient.getId())) {
-                patientExams.add(exam);
-            }
-        }
-
-        List<ExamResponseDto> responseDtos = examMapper.toDtoExamsPatient(patientExams);
-        if (!responseDtos.isEmpty()) {
-            return ResponseEntity.ok(responseDtos);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @Operation(summary = "Obtém todos os exames do paciente", description = "Obtém a lista de todos os exames do paciente")
+//    @GetMapping("/exams/{name}/{email}")
+//    public ResponseEntity<List<ExamResponseDto>> findAllExams(
+//            @PathVariable String name, @PathVariable String email) {
+//
+//        Patient patient = patientService.findByNameAndEmail(name, email);
+//        if (patient == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        List<Exam> exams = examService.getAllExams();
+//        List<Exam> patientExams = new ArrayList<>();
+//        for (Exam exam : exams) {
+//            if (exam.getAppointment().getPatient().getId().equals(patient.getId())) {
+//                patientExams.add(exam);
+//            }
+//        }
+//
+//        List<ExamResponseDto> responseDtos = examMapper.toDtoExamsPatient(patientExams);
+//        if (!responseDtos.isEmpty()) {
+//            return ResponseEntity.ok(responseDtos);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 }
