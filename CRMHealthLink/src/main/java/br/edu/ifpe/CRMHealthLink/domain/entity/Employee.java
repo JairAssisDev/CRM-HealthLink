@@ -11,16 +11,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Employee extends User {
-    @Getter
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @Getter
-    private AcessLevel acessLevel;
-
-    public User getUser() {
-        return this;
-    }
 
     public Employee(User user){
         this.setCpf(user.getCpf());
