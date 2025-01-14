@@ -5,7 +5,6 @@ import br.edu.ifpe.CRMHealthLink.domain.entity.Employee;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IEmployeeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,36 +16,34 @@ import java.util.Optional;
 @Service
 public class EmployeeService {
 
-    @Autowired
-    private IEmployeeRepository IEmployeeRepository;
+    private final IEmployeeRepository employeeRepository;
     private final PasswordEncoder encoder;
-
 
     @Transactional
     public Employee save(Employee employee) {
         employee.setPassword(encoder.encode(employee.getPassword()));
-        return IEmployeeRepository.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Transactional(readOnly = true)
     public List<Employee> getAllEmployees() {
-        return IEmployeeRepository.findAll();
+        return employeeRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     public Employee findById(Long id) {
-        return IEmployeeRepository.findById(id)
+        return employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado com id: " + id));
     }
 
     @Transactional
     public void delete(Long id) {
-        IEmployeeRepository.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 
     @Transactional
     public void update(EmployeeCreateDto employeeCreateDto) {
-        Employee employee = IEmployeeRepository.findByEmail(employeeCreateDto.getEmail()).orElseThrow(()->new RuntimeException("Funcionário não encontrado"));
+        Employee employee = employeeRepository.findByEmail(employeeCreateDto.getEmail()).orElseThrow(()->new RuntimeException("Funcionário não encontrado"));
 
         employee.setName(employeeCreateDto.getName());
         employee.setBirthDate(employeeCreateDto.getBirthDate());
@@ -55,11 +52,11 @@ public class EmployeeService {
         employee.setAcessLevel(employeeCreateDto.getAcessLevel());
         employee.setPassword(encoder.encode(employeeCreateDto.getPassword()));
         employee.setOffice(employeeCreateDto.getOffice());
-        IEmployeeRepository.save(employee);
+        employeeRepository.save(employee);
     }
 
     public Optional<Employee> findByEmail(String email) {
-        return IEmployeeRepository.findByEmail(email);
+        return employeeRepository.findByEmail(email);
     }
 
 
