@@ -33,4 +33,5 @@ public class UserServiceTest {
         assertEquals(returnedUser,user);
         verify(userRepository,times(1)).findByEmail("patient@email.com");
     }
+
 }
