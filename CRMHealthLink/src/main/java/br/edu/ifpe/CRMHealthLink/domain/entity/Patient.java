@@ -15,7 +15,6 @@ public class Patient extends User{
     @JoinColumn(name = "user_id")
     private User user;
 
-
     public User getUser() {
         return this;
     }
@@ -29,4 +28,5 @@ public class Patient extends User{
         this.setEmail(user.getEmail());
         this.setAcessLevel(AcessLevel.PATIENT);
     }
+
 }

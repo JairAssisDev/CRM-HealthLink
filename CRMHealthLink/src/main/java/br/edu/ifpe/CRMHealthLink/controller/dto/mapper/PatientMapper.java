@@ -19,12 +19,12 @@ public class PatientMapper {
         return modelMapper.map(createDto, Patient.class);
     }
 
-    public static PatientResponseDto toDtoPatient(Patient pacient) {
-        return modelMapper.map(pacient, PatientResponseDto.class);
+    public static PatientResponseDto toDtoPatient(Patient patient) {
+        return modelMapper.map(patient, PatientResponseDto.class);
     }
 
-    public static List<PatientResponseDto> toDtoPacients(List<Patient> pacients) {
-        return pacients.stream()
+    public static List<PatientResponseDto> toDtoPacients(List<Patient> patients) {
+        return patients.stream()
                 .map(PatientMapper::toDtoPatient)
                 .collect(Collectors.toList());
     }
