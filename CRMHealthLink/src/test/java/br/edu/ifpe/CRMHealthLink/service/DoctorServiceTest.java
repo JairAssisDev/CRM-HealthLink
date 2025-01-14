@@ -1,16 +1,24 @@
 package br.edu.ifpe.CRMHealthLink.service;
 
 import br.edu.ifpe.CRMHealthLink.controller.dto.doctorDto.DoctorCreateDto;
+import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.PatientMapper;
+import br.edu.ifpe.CRMHealthLink.controller.dto.patientDto.PatientCreateDto;
+import br.edu.ifpe.CRMHealthLink.domain.entity.AcessLevel;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Patient;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Speciality;
 import br.edu.ifpe.CRMHealthLink.exception.ResourceNotFoundException;
 import br.edu.ifpe.CRMHealthLink.repository.IDoctorRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -199,5 +207,31 @@ public class DoctorServiceTest {
         assertNotNull(result);
         assertEquals(2, result.size());
         verify(doctorRepository, times(1)).findAllBySpeciality(speciality);
+    }
+
+    @ExtendWith(MockitoExtension.class)
+    public static class PatientServiceTest {
+        @InjectMocks
+        private PatientService patientService;
+
+        @Mock
+        private br.edu.ifpe.CRMHealthLink.repository.IPatientRepository IPatientRepository;
+
+        @Mock
+        private BCryptPasswordEncoder passwordEncoder;
+
+        @Test
+        public void testPatientPasswordIsEncoded(){
+            BCryptPasswordEncoder auxEncoder = new BCryptPasswordEncoder();
+            PatientCreateDto patientCreateDto = new PatientCreateDto("NomeComOito", LocalDate.now(),"12345678910",
+                    "email", AcessLevel.PATIENT,"password");
+            Patient patient = PatientMapper.toPatient(patientCreateDto);
+            patientService.save(patient);
+
+            verify(passwordEncoder,times(1)).encode(patient.getPassword());
+            verify(passwordEncoder,atMostOnce()).encode(anyString());
+
+            verify(IPatientRepository,atMostOnce()).save(any());
+        }
     }
 }

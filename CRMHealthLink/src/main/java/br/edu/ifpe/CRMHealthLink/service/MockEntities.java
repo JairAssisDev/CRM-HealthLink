@@ -57,6 +57,7 @@ public class MockEntities {
 
         return user;
     }
+
     public Patient getPatient(){
         return  new Patient(getUser());
     }
