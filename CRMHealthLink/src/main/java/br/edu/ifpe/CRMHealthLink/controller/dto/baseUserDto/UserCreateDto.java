@@ -40,4 +40,5 @@ public abstract class UserCreateDto {
 
     @NotBlank
     private String password;
+
 }
