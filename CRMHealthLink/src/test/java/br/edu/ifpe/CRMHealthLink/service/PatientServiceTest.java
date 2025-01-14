@@ -155,7 +155,7 @@ class PatientServiceTest {
         Patient patient = new Patient();
         patient.setEmail(email);
         patientService.save(patient);
-        
+
         // Act
         patientService.delete(email);
 
