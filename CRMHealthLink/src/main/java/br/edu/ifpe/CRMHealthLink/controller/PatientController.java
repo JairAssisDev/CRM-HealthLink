@@ -35,12 +35,12 @@ public class PatientController {
 
     }
 
+
     @Operation(summary = "Obtém todas as Consultas do paciente", description = "Obtém a lista de todas as Consultas do paciente")
     @GetMapping("/appointments/{email}")
     public ResponseEntity<List<AppointmentResponseDto>> findAllAppointments(@PathVariable String email) {
         return ResponseEntity.ok(appointmentService.consultasPaciente(email));
     }
-
 //    @Operation(summary = "Obtém todos os exames do paciente", description = "Obtém a lista de todos os exames do paciente")
 //    @GetMapping("/exams/{name}/{email}")
 //    public ResponseEntity<List<ExamResponseDto>> findAllExams(
