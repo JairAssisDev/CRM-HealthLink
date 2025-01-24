@@ -1,6 +1,10 @@
 package br.edu.ifpe.CRMHealthLink.infra.sdp;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Prontidao;
 import br.edu.ifpe.CRMHealthLink.repository.IDoctorRepository;
+import br.edu.ifpe.CRMHealthLink.repository.ProntidaoRepository;
+import br.edu.ifpe.CRMHealthLink.service.ProntidaoService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
@@ -8,7 +12,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class ConnectedListener implements ApplicationListener<SessionSubscribeEvent> {
@@ -18,13 +26,17 @@ public class ConnectedListener implements ApplicationListener<SessionSubscribeEv
     private PendingSDPRepository sdpRepository;
 
     private IDoctorRepository doctorRepository;
+    private ProntidaoService prontidaoService;
 
     public ConnectedListener(SimpMessagingTemplate messagingTemplate,
                              PendingSDPRepository sdpRepository,
-                             IDoctorRepository doctorRepository) {
+                             IDoctorRepository doctorRepository,
+                             ProntidaoService prontidaoService
+                             ) {
         this.messagingTemplate = messagingTemplate;
         this.sdpRepository = sdpRepository;
         this.doctorRepository = doctorRepository;
+        this.prontidaoService = prontidaoService;
     }
 
     @Override
@@ -34,14 +46,16 @@ public class ConnectedListener implements ApplicationListener<SessionSubscribeEv
             return;
 
         String userEmail = accessor.getUser().getName();
-        if(doctorRepository.findByEmail(userEmail).isEmpty())
+        Optional<Doctor> doctor =doctorRepository.findByEmail(userEmail);
+        if(doctor.isEmpty())
             return;
 
-        PendingSDP sdp = sdpRepository.findFirstByDoctorEmail(userEmail).orElse(null);
+        PendingSDP sdp = sdpRepository.findAll().stream().findFirst().orElse(null);
 
         if (sdp != null) {
             messagingTemplate.convertAndSendToUser(userEmail, "/queue", sdp.getMessage());
             sdpRepository.delete(sdp);
+            prontidaoService.marcarEmConsulta(doctor.get().getEmail(),true);
         }
     }
 }

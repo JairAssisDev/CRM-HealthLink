@@ -1,9 +1,7 @@
 package br.edu.ifpe.CRMHealthLink.infra.sdp;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +12,6 @@ public class PendingSDP {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private String doctorEmail;
+    @Column(unique = true)
     private String message;
-
 }

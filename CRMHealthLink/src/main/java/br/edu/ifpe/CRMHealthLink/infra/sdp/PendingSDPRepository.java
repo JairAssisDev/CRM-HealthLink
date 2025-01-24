@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface PendingSDPRepository extends JpaRepository<PendingSDP,Long> {
 
-    Optional<PendingSDP> findFirstByDoctorEmail(String email);
+
 
 }

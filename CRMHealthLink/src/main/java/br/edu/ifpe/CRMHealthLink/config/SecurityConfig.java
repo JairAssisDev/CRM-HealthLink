@@ -39,6 +39,7 @@ public class SecurityConfig {
                             .requestMatchers("api/calendario/disponibilidades").authenticated()
                             .requestMatchers("api/employee/**").hasRole("ATTENDANT")
                             .requestMatchers("api/employee/**").hasRole("MANAGER")
+                            .requestMatchers("api/prontidao/naoEmConsulta").hasAnyRole("DOCTOR","ATTENDANT")
                             .requestMatchers("/h2-console/**").permitAll()
                             .requestMatchers("/auth/login").permitAll()
                             .requestMatchers("/ws").permitAll()
