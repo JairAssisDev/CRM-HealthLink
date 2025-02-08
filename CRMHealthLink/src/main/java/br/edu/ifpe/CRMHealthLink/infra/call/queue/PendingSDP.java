@@ -1,6 +1,5 @@
-package br.edu.ifpe.CRMHealthLink.infra.sdp;
+package br.edu.ifpe.CRMHealthLink.infra.call.queue;
 
-import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

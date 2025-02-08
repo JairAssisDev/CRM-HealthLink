@@ -42,9 +42,4 @@ public class ProntidaoController {
         prontidaoService.deletarProntidoes(dto);
         return ResponseEntity.accepted().build();
     }
-    @PutMapping("/{doctorEmail}/naoEmConsulta")
-    public ResponseEntity<Void> marcarEmConsulta(@PathVariable("doctorEmail") String email){
-        prontidaoService.marcarEmConsulta(email,false);
-        return ResponseEntity.noContent().build();
-    }
 }

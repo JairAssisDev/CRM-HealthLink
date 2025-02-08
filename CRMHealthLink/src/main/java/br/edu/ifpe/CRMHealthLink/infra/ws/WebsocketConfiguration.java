@@ -1,5 +1,7 @@
-package br.edu.ifpe.CRMHealthLink.infra.sdp;
+package br.edu.ifpe.CRMHealthLink.infra.ws;
 
+import br.edu.ifpe.CRMHealthLink.infra.ws.AuthHandshakeHandler;
+import br.edu.ifpe.CRMHealthLink.infra.ws.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
