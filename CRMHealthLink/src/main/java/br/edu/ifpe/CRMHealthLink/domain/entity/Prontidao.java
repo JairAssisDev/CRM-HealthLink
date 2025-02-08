@@ -41,4 +41,8 @@ public class Prontidao {
     private LocalDateTime ultimaChamada;
     private boolean em_consulta;
 
+    @PrePersist
+    public void definirUltimaChamada(){
+        this.ultimaChamada = LocalDateTime.now();
+    }
 }

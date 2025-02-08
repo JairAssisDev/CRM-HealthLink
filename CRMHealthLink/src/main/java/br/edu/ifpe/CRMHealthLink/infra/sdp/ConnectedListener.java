@@ -51,7 +51,7 @@ public class ConnectedListener implements ApplicationListener<SessionSubscribeEv
             return;
 
         PendingSDP sdp = sdpRepository.findAll().stream().findFirst().orElse(null);
-
+        prontidaoService.marcarEmConsulta(doctor.get().getEmail(),false);
         if (sdp != null) {
             messagingTemplate.convertAndSendToUser(userEmail, "/queue", sdp.getMessage());
             sdpRepository.delete(sdp);

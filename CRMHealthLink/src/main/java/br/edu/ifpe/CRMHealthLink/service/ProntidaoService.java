@@ -60,25 +60,30 @@ public class ProntidaoService {
         return prontidaoRepository.findAll();
     }
 
-    public Doctor encontrarProximoMedicoProntidao(List<Doctor> doctors){
+    public Prontidao encontrarProximoMedicoProntidao(){
         LocalDate dataHoje = LocalDate.now();
         LocalTime horario = LocalTime.now();
 
-        List<Prontidao> prontidoes = prontidaoRepository.findByDoctorIsInAndHorarioIsIn(doctors,dataHoje,horario);
-        Prontidao prontidao = prontidoes.stream()
-                .filter(p -> !p.isEm_consulta())
-                .max(Comparator.comparing(Prontidao::getUltimaChamada))
-                .orElse(null);
+        List<Prontidao> prontidoes = prontidaoRepository.findByDoctorIsInAndHorarioIsIn(dataHoje,horario);
 
-        return Objects.nonNull(prontidao) ? prontidao.getDoctor() : null;
+        return prontidoes.stream()
+                .min(Comparator.comparing(Prontidao::getUltimaChamada))
+                .orElseThrow(()->new RuntimeException("Não há prontidão neste horário"));
+
     }
     public void marcarEmConsulta(String doctorEmail,boolean emConsulta){
         LocalDate dataHoje = LocalDate.now();
         LocalTime horario = LocalTime.now();
-
-        Prontidao prontidao = prontidaoRepository.findByDoctorIsInAndHorarioIsIn(List.of(doctorService.getByEmail(doctorEmail)),dataHoje,horario).get(0);
-        prontidao.setEm_consulta(emConsulta);
-        prontidaoRepository.save(prontidao);
+        try{
+            Prontidao prontidao = prontidaoRepository.findByDoctorIsInAndHorarioIsIn(dataHoje,horario).get(0);
+            prontidao.setEm_consulta(emConsulta);
+            if(emConsulta){
+                prontidao.setUltimaChamada(LocalDateTime.now());
+            }
+            prontidaoRepository.save(prontidao);
+        }catch(RuntimeException ex){
+            /*Não havia prontidao*/;
+        }
     }
 
 }
