@@ -1,4 +1,4 @@
-package br.edu.ifpe.CRMHealthLink.infra.sdp;
+package br.edu.ifpe.CRMHealthLink.infra.ws;
 
 import br.edu.ifpe.CRMHealthLink.infra.security.TokenService;
 import br.edu.ifpe.CRMHealthLink.repository.IUserRepository;
