@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -37,6 +38,11 @@ public class Prontidao {
     @Column(nullable = false)
     private LocalTime fim;
 
+    private LocalDateTime ultimaChamada;
     private boolean em_consulta;
 
+    @PrePersist
+    public void definirUltimaChamada(){
+        this.ultimaChamada = LocalDateTime.now();
+    }
 }

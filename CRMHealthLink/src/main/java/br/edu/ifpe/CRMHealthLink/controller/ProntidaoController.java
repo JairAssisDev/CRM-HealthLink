@@ -2,6 +2,7 @@ package br.edu.ifpe.CRMHealthLink.controller;
 
 import br.edu.ifpe.CRMHealthLink.controller.dto.doctorDto.DoctorResponseDto;
 import br.edu.ifpe.CRMHealthLink.controller.dto.prontidaoDTO.ProntidaoCreateDTO;
+import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Prontidao;
 import br.edu.ifpe.CRMHealthLink.service.ProntidaoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
