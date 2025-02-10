@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Setter
@@ -43,6 +44,6 @@ public class Prontidao {
 
     @PrePersist
     public void definirUltimaChamada(){
-        this.ultimaChamada = LocalDateTime.now();
+        this.ultimaChamada = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
     }
 }

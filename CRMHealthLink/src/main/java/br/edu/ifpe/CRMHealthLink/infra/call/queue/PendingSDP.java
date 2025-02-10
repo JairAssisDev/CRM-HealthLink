@@ -13,4 +13,7 @@ public class PendingSDP {
     private Long id;
     @Column(unique = true)
     private String message;
+
+    @Column(unique = true)
+    private String sourceSessionId;
 }

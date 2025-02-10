@@ -7,6 +7,7 @@ import br.edu.ifpe.CRMHealthLink.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
@@ -42,8 +43,8 @@ public class SdpController {
         }
     }
     @MessageMapping("/prontidao")
-    public void prontidao(Principal principal){
-        callService.prontidao(principal);
+    public void prontidao(Principal principal,@Header("simpSessionId") String sessionId){
+        callService.prontidao(principal,sessionId);
     }
 
     @MessageMapping("/sendTo/{email}")
