@@ -85,7 +85,7 @@ public class ProntidaoService {
                     dataHoje,horario).get(0);
             prontidao.setEm_consulta(emConsulta);
             if(emConsulta){
-                prontidao.setUltimaChamada(LocalDateTime.now());
+                 prontidao.setUltimaChamada(LocalDateTime.now(zoneBasil));
             }
             prontidaoRepository.save(prontidao);
         }catch(RuntimeException ex){
