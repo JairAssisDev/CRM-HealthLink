@@ -9,10 +9,11 @@ import br.edu.ifpe.CRMHealthLink.repository.ProntidaoRepository;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import javax.print.Doc;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import javax.print.Doc;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -77,19 +78,25 @@ public class ProntidaoService {
                 .orElse(null);
 
     }
-    public void marcarEmConsulta(String doctorEmail,boolean emConsulta){
-        LocalDate dataHoje = LocalDate.now();
-        LocalTime horario = LocalTime.now();
-        try{
-            Prontidao prontidao = prontidaoRepository.findByDoctorIsInAndHorarioIsIn(List.of(doctorService.getByEmail(doctorEmail)),
-                    dataHoje,horario).get(0);
+        public void marcarEmConsulta(String doctorEmail, boolean emConsulta) {
+        // Usando o ZoneId para definir explicitamente o fuso horário
+        ZoneId zoneBasil = ZoneId.of("America/Sao_Paulo");
+        LocalDate dataHoje = LocalDate.now(zoneBasil);
+        LocalTime horario = LocalTime.now(zoneBasil);
+        try {
+            Prontidao prontidao = prontidaoRepository
+                .findByDoctorIsInAndHorarioIsIn(
+                    List.of(doctorService.getByEmail(doctorEmail)),
+                    dataHoje,
+                    horario
+                ).get(0);
             prontidao.setEm_consulta(emConsulta);
-            if(emConsulta){
-                 prontidao.setUltimaChamada(LocalDateTime.now(zoneBasil));
+            if (emConsulta) {
+                prontidao.setUltimaChamada(LocalDateTime.now(zoneBasil));
             }
             prontidaoRepository.save(prontidao);
-        }catch(RuntimeException ex){
-            /*Não havia prontidao*/;
+        } catch (RuntimeException ex) {
+            /* Não havia prontidão */
         }
     }
 
