@@ -63,22 +63,24 @@ public class ProntidaoService {
     }
 
     public Prontidao encontrarProximoMedicoProntidao(List<Doctor> onlineDoctors){
-        LocalDate dataHoje = LocalDate.now();
-        LocalTime horario = LocalTime.now();
+        ZoneId brazilZone = ZoneId.of("America/Sao_Paulo");
+        LocalDate dataHoje = LocalDate.now(brazilZone);
+        LocalTime horario = LocalTime.now(brazilZone);
 
-        List<Prontidao> prontidoes = prontidaoRepository.findByDoctorIsInAndHorarioIsIn(onlineDoctors,dataHoje,horario);
+        List<Prontidao> prontidoes = prontidaoRepository.findByHorarioIsIn(dataHoje,horario);
 
-        if(!onlineDoctors.isEmpty() && prontidoes.isEmpty()){
+        if(prontidoes.isEmpty()){
             throw new ResourceNotFoundException("Não há prontidão para esse horário");
         }
 
         return prontidoes.stream()
                 .filter(p -> !p.isEm_consulta())
+                .filter(p -> onlineDoctors.contains(p.getDoctor()))
                 .min(Comparator.comparing(Prontidao::getUltimaChamada))
                 .orElse(null);
 
     }
-        public void marcarEmConsulta(String doctorEmail, boolean emConsulta) {
+    public void marcarEmConsulta(String doctorEmail, boolean emConsulta) {
         // Usando o ZoneId para definir explicitamente o fuso horário
         ZoneId zoneBasil = ZoneId.of("America/Sao_Paulo");
         LocalDate dataHoje = LocalDate.now(zoneBasil);
@@ -89,7 +91,7 @@ public class ProntidaoService {
                     List.of(doctorService.getByEmail(doctorEmail)),
                     dataHoje,
                     horario
-                ).get(0);
+                );
             prontidao.setEm_consulta(emConsulta);
             if (emConsulta) {
                 prontidao.setUltimaChamada(LocalDateTime.now(zoneBasil));

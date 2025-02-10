@@ -37,13 +37,13 @@ public class CallService {
         this.userService = userService;
     }
 
-    public void prontidao(Principal principal){
+    public void prontidao(Principal principal,String sessionId){
         List<Doctor> onlineDoctors = getOnlineDoctors();
 
         Prontidao prontidao = prontidaoService.encontrarProximoMedicoProntidao(onlineDoctors);
 
         if(Objects.isNull(prontidao)){
-            queueProntidao(principal);
+            queueProntidao(principal,sessionId);
             return;
         }
 
@@ -64,10 +64,11 @@ public class CallService {
                 .toList();
     }
 
-    private void queueProntidao(Principal principal){
+    private void queueProntidao(Principal principal,String sessionId){
         String mensagem = MessageType.DO_OFFER.getJSON(principal.getName());
         var pendingSDP = new PendingSDP();
         pendingSDP.setMessage(mensagem);
+        pendingSDP.setSourceSessionId(sessionId);
         pendingSDPRepository.save(pendingSDP); //Depois refatorar pra ser colocado na fila do message broker ao invés do BD
     }
 }

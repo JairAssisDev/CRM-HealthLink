@@ -26,7 +26,10 @@ public interface ProntidaoRepository extends JpaRepository<Prontidao,Long> {
     @Query("DELETE FROM Prontidao p WHERE p.data = :data AND p.inicio = :inicio AND p.fim = :fim AND p.doctor IN :doctor")
     void deleteBy(LocalDate data,LocalTime inicio,LocalTime fim, List<Doctor> doctor);
 
+    @Query("SELECT p from Prontidao p WHERE p.data = :data AND p.inicio <= :horario AND p.fim > :horario")
+    List<Prontidao> findByHorarioIsIn(LocalDate data, LocalTime horario);
+
     @Query("SELECT p from Prontidao p WHERE p.data = :data AND p.inicio <= :horario AND p.fim > :horario AND p.doctor IN :doctors")
-    List<Prontidao> findByDoctorIsInAndHorarioIsIn(List<Doctor> doctors, LocalDate data, LocalTime horario);
+    Prontidao findByDoctorIsInAndHorarioIsIn(List<Doctor> doctors, LocalDate data, LocalTime horario);
 
 }
