@@ -48,7 +48,7 @@ public class CallService {
         }
 
         prontidaoService.marcarEmConsulta(prontidao.getDoctor().getEmail(),true);
-        sendTo(prontidao.getDoctor().getName(),MessageType.DO_OFFER.getJSON(principal.getName()));
+        sendTo(prontidao.getDoctor().getEmail(),MessageType.DO_OFFER.getJSON(principal.getName()));
     }
 
     public void sendTo(String destination,String message){

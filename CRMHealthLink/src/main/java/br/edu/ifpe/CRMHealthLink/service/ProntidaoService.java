@@ -23,6 +23,7 @@ public class ProntidaoService {
 
     private ProntidaoRepository prontidaoRepository;
     private DoctorService doctorService;
+    private static ZoneId ZONE_ID = ZoneId.of("America/Sao_Paulo");
 
     public ProntidaoService(ProntidaoRepository prontidaoRepository, DoctorService doctorService) {
         this.prontidaoRepository = prontidaoRepository;
@@ -63,9 +64,8 @@ public class ProntidaoService {
     }
 
     public Prontidao encontrarProximoMedicoProntidao(List<Doctor> onlineDoctors){
-        ZoneId brazilZone = ZoneId.of("America/Sao_Paulo");
-        LocalDate dataHoje = LocalDate.now(brazilZone);
-        LocalTime horario = LocalTime.now(brazilZone);
+        LocalDate dataHoje = LocalDate.now(ZONE_ID);
+        LocalTime horario = LocalTime.now(ZONE_ID);
 
         List<Prontidao> prontidoes = prontidaoRepository.findByHorarioIsIn(dataHoje,horario);
 
@@ -82,9 +82,8 @@ public class ProntidaoService {
     }
     public void marcarEmConsulta(String doctorEmail, boolean emConsulta) {
         // Usando o ZoneId para definir explicitamente o fuso horário
-        ZoneId zoneBasil = ZoneId.of("America/Sao_Paulo");
-        LocalDate dataHoje = LocalDate.now(zoneBasil);
-        LocalTime horario = LocalTime.now(zoneBasil);
+        LocalDate dataHoje = LocalDate.now(ZONE_ID);
+        LocalTime horario = LocalTime.now(ZONE_ID);
         try {
             Prontidao prontidao = prontidaoRepository
                 .findByDoctorIsInAndHorarioIsIn(
@@ -94,12 +93,22 @@ public class ProntidaoService {
                 );
             prontidao.setEm_consulta(emConsulta);
             if (emConsulta) {
-                prontidao.setUltimaChamada(LocalDateTime.now(zoneBasil));
+                prontidao.setUltimaChamada(LocalDateTime.now(ZONE_ID));
             }
             prontidaoRepository.save(prontidao);
         } catch (RuntimeException ex) {
             /* Não havia prontidão */
         }
     }
+    public boolean medicoEstaDeProntidao(Doctor doctor){
+        LocalDate dataHoje = LocalDate.now(ZONE_ID);
+        LocalTime horario = LocalTime.now(ZONE_ID);
 
+        return prontidaoRepository
+                .findByDoctorIsInAndHorarioIsIn(
+                        List.of(doctor),
+                        dataHoje,
+                        horario
+                ) != null;
+    }
 }
