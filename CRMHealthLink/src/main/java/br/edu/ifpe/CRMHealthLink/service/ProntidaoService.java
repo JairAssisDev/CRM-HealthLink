@@ -32,6 +32,9 @@ public class ProntidaoService {
 
 
     public List<DoctorResponseDto> criarProntidao(ProntidaoCreateDTO dto){
+        if(dto.getEmails_medico().isEmpty()){
+            throw new IllegalArgumentException("Lista de emails de médico não pode ser vazia");
+        }
         List<Doctor> medicos = dto.getEmails_medico().stream()
                 .map(email -> doctorService.getByEmail(email))
                 .toList();
