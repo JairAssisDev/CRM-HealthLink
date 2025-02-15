@@ -28,7 +28,7 @@ public class Doctor extends User {
 
     @Enumerated(EnumType.STRING)
     @Column
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name="doctor_speciality",joinColumns = @JoinColumn(name="doctor_id"))
     private List<Speciality> speciality;
 

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "employee")
 @Getter
@@ -18,6 +20,10 @@ public class Employee extends User {
         this.setName(user.getUsername());
         this.setPassword(user.getPassword());
         this.setEmail(user.getEmail());
+    }
+    public Employee(String name, LocalDate birthDate, String email, String password,String cpf,AcessLevel acessLevel,Office office){
+        super(name,birthDate,email,password,cpf,acessLevel);
+        this.office = office;
     }
     @Id
     private Long id;

@@ -18,4 +18,5 @@ public class Patient extends User{
         this.setEmail(user.getEmail());
         this.setAcessLevel(AcessLevel.PATIENT);
     }
+
 }
