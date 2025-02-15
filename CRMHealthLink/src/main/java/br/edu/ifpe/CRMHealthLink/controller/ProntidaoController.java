@@ -1,7 +1,9 @@
 package br.edu.ifpe.CRMHealthLink.controller;
 
 import br.edu.ifpe.CRMHealthLink.controller.dto.doctorDto.DoctorResponseDto;
+import br.edu.ifpe.CRMHealthLink.controller.dto.mapper.ProntidaoMapper;
 import br.edu.ifpe.CRMHealthLink.controller.dto.prontidaoDTO.ProntidaoCreateDTO;
+import br.edu.ifpe.CRMHealthLink.controller.dto.prontidaoDTO.ProntidaoResponseDTO;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Doctor;
 import br.edu.ifpe.CRMHealthLink.domain.entity.Prontidao;
 import br.edu.ifpe.CRMHealthLink.service.ProntidaoService;
@@ -27,8 +29,8 @@ public class ProntidaoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Prontidao>> getAll(){
-        return ResponseEntity.ok(prontidaoService.listarTodos());
+    public ResponseEntity<List<ProntidaoResponseDTO>> getAll(){
+        return ResponseEntity.ok(prontidaoService.listarTodos().stream().map(ProntidaoMapper::response).toList());
     }
     @PostMapping
     @Operation(summary = "cria prontidões", description = "cria uma prontidão para cada médico fornecido.Retorna uma lista com os médicos n" +

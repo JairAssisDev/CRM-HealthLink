@@ -1,5 +1,6 @@
 package br.edu.ifpe.CRMHealthLink.controller.dto.prontidaoDTO;
 
+import br.edu.ifpe.CRMHealthLink.domain.entity.Prontidao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -30,4 +31,6 @@ public class ProntidaoCreateDTO {
     private LocalTime fim;
     @NotNull
     private List<String> emails_medico;
+
+
 }
