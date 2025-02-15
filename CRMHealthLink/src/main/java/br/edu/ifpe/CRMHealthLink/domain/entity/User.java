@@ -22,6 +22,14 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public  class User implements UserDetails {
+    public User(String name, LocalDate birthDate, String email, String password,String cpf,AcessLevel acessLevel){
+        this.name = name;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.password = password;
+        this.cpf = cpf;
+        this.acessLevel = acessLevel;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

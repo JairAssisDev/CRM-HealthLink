@@ -9,11 +9,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeCreateDto extends UserCreateDto {
 
+    public EmployeeCreateDto(String name, LocalDate date, String cpf, String email, AcessLevel acessLevel, String password,Office office){
+        super(name,date,  cpf,  email,  acessLevel,  password);
+        this.acessLevel = acessLevel;
+        this.office = office;
+
+    }
     @NonNull
     private Office office;
     @NotNull
